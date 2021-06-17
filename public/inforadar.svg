@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="896.61139pt"
+   height="178.32863pt"
+   viewBox="0 0 316.30458 62.910378"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   sodipodi:docname="inforadar.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.402"
+     inkscape:cx="180.77335"
+     inkscape:cy="32.636569"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="pt"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-21.607055,-66.335823)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.88927841px;line-height:1.25;font-family:Gadugi;-inkscape-font-specification:'Gadugi Bold';letter-spacing:0px;word-spacing:0px;fill:#404041;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="20.426826"
+       y="121.00436"
+       id="text817"><tspan
+         sodipodi:role="line"
+         id="tspan815"
+         x="20.426826"
+         y="121.00436"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:54.93426895px;font-family:Gadugi;-inkscape-font-specification:'Gadugi Bold';fill:#404041;fill-opacity:1;stroke-width:0.26458332">InfoRadar</tspan></text>
+    <g
+       id="g871"
+       transform="matrix(0.62447797,0,0,0.62447797,273.21321,85.329197)"
+       style="stroke-width:1.60133755">
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path849"
+         d="m 46.155213,70.325948 -24.926871,-14.391536 10e-7,-57.5661433 49.853742,-28.7830717 24.926873,14.391536"
+         inkscape:transform-center-y="-1.0447763e-006"
+         style="opacity:1;vector-effect:none;fill:#ec1c24;fill-opacity:1;stroke:none;stroke-width:1.60133755;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke" />
+      <path
+         transform="matrix(0.6523464,0,0,0.65262571,24.711943,9.4316798)"
+         d="M 120.93583,55.934412 71.082084,84.717484 21.228342,55.934412 l 10e-7,-57.5661433 49.853742,-28.7830717 49.853745,28.7830722 z"
+         inkscape:randomized="0"
+         inkscape:rounded="0"
+         inkscape:flatsided="true"
+         sodipodi:arg2="1.0471976"
+         sodipodi:arg1="0.52359878"
+         sodipodi:r2="49.853745"
+         sodipodi:r1="57.566143"
+         sodipodi:cy="27.15134"
+         sodipodi:cx="71.082085"
+         sodipodi:sides="6"
+         id="path847"
+         style="opacity:1;vector-effect:none;fill:#2ab573;fill-opacity:1;stroke:none;stroke-width:2.4542098;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke"
+         sodipodi:type="star" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path863"
+         d="M 71.081974,-10.417678 38.56019,8.366917 v 37.56919 l 16.255634,9.389191 32.532301,-56.3475698 z"
+         style="opacity:1;vector-effect:none;fill:#404041;fill-opacity:1;stroke:none;stroke-width:1.60133755;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke" />
+    </g>
+  </g>
+</svg>

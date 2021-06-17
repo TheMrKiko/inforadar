@@ -1,0 +1,6 @@
+.antheader {
+	background-color: white;
+	position: sticky;
+	z-index: 1;
+	width: 100%;
+}
