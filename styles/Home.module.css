@@ -22,3 +22,23 @@
 .browserblock {
 	background-color: white;
 }
+
+.fadeenter {
+	opacity: 1;
+	transition: opacity 500ms;
+}
+
+.fadeexit {
+	opacity: 0;
+	transition: opacity 500ms;
+}
+
+.fadeenteractive {
+	opacity: 0;
+	transition: opacity 500ms;
+}
+
+.fadeexitactive {
+	opacity: 1;
+	transition: opacity 500ms;
+}
