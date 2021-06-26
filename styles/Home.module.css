@@ -23,6 +23,14 @@
 	background-color: white;
 }
 
+.reportcontainer {
+	padding: 50px;
+}
+
+.svgtempfigma {
+	width: 100%;
+}
+
 .fadeenter {
 	opacity: 1;
 	transition: opacity 500ms;

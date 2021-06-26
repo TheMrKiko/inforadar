@@ -51,6 +51,10 @@
 	color: #666;
 }
 
+.whiteText {
+	color: white;
+}
+
 .width100 {
 	width: 100%;
 }
@@ -62,4 +66,14 @@
 
 .displayflex {
 	display: flex;
+}
+
+.container {
+	min-height: 500px;
+	padding: 40px 170px 32px 170px;
+	background: #fff;
+}
+
+.whiteSpaceNormal {
+	white-space: normal;
 }

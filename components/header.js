@@ -40,6 +40,11 @@ export default function Header({ current }) {
 								disabledOverflow
 								selectedKeys={[current]}
 							>
+								<Menu.Item key="sobre">
+									<Link href="/sobre">
+										<a className={utilStyles.colorInherit}>Sobre</a>
+									</Link>
+								</Menu.Item>
 								<Menu.Item key="comofunciona">
 									<Link href="/comofunciona">
 										<a className={utilStyles.colorInherit}>Como funciona</a>
