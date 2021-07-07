@@ -9,6 +9,9 @@ import cn from 'classnames'
 import { Layout as AntLayout, Input, Space, Row, Col, Typography, Button, Select, Card } from 'antd'
 import { ArrowLeftOutlined, InfoCircleOutlined, LeftCircleOutlined, LeftCircleTwoTone } from '@ant-design/icons'
 import Link from 'next/link'
+import axios from 'axios'
+
+const API_PATH = 'https://inforadar.inesc-id.pt/api2'
 
 const { Sider, Content } = AntLayout;
 
@@ -31,6 +34,7 @@ export default class Home extends React.Component {
         this.state = {
             mode: 0,
             searching: false,
+            article: {}
         }
     }
 
@@ -50,8 +54,29 @@ export default class Home extends React.Component {
         this.setState({ body: b.target.value })
     }
 
+    onLoadArticle = (a) => {
+        this.setState({ article: a })
+    }
+
     onSearching = () => {
-        this.setState({ searching: true })
+
+        axios({
+            method: 'post',
+            url: `${API_PATH}/scrapper`,
+            headers: { 'content-type': 'application/json' },
+            data: {
+                'url': this.state.url
+            }
+        })
+            .then(result => {
+                this.onLoadArticle(result)
+                this.setState({ searching: true })
+            })
+            .catch(error => this.setState({
+                error: error.message,
+                loading: false
+            }));
+
     }
 
     onCancelSearching = () => {
@@ -150,7 +175,8 @@ export default class Home extends React.Component {
                                                 >
                                                     <Card.Meta
                                                         title={
-                                                            <Typography.Text className={utilStyles.whiteSpaceNormal}>Portugal vai assinar declaração de repúdio à lei contra os direitos LGBTI na Hungria</Typography.Text>
+                                                            <Typography.Text className={utilStyles.whiteSpaceNormal}>{this.state.article.headline}
+                                                            </Typography.Text>
 
                                                         }
                                                         description={
@@ -406,7 +432,7 @@ export default class Home extends React.Component {
                                     size={'large'}
                                 >
                                     Obter extensão para browser
-                            </Button>
+                                </Button>
                             </Space>
                         </HomeBlock>
                         <HomeBlock span={18}>
