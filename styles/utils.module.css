@@ -37,6 +37,11 @@
 	padding-top: 1px;
 }
 
+.noMargin {
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
 .list {
 	list-style: none;
 	padding: 0;
@@ -76,4 +81,25 @@
 
 .whiteSpaceNormal {
 	white-space: normal;
+}
+
+.whiteSpacePreLine{
+	white-space: pre-line;
+}
+
+.labelcolor0 {
+	color: #8C8C8C;
+}
+
+.labelcolor1 {
+	color: #A6BDE2;
+}
+
+.labelcolor2 {
+	color: #5F86C4;
+}
+
+.labelcolor3,
+.labelcolor4 {
+	color: #00539D;
 }
