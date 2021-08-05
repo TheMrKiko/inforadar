@@ -58,9 +58,11 @@ export default function Indicators({ indicatorsData, indicatorsInfo }) {
 		<Card
 			title={"ARTIGO FACE ÀS COLEÇÕES DE REFERÊNCIA"}
 			extra={<InfoCircleOutlined />}
+			loading={!indicatorsData}
 		>
 			{indicatorsData && indicatorsInfo.map(indicator => (
 				<Radar
+					key={indicator.id}
 					info={indicator}
 					data={indicatorsData[indicator.id]}
 				/>

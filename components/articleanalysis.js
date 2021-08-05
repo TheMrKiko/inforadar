@@ -4,6 +4,7 @@ import { withRouter } from 'next/router'
 import Indicators from './indicators'
 import Metrics from './metrics'
 import SearchBar from './searchbar'
+import Query from '../helpers/query'
 import { Card, Col, Layout as AntLayout, Row, Space, Typography } from 'antd'
 import { LeftCircleOutlined } from '@ant-design/icons'
 import axios from 'axios'
@@ -16,75 +17,144 @@ const API_PATH = 'https://inforadar.inesc-id.pt/api2'
 
 const { Sider, Content } = AntLayout;
 
+const stts = {
+	ERROR: -1,
+	INITIAL: 0,
+	NEW_QUERY: 1,
+	QUERY_INVALID: 2,
+	QUERY_VALID: 3,
+	WAITING_SCRAPPER: 4,
+	WAITING_INDICATORS: 5,
+	DONE: 6,
+}
+
 class ArticleAnalysis extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			status: stts.INITIAL,
 			mode: 0,
-			url: null,
-			title: null,
-			body: null,
-			searching: false,
-			article: {},
+			url: "",
+			title: "",
+			body: "",
+			query: new Query(),
+			article: null,
 			indicatorsInfo: null,
-			indicatorsData: null
+			indicatorsData: null,
+			error: null,
 		}
 	}
 
+	opened = () => this.state.status >= stts.QUERY_VALID
+
 	componentDidMount() {
-		this.updateStateFromQuery()
-	}
+		axios({
+			method: 'get',
+			url: `${API_PATH}/indicators`,
+			headers: { 'content-type': 'application/json' }
+		}).then(result => {
+			this.onFetchIndicatorsInfo(result.data)
+		}).catch(error => this.setState({
+			error: error.message,
+		}));
 
-	updateStateFromQuery() {
-		const { query } = this.props.router
-		const { url: oldUrl, title: oldTitle, body: oldBody, mode: oldMode, searching: oldSearching } = this.state
-
-		const url = query.url ?? oldUrl
-		const title = query.title ?? oldTitle
-		const body = query.body ?? oldBody
-		const mode = url ? 0 : (title && body ? 1 : oldMode)
-		const searching = ((query.title && query.body) || query.url) ? true : false
 		this.setState({
-			mode: mode,
-			url: url,
-			title: title,
-			body: body,
-			searching: searching,
+			status: stts.NEW_QUERY
 		})
-
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		const { query } = this.props.router
-		const { query: prevQuery } = prevProps.router
-		if (query.url !== prevQuery.url || query.title !== prevQuery.title || query.body !== prevQuery.body) {
-			this.updateStateFromQuery()
-		} else if (this.state.searching && this.state.searching !== prevState.searching) {
-			axios({
-				method: 'post',
-				url: `${API_PATH}/scrapper`,
-				headers: { 'content-type': 'application/json' },
-				data: {
-					'url': this.state.url
-				}
-			}).then(result => {
-				this.onFetchArticle(result.data)
-				this.tryAndFetchIndicatorsData();
-			}).catch(error => this.setState({
-				error: error.message,
-				searching: false
-			}));
+		const query = new Query(this.props.router.query)
+		const prevQuery = prevState.query
 
-			axios({
-				method: 'get',
-				url: `${API_PATH}/indicators`,
-				headers: { 'content-type': 'application/json' }
-			}).then(result => {
-				this.onFetchIndicatorsInfo(result.data)
-				this.tryAndFetchIndicatorsData();
-			}).catch(error => this.setState({
-				error: error.message,
-			}));
+		if (!query.equals(prevQuery)) {
+			return this.setState({
+				query,
+				status: stts.NEW_QUERY,
+				article: null,
+				indicatorsData: null,
+				error: null,
+			})
+		}
+
+		switch (this.state.status) {
+			case stts.NEW_QUERY:
+				const { url: oldUrl, title: oldTitle, body: oldBody, mode: oldMode } = this.state
+
+				const url = query.url ?? oldUrl
+				const title = query.title ?? oldTitle
+				const body = query.body ?? oldBody
+				const mode = query.mode ?? oldMode
+				this.setState({
+					mode: parseInt(mode),
+					url: url,
+					title: title,
+					body: body,
+					status: query.valid() ? stts.QUERY_VALID : stts.QUERY_INVALID
+				})
+				break;
+			case stts.QUERY_VALID:
+				if (!this.state.mode) {
+					axios({
+						method: 'post',
+						url: `${API_PATH}/scrapper`,
+						headers: { 'content-type': 'application/json' },
+						data: {
+							'url': this.state.url
+						}
+					}).then(result => {
+						this.onFetchArticle(result.data)
+					}).catch(error => this.setState({
+						status: stts.ERROR,
+						error: error.message,
+					}));
+					return this.setState({
+						status: stts.WAITING_SCRAPPER
+					});
+				} else {
+					return this.setState({
+						status: stts.WAITING_SCRAPPER,
+						article: {
+							headline: this.state.title,
+							body_text: this.state.body,
+						}
+					})
+				}
+				break;
+			case stts.WAITING_SCRAPPER:
+				if (this.state.article && this.state.indicatorsInfo) {
+					axios({
+						method: 'post',
+						url: `${API_PATH}/indicators`,
+						headers: { 'content-type': 'application/json' },
+						data: {
+							...!this.state.mode ? {
+								'id': this.state.article.id,
+							} : {
+								'headline': this.state.article.headline,
+								'body_text': this.state.article.body_text
+							},
+							'indicators': this.state.indicatorsInfo.map(i => i.id)
+						}
+					}).then(result => {
+						this.onFetchIndicatorsData(result.data)
+					}).catch(error => this.setState({
+						error: error.message,
+					}));
+					return this.setState({
+						status: stts.WAITING_INDICATORS
+					})
+				}
+				break;
+			case stts.WAITING_INDICATORS:
+				if (this.state.indicatorsData) {
+					return this.setState({
+						status: stts.DONE
+					})
+				}
+				break;
+			default:
+				break;
 		}
 	}
 
@@ -116,34 +186,23 @@ class ArticleAnalysis extends React.Component {
 		this.setState({ indicatorsData: d })
 	}
 
-	tryAndFetchIndicatorsData = () => {
-		if (this.state.article && this.state.article.id && this.state.indicatorsInfo && !this.state.indicatorsData) {
-			axios({
-				method: 'post',
-				url: `${API_PATH}/indicators`,
-				headers: { 'content-type': 'application/json' },
-				data: {
-					'id': this.state.article.id,
-					'indicators': this.state.indicatorsInfo.map(i => i.id)
-				}
-			}).then(result => {
-				this.onFetchIndicatorsData(result.data)
-			}).catch(error => this.setState({
-				error: error.message,
-				searching: false
-			}));
-		}
-	}
-
 	onSearching = () => {
 		this.props.router.push({
-			query: { url: this.state.url },
+			query: {
+				mode: this.state.mode,
+				...!this.state.mode ?
+					{
+						url: this.state.url
+					} : {
+						title: this.state.title,
+						body: this.state.body
+					},
+			}
 		})
 
 	}
 
 	onCancelSearching = () => {
-		this.setState({ searching: false })
 		this.props.router.push({
 			pathname: '/'
 		})
@@ -166,13 +225,13 @@ class ArticleAnalysis extends React.Component {
 
 		return (
 			<AntLayout>
-				<Transition in={this.state.searching} timeout={500}>
+				<Transition in={this.opened()} timeout={500}>
 					{tstate => (
 						<Sider className={styles.sidebar} theme={'light'} width={transitionWidth[tstate]}>
 							<Row>
 								<Col offset={3} span={18}>
 									<Space direction={'vertical'} size={'large'} className={utilStyles.width100}>
-										{!this.state.searching ? (
+										{!this.opened() ? (
 											<Typography.Title
 												style={transitionOpacity[tstate]}
 												level={1}
@@ -190,13 +249,18 @@ class ArticleAnalysis extends React.Component {
 											onChangeBody={this.onChangeBody}
 											{...this.state}
 										/>
-										{this.state.searching && this.state.article.id && <Card
+										{this.opened() && <Card
 											hoverable
-											cover={<img alt={this.state.article.headline} src={this.state.article.top_image} />}
+											loading={!this.state.article}
+											cover={
+												this.state.article && this.state.article.top_image &&
+												<img alt={this.state.article.headline} src={this.state.article.top_image} />
+											}
 										>
-											<Card.Meta
+											{this.state.article && <Card.Meta
 												className={utilStyles.whiteSpacePreLine}
-												title={<Typography.Text className={utilStyles.whiteSpaceNormal}>{this.state.article.headline}
+												title={<Typography.Text className={utilStyles.whiteSpaceNormal}>
+													{this.state.article.headline || "Artigo inserido manualmente"}
 												</Typography.Text>}
 												description={<Typography.Paragraph ellipsis={{
 													expandable: true,
@@ -204,7 +268,7 @@ class ArticleAnalysis extends React.Component {
 													symbol: 'Ver mais',
 												}}>
 													{this.state.article.body_text.trim()}
-												</Typography.Paragraph>} />
+												</Typography.Paragraph>} />}
 										</Card>}
 									</Space>
 								</Col>
@@ -215,7 +279,7 @@ class ArticleAnalysis extends React.Component {
 				<Content>
 					<SwitchTransition>
 						<CSSTransition
-							key={this.state.searching}
+							key={this.opened() ? 'open' : 'close'}
 							timeout={500}
 							classNames={{
 								enter: styles.fadeenter,
@@ -224,7 +288,7 @@ class ArticleAnalysis extends React.Component {
 								exitActive: styles.fadeactiveexit,
 							}}
 						>
-							{!this.state.searching ? (
+							{!this.opened() ? (
 								<div className={styles.bgimage}>
 									<Image
 										priority
