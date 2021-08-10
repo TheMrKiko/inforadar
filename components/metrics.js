@@ -11,25 +11,25 @@ const Metrics = () => (
 	>
 		<Row wrap gutter={[24, 24]}>
 			<Col span={12}>
-				<Card type={'inner'} className={styles.innercard}>
+				<Card loading type={'inner'} className={styles.innercard}>
 
 
 				</Card>
 			</Col>
 			<Col span={12}>
-				<Card type={'inner'} className={styles.innercard}>
+				<Card loading type={'inner'} className={styles.innercard}>
 
 
 				</Card>
 			</Col>
 			<Col span={12}>
-				<Card type={'inner'} className={styles.innercard}>
+				<Card loading type={'inner'} className={styles.innercard}>
 
 
 				</Card>
 			</Col>
 			<Col span={12}>
-				<Card type={'inner'} className={styles.innercard}>
+				<Card loading type={'inner'} className={styles.innercard}>
 
 				</Card>
 			</Col>

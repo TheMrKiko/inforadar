@@ -103,3 +103,29 @@
 .labelcolor4 {
 	color: #00539D;
 }
+
+.levelFill0 {
+	fill: #F0F6F6;
+}
+
+.levelFill1 {
+	fill: #A6BDE2;
+}
+
+.levelFill2 {
+	fill: #5F86C4;
+}
+
+.levelFill3 {
+	fill: #00539D;
+}
+
+.levelLabelColor0,
+.levelLabelColor1,
+.levelLabelColor2 {
+	fill: #111;
+}
+
+.levelLabelColor3 {
+	fill: white;
+}

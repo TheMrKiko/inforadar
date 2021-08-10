@@ -1,6 +1,9 @@
 import React from 'react'
-import { Card, Collapse, Space, Typography } from 'antd'
+import { Card, Collapse, Space, Typography, Row, Col } from 'antd'
 import { InfoCircleOutlined } from '@ant-design/icons'
+import ParentSize from '@visx/responsive/lib/components/ParentSize';
+
+import Example from './radar'
 
 import utilStyles from '../styles/utils.module.css'
 
@@ -17,6 +20,7 @@ const Radar = ({ info, data }) => (
 		accordion
 		expandIconPosition={'right'}
 		ghost
+		defaultActiveKey={0}
 	>
 		{info.categories
 			.map(category => {
@@ -31,7 +35,7 @@ const Radar = ({ info, data }) => (
 				}
 			})
 			.sort((a, b) => b.categoryData.score - a.categoryData.score)
-			.map(category => {
+			.map((category, i) => {
 				const { categoryData, level, label } = category
 				return (
 					<Collapse.Panel
@@ -42,10 +46,10 @@ const Radar = ({ info, data }) => (
 								<Typography.Text className={utilStyles[`labelcolor${level}`]} strong>{label}</Typography.Text>
 							</Space>
 						}
-						key={category.id}
+						key={i}
 					>
 						<Typography.Paragraph>
-							O artigo apresentado partilha um conjunto <Typography.Text strong>{label}</Typography.Text> ({categoryData.score}) de características com artigos classificados como <Typography.Text strong>{category.display_name}</Typography.Text>.
+							O artigo apresentado partilha um conjunto <Typography.Text strong>{label}</Typography.Text> ({Math.round(categoryData.score * 1000) / 10}%) de características com artigos classificados como <Typography.Text strong>{category.display_name.toLowerCase()}</Typography.Text>.
 						</Typography.Paragraph>
 					</Collapse.Panel>
 				)
@@ -61,11 +65,26 @@ export default function Indicators({ indicatorsData, indicatorsInfo }) {
 			loading={!indicatorsData}
 		>
 			{indicatorsData && indicatorsInfo.map(indicator => (
-				<Radar
-					key={indicator.id}
-					info={indicator}
-					data={indicatorsData[indicator.id]}
-				/>
+				<Row justify={'center'}>
+					<Col span={14}>
+						<ParentSize>{({ width, height }) => (
+							<Example
+								width={width}
+								height={width}
+								info={indicator}
+								data={indicatorsData[indicator.id]}
+							/>
+						)}
+						</ParentSize>
+					</Col>
+					<Col span={10}>
+						<Radar
+							key={indicator.id}
+							info={indicator}
+							data={indicatorsData[indicator.id]}
+						/>
+					</Col>
+				</Row>
 			))}
 		</Card>
 	)

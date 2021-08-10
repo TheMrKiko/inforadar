@@ -259,9 +259,14 @@ class ArticleAnalysis extends React.Component {
 										>
 											{this.state.article && <Card.Meta
 												className={utilStyles.whiteSpacePreLine}
-												title={<Typography.Text className={utilStyles.whiteSpaceNormal}>
-													{this.state.article.headline || "Artigo inserido manualmente"}
-												</Typography.Text>}
+												title={
+													<Typography.Text
+														className={utilStyles.whiteSpaceNormal}
+														disabled={!this.state.article.headline}
+													>
+														{this.state.article.headline || "Texto inserido manualmente"}
+													</Typography.Text>
+												}
 												description={<Typography.Paragraph ellipsis={{
 													expandable: true,
 													rows: 3,
