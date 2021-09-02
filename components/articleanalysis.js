@@ -24,7 +24,7 @@ const stts = {
 	QUERY_INVALID: 2,
 	QUERY_VALID: 3,
 	WAITING_SCRAPPER: 4,
-	WAITING_INDICATORS: 5,
+	WAITING_DATA: 5,
 	DONE: 6,
 }
 
@@ -41,6 +41,8 @@ class ArticleAnalysis extends React.Component {
 			article: null,
 			indicatorsInfo: null,
 			indicatorsData: null,
+			metricsInfo: null,
+			metricsData: null,
 			error: null,
 		}
 	}
@@ -54,6 +56,16 @@ class ArticleAnalysis extends React.Component {
 			headers: { 'content-type': 'application/json' }
 		}).then(result => {
 			this.onFetchIndicatorsInfo(result.data)
+		}).catch(error => this.setState({
+			error: error.message,
+		}));
+
+		axios({
+			method: 'get',
+			url: `${API_PATH}/metrics`,
+			headers: { 'content-type': 'application/json' }
+		}).then(result => {
+			this.onFetchMetricsInfo(result.data)
 		}).catch(error => this.setState({
 			error: error.message,
 		}));
@@ -73,6 +85,7 @@ class ArticleAnalysis extends React.Component {
 				status: stts.NEW_QUERY,
 				article: null,
 				indicatorsData: null,
+				metricsData: null,
 				error: null,
 			})
 		}
@@ -122,7 +135,7 @@ class ArticleAnalysis extends React.Component {
 				}
 				break;
 			case stts.WAITING_SCRAPPER:
-				if (this.state.article && this.state.indicatorsInfo) {
+				if (this.state.article && this.state.indicatorsInfo && this.state.metricsInfo) {
 					axios({
 						method: 'post',
 						url: `${API_PATH}/indicators`,
@@ -141,13 +154,31 @@ class ArticleAnalysis extends React.Component {
 					}).catch(error => this.setState({
 						error: error.message,
 					}));
+					axios({
+						method: 'post',
+						url: `${API_PATH}/metrics`,
+						headers: { 'content-type': 'application/json' },
+						data: {
+							...!this.state.mode ? {
+								'id': this.state.article.id,
+							} : {
+								'headline': this.state.article.headline,
+								'body_text': this.state.article.body_text
+							},
+							'metrics': this.state.metricsInfo.map(i => i.id)
+						}
+					}).then(result => {
+						this.onFetchMetricsData(result.data)
+					}).catch(error => this.setState({
+						error: error.message,
+					}));
 					return this.setState({
-						status: stts.WAITING_INDICATORS
+						status: stts.WAITING_DATA
 					})
 				}
 				break;
-			case stts.WAITING_INDICATORS:
-				if (this.state.indicatorsData) {
+			case stts.WAITING_DATA:
+				if (this.state.indicatorsData && this.state.metricsData) {
 					return this.setState({
 						status: stts.DONE
 					})
@@ -184,6 +215,14 @@ class ArticleAnalysis extends React.Component {
 
 	onFetchIndicatorsData = (d) => {
 		this.setState({ indicatorsData: d })
+	}
+
+	onFetchMetricsInfo = (i) => {
+		this.setState({ metricsInfo: i })
+	}
+
+	onFetchMetricsData = (d) => {
+		this.setState({ metricsData: d })
 	}
 
 	onSearching = () => {
@@ -308,7 +347,10 @@ class ArticleAnalysis extends React.Component {
 										indicatorsData={this.state.indicatorsData}
 										indicatorsInfo={this.state.indicatorsInfo}
 									/>
-									<Metrics />
+									<Metrics
+										metricsData={this.state.metricsData}
+										metricsInfo={this.state.metricsInfo}
+									/>
 								</Space>
 							)}
 						</CSSTransition>
