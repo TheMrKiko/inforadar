@@ -39,6 +39,7 @@ class ArticleAnalysis extends React.Component {
 			body: "",
 			query: new Query(),
 			article: null,
+			categories: null,
 			indicatorsInfo: null,
 			indicatorsData: null,
 			metricsInfo: null,
@@ -50,6 +51,16 @@ class ArticleAnalysis extends React.Component {
 	opened = () => this.state.status >= stts.QUERY_VALID
 
 	componentDidMount() {
+		axios({
+			method: 'get',
+			url: `${API_PATH}/metadata`,
+			headers: { 'content-type': 'application/json' }
+		}).then(result => {
+			this.onFetchMetadata(result.data)
+		}).catch(error => this.setState({
+			error: error.message,
+		}));
+
 		axios({
 			method: 'get',
 			url: `${API_PATH}/indicators`,
@@ -135,7 +146,7 @@ class ArticleAnalysis extends React.Component {
 				}
 				break;
 			case stts.WAITING_SCRAPPER:
-				if (this.state.article && this.state.indicatorsInfo && this.state.metricsInfo) {
+				if (this.state.article && this.state.categories && this.state.indicatorsInfo && this.state.metricsInfo) {
 					axios({
 						method: 'post',
 						url: `${API_PATH}/indicators`,
@@ -207,6 +218,10 @@ class ArticleAnalysis extends React.Component {
 
 	onFetchArticle = (a) => {
 		this.setState({ article: a })
+	}
+
+	onFetchMetadata = (md) => {
+		this.setState({ categories: md })
 	}
 
 	onFetchIndicatorsInfo = (i) => {
@@ -344,10 +359,12 @@ class ArticleAnalysis extends React.Component {
 								<Space direction={'vertical'} size={'large'} className={styles.reportcontainer}>
 									<Typography.Title>Radar de Informação</Typography.Title>
 									<Indicators
+										categories={this.state.categories}
 										indicatorsData={this.state.indicatorsData}
 										indicatorsInfo={this.state.indicatorsInfo}
 									/>
 									<Metrics
+										categories={this.state.categories}
 										metricsData={this.state.metricsData}
 										metricsInfo={this.state.metricsInfo}
 									/>

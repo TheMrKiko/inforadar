@@ -18,14 +18,20 @@ const levelLabels = {
 }
 
 
-const Metrics = ({ metricsData, metricsInfo }) => (
+const Metrics = ({ categories, metricsData, metricsInfo }) => (
 	<Card
 		title={
 			<Space>
 				<Typography.Text>MÉTRICAS EXPLICATIVAS DE</Typography.Text>
-				<Select defaultValue="lucy" /* onChange={handleChange} */>
-					<Select.Option value="jack">Jack</Select.Option>
-					<Select.Option value="lucy">Lucy</Select.Option>
+				<Select
+					loading={!categories}
+					disabled={!categories}
+					defaultValue={categories && categories[0].id}
+				/* onChange={handleChange} */> {
+						categories && categories.map(cat => (
+							<Select.Option value={cat.id}>{cat.display_name}</Select.Option>
+						))
+					}
 				</Select>
 			</Space>
 		}
@@ -83,6 +89,7 @@ const Bar = ({ info, data, width, height }) => {
 				height={height}
 				width={width}
 				all
+				fill={'#E5E5E5'}
 				x={0}
 				y={0}
 				radius={5}

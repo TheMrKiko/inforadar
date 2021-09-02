@@ -45,7 +45,7 @@ function genDataPoints(data, scale, getValue) {
 
 const defaultMargin = { top: 40, left: 80, right: 80, bottom: 40 };
 
-export default function Example({ width, height, margin = defaultMargin, info, data }) {
+export default function Example({ width, height, margin = defaultMargin, categories, info, data }) {
 	const levels = 4;
 	const zeroPoint = new Point({ x: 0, y: 0 });
 
@@ -59,9 +59,9 @@ export default function Example({ width, height, margin = defaultMargin, info, d
 		domain: [0, 1]
 	});
 
-	const categoriesData = info.categories.map(category => data.categories[category.id])
+	const categoriesData = categories.map(category => data.categories[category.id])
 	const maxi = categoriesData.reduce((maxi, _, ci, array) => array[ci].score > array[maxi].score ? ci : maxi, 0);
-	const edgePoints = genEdgePoints(info.categories, radius);
+	const edgePoints = genEdgePoints(categories, radius);
 	const dataPoints = genDataPoints(categoriesData, (d) => yScale(d) ?? 0, y);
 
 	return width < 10 ? null : (

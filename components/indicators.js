@@ -15,14 +15,14 @@ const levelLabels = {
 	4: 'exato',
 }
 
-const Radar = ({ info, data }) => (
+const Radar = ({ categories, info, data }) => (
 	<Collapse
 		accordion
 		expandIconPosition={'right'}
 		ghost
 		defaultActiveKey={0}
 	>
-		{info.categories
+		{categories
 			.map(category => {
 				const categoryData = data.categories[category.id]
 				const level = Math.trunc(categoryData.score * 4)
@@ -57,7 +57,7 @@ const Radar = ({ info, data }) => (
 	</Collapse>
 )
 
-export default function Indicators({ indicatorsData, indicatorsInfo }) {
+export default function Indicators({ categories, indicatorsData, indicatorsInfo }) {
 	return (
 		<Card
 			title={"ARTIGO FACE ÀS COLEÇÕES DE REFERÊNCIA"}
@@ -71,6 +71,7 @@ export default function Indicators({ indicatorsData, indicatorsInfo }) {
 							<Example
 								width={width}
 								height={width}
+								categories={categories}
 								info={indicator}
 								data={indicatorsData[indicator.id]}
 							/>
@@ -80,7 +81,8 @@ export default function Indicators({ indicatorsData, indicatorsInfo }) {
 					<Col span={10}>
 						<Radar
 							key={indicator.id}
-							info={indicator}
+							categories={categories}
+							info={indicator} //useless
 							data={indicatorsData[indicator.id]}
 						/>
 					</Col>
