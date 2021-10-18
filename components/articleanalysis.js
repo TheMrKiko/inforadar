@@ -5,8 +5,8 @@ import Indicators from './indicators'
 import Metrics from './metrics'
 import SearchBar from './searchbar'
 import Query from '../helpers/query'
-import { Card, Col, Layout as AntLayout, Row, Space, Typography } from 'antd'
-import { LeftCircleOutlined } from '@ant-design/icons'
+import { Card, Col, Collapse, Layout as AntLayout, Row, Space, Typography } from 'antd'
+import { CheckCircleFilled, LeftCircleOutlined, ExclamationCircleFilled } from '@ant-design/icons'
 import axios from 'axios'
 import { CSSTransition, SwitchTransition, Transition } from 'react-transition-group'
 
@@ -28,12 +28,17 @@ const stts = {
 	DONE: 6,
 }
 
+const md = {
+	URL: 0,
+	TEXT: 1,
+}
+
 class ArticleAnalysis extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			status: stts.INITIAL,
-			mode: 0,
+			mode: md.URL,
 			url: "",
 			title: "",
 			body: "",
@@ -44,6 +49,7 @@ class ArticleAnalysis extends React.Component {
 			indicatorsData: null,
 			metricsInfo: null,
 			metricsData: null,
+			sourceData: null,
 			error: null,
 		}
 	}
@@ -118,7 +124,7 @@ class ArticleAnalysis extends React.Component {
 				})
 				break;
 			case stts.QUERY_VALID:
-				if (!this.state.mode) {
+				if (this.state.mode == md.URL) {
 					axios({
 						method: 'post',
 						url: `${API_PATH}/scrapper`,
@@ -152,7 +158,7 @@ class ArticleAnalysis extends React.Component {
 						url: `${API_PATH}/indicators`,
 						headers: { 'content-type': 'application/json' },
 						data: {
-							...!this.state.mode ? {
+							...this.state.mode == md.URL ? {
 								'id': this.state.article.id,
 							} : {
 								'headline': this.state.article.headline,
@@ -163,6 +169,7 @@ class ArticleAnalysis extends React.Component {
 					}).then(result => {
 						this.onFetchIndicatorsData(result.data)
 					}).catch(error => this.setState({
+						status: stts.ERROR,
 						error: error.message,
 					}));
 					axios({
@@ -170,7 +177,7 @@ class ArticleAnalysis extends React.Component {
 						url: `${API_PATH}/metrics`,
 						headers: { 'content-type': 'application/json' },
 						data: {
-							...!this.state.mode ? {
+							...this.state.mode == md.URL ? {
 								'id': this.state.article.id,
 							} : {
 								'headline': this.state.article.headline,
@@ -181,15 +188,31 @@ class ArticleAnalysis extends React.Component {
 					}).then(result => {
 						this.onFetchMetricsData(result.data)
 					}).catch(error => this.setState({
+						status: stts.ERROR,
 						error: error.message,
 					}));
+					if (this.state.mode == md.URL) {
+						axios({
+							method: 'post',
+							url: `${API_PATH}/source_checker`,
+							headers: { 'content-type': 'application/json' },
+							data: {
+								'url': this.state.url
+							}
+						}).then(result => {
+							this.onFetchSourceData(result.data)
+						}).catch(error => this.setState({
+							status: stts.ERROR,
+							error: error.message,
+						}));
+					}
 					return this.setState({
 						status: stts.WAITING_DATA
 					})
 				}
 				break;
 			case stts.WAITING_DATA:
-				if (this.state.indicatorsData && this.state.metricsData) {
+				if (this.state.indicatorsData && this.state.metricsData && (this.state.sourceData || this.state.mode == md.TEXT)) {
 					return this.setState({
 						status: stts.DONE
 					})
@@ -240,11 +263,15 @@ class ArticleAnalysis extends React.Component {
 		this.setState({ metricsData: d })
 	}
 
+	onFetchSourceData = (d) => {
+		this.setState({ sourceData: d ?? {} })
+	}
+
 	onSearching = () => {
 		this.props.router.push({
 			query: {
 				mode: this.state.mode,
-				...!this.state.mode ?
+				...this.state.mode == md.URL ?
 					{
 						url: this.state.url
 					} : {
@@ -303,32 +330,72 @@ class ArticleAnalysis extends React.Component {
 											onChangeBody={this.onChangeBody}
 											{...this.state}
 										/>
-										{this.opened() && <Card
-											hoverable
-											loading={!this.state.article}
-											cover={
-												this.state.article && this.state.article.top_image &&
-												<img alt={this.state.article.headline} src={this.state.article.top_image} />
-											}
-										>
-											{this.state.article && <Card.Meta
-												className={utilStyles.whiteSpacePreLine}
-												title={
-													<Typography.Text
-														className={utilStyles.whiteSpaceNormal}
-														disabled={!this.state.article.headline}
-													>
-														{this.state.article.headline || "Texto inserido manualmente"}
-													</Typography.Text>
+										<Space direction={'vertical'} size={'small'} className={utilStyles.width100}>
+											{this.opened() && <Card
+												hoverable
+												loading={!this.state.article}
+												cover={
+													this.state.article && this.state.article.top_image &&
+													<img alt={this.state.article.headline} src={this.state.article.top_image} />
 												}
-												description={<Typography.Paragraph ellipsis={{
-													expandable: true,
-													rows: 3,
-													symbol: 'Ver mais',
-												}}>
-													{this.state.article.body_text.trim()}
-												</Typography.Paragraph>} />}
-										</Card>}
+											>
+												{this.state.article && <Card.Meta
+													className={utilStyles.whiteSpacePreLine}
+													title={
+														<Typography.Text
+															className={utilStyles.whiteSpaceNormal}
+															disabled={!this.state.article.headline}
+														>
+															{this.state.article.headline || "Texto inserido manualmente"}
+														</Typography.Text>
+													}
+													description={<Typography.Paragraph ellipsis={{
+														expandable: true,
+														rows: 3,
+														symbol: 'Ver mais',
+													}}>
+														{this.state.article.body_text.trim()}
+													</Typography.Paragraph>} />}
+											</Card>}
+											{this.opened() && this.state.article && this.state.mode == md.URL && this.state.sourceData &&
+												<Collapse
+													expandIconPosition={"right"}
+												>
+													<Collapse.Panel
+														header={
+															<Space>
+																<Typography.Text type={
+																	this.state.sourceData.id ? "success" : "warning"}
+																>
+																	{
+																		this.state.sourceData.id ?
+																			<CheckCircleFilled /> :
+																			<ExclamationCircleFilled />
+																	}
+																</Typography.Text>
+																{`Fonte ${!this.state.sourceData.id ? 'não ' : ''}registada na ERC`}
+															</Space>
+														}
+													>
+														{this.state.sourceData.id ?
+															<>
+																<Typography.Text type={'secondary'}>
+																	Dados retirados do registo oficial.
+																</Typography.Text>
+																<Typography.Text>
+																	{JSON.stringify(this.state.sourceData)}
+																</Typography.Text>
+															</>
+															:
+															<Typography.Text type={'secondary'}>
+																Não há registos desta publicação.
+															</Typography.Text>
+														}
+													</Collapse.Panel>
+												</Collapse>
+											}
+
+										</Space>
 									</Space>
 								</Col>
 							</Row>
