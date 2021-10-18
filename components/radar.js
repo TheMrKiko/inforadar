@@ -1,11 +1,12 @@
 import React from "react";
+
+import { colorScaleClass, colorScaleType } from "../helpers/color";
+
 import { Group } from "@visx/group";
 import { scaleLinear } from "@visx/scale";
 import { Point } from "@visx/point";
 import { Line, Circle } from "@visx/shape";
 import { Text } from "@visx/text";
-
-import utilStyles from '../styles/utils.module.css'
 
 const pumpkin = "#CC333F";
 const silver = "#8C8C8C";
@@ -72,7 +73,7 @@ export default function Example({ width, height, margin = defaultMargin, categor
 				>
 					{[...new Array(levels)].map((_, i) => (
 						<Circle
-							className={utilStyles[`levelFill${levels - 1 - i}`]}
+							className={colorScaleClass(levels - 1 - i, colorScaleType.LIGHT)}
 							key={`web-${levels - 1 - i}`}
 							cx={zeroPoint.x}
 							cy={zeroPoint.y}
@@ -90,7 +91,7 @@ export default function Example({ width, height, margin = defaultMargin, categor
 							textAnchor="middle"
 							fontSize={10}
 							fontWeight={300}
-							className={utilStyles[`levelLabelColor${i}`]}
+							className={colorScaleClass(i, colorScaleType.MONO)}
 							key={`web-${i}`}
 						>
 							{levelLabels[i]}
@@ -114,7 +115,7 @@ export default function Example({ width, height, margin = defaultMargin, categor
 						textAnchor={point.point.x > 0 ? 'start' : (point.point.x < 0 ? 'end' : 'middle')}
 						{...i == maxi ? {
 							fontWeight: 'bold',
-							className: utilStyles.levelFill3
+							className: colorScaleClass(3)
 						} : {}}
 					>
 						{point.info.display_name}

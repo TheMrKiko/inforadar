@@ -87,45 +87,48 @@
 	white-space: pre-line;
 }
 
-.labelcolor0 {
+.transitionAll {
+	transition: all 500ms;
+}
+
+.levelColorLight0 {
+	fill: #F0F6F6;
+	color: #F0F6F6;
+}
+
+.levelColor0 {
+	fill: #8C8C8C;
 	color: #8C8C8C;
 }
 
-.labelcolor1 {
+.levelColorLight1,
+.levelColor1 {
+	fill: #A6BDE2;
 	color: #A6BDE2;
 }
 
-.labelcolor2 {
+.levelColorLight2,
+.levelColor2 {
+	fill: #5F86C4;
 	color: #5F86C4;
 }
 
-.labelcolor3,
-.labelcolor4 {
+.levelColorLight3,
+.levelColorLight4,
+.levelColor3,
+.levelColor4 {
+	fill: #00539D;
 	color: #00539D;
 }
 
-.levelFill0 {
-	fill: #F0F6F6;
-}
-
-.levelFill1 {
-	fill: #A6BDE2;
-}
-
-.levelFill2 {
-	fill: #5F86C4;
-}
-
-.levelFill3 {
-	fill: #00539D;
-}
-
-.levelLabelColor0,
-.levelLabelColor1,
-.levelLabelColor2 {
+.levelColorMono0,
+.levelColorMono1,
+.levelColorMono2 {
 	fill: #111;
+	color: #111;
 }
 
-.levelLabelColor3 {
+.levelColorMono3 {
 	fill: white;
+	color: white;
 }

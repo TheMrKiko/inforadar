@@ -1,4 +1,5 @@
 import React from 'react'
+import { colorScaleClass } from "../helpers/color";
 import { Card, Collapse, Space, Typography, Row, Col } from 'antd'
 import { InfoCircleOutlined } from '@ant-design/icons'
 import ParentSize from '@visx/responsive/lib/components/ParentSize';
@@ -41,9 +42,9 @@ const Radar = ({ categories, info, data }) => (
 					<Collapse.Panel
 						header={
 							<Space direction={'horizontal'} align={'center'}>
-								<Typography.Text className={utilStyles[`labelcolor${level}`]}>⬤</Typography.Text>
+								<Typography.Text className={colorScaleClass(level)}>⬤</Typography.Text>
 								<Typography.Title className={utilStyles.noMargin} level={5}>{category.display_name}</Typography.Title>
-								<Typography.Text className={utilStyles[`labelcolor${level}`]} strong>{label}</Typography.Text>
+								<Typography.Text className={colorScaleClass(level)} strong>{label}</Typography.Text>
 							</Space>
 						}
 						key={i}
