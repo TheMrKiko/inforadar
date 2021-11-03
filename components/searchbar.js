@@ -56,9 +56,9 @@ const SearchBar = ({ mode, url, title, body, error, onChangeMode, onSearching: o
 						type: 'url',
 						message: 'Coloque um URL válido.',
 					}]}
-					validateStatus={error ? 'error' : undefined}
-					help={error ? 'Não conseguimos extrair o artigo do URL submetido. Por favor considere trocar para Texto em vez de URL e copiar/colar o artigo do site original.' : undefined}
-					extra={error}
+					validateStatus={error ? error.type : undefined}
+					help={error ? error.message : undefined}
+					extra={error ? error.submessage : undefined}
 				>
 					<Input.Search
 						autoFocus
@@ -89,10 +89,16 @@ const SearchBar = ({ mode, url, title, body, error, onChangeMode, onSearching: o
 						rules={[{
 							required: true,
 							message: 'Coloque aqui o corpo de um artigo ou troque para URL.',
-						}]}
-						validateStatus={error ? 'error' : undefined}
-						help={error ? 'Não conseguimos extrair o artigo do URL submetido. Por favor considere trocar para Texto em vez de URL e copiar/colar o artigo do site original.' : undefined}
-						extra={error}
+						},
+						{
+							min: 2000,
+							message: 'É aconselhável colocar algo com pelo menos 2000 caracteres.',
+							warningOnly: true
+						},
+						]}
+						validateStatus={error ? error.type : undefined}
+						help={error ? error.message : undefined}
+						extra={error ? error.submessage : undefined}
 					>
 						<Input.TextArea
 							showCount

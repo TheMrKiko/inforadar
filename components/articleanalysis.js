@@ -5,6 +5,7 @@ import Indicators from './indicators'
 import Metrics from './metrics'
 import SearchBar from './searchbar'
 import Query from '../helpers/query'
+import { Error, textSizeValidation } from '../helpers/error'
 import { Card, Col, Collapse, Layout as AntLayout, Row, Space, Typography } from 'antd'
 import { CheckCircleFilled, LeftCircleOutlined, ExclamationCircleFilled } from '@ant-design/icons'
 import axios from 'axios'
@@ -64,7 +65,7 @@ class ArticleAnalysis extends React.Component {
 		}).then(result => {
 			this.onFetchMetadata(result.data)
 		}).catch(error => this.setState({
-			error: error.message,
+			error: new Error(error),
 		}));
 
 		axios({
@@ -74,7 +75,7 @@ class ArticleAnalysis extends React.Component {
 		}).then(result => {
 			this.onFetchIndicatorsInfo(result.data)
 		}).catch(error => this.setState({
-			error: error.message,
+			error: new Error(error),
 		}));
 
 		axios({
@@ -84,7 +85,7 @@ class ArticleAnalysis extends React.Component {
 		}).then(result => {
 			this.onFetchMetricsInfo(result.data)
 		}).catch(error => this.setState({
-			error: error.message,
+			error: new Error(error),
 		}));
 
 		this.setState({
@@ -136,7 +137,7 @@ class ArticleAnalysis extends React.Component {
 						this.onFetchArticle(result.data)
 					}).catch(error => this.setState({
 						status: stts.ERROR,
-						error: error.message,
+						error: new Error(error),
 					}));
 					return this.setState({
 						status: stts.WAITING_SCRAPPER
@@ -170,7 +171,7 @@ class ArticleAnalysis extends React.Component {
 						this.onFetchIndicatorsData(result.data)
 					}).catch(error => this.setState({
 						status: stts.ERROR,
-						error: error.message,
+						error: new Error(error),
 					}));
 					axios({
 						method: 'post',
@@ -189,7 +190,7 @@ class ArticleAnalysis extends React.Component {
 						this.onFetchMetricsData(result.data)
 					}).catch(error => this.setState({
 						status: stts.ERROR,
-						error: error.message,
+						error: new Error(error),
 					}));
 					if (this.state.mode == md.URL) {
 						axios({
@@ -203,11 +204,12 @@ class ArticleAnalysis extends React.Component {
 							this.onFetchSourceData(result.data)
 						}).catch(error => this.setState({
 							status: stts.ERROR,
-							error: error.message,
+							error: new Error(error),
 						}));
 					}
 					return this.setState({
-						status: stts.WAITING_DATA
+						status: stts.WAITING_DATA,
+						error: textSizeValidation(this.state.article)
 					})
 				}
 				break;
@@ -424,7 +426,7 @@ class ArticleAnalysis extends React.Component {
 								</div>
 							) : (
 								<Space direction={'vertical'} size={'large'} className={styles.reportcontainer}>
-									<Typography.Title>Radar de Informação</Typography.Title>
+									<Typography.Title>Informação Nutricional</Typography.Title>
 									<Indicators
 										categories={this.state.categories}
 										indicatorsData={this.state.indicatorsData}
