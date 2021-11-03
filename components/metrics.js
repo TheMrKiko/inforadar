@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { colorScaleClass, colorScaleType } from "../helpers/color";
 import { Card, Col, Space, Row, Select, Typography } from 'antd'
 import { InfoCircleOutlined } from '@ant-design/icons'
-import cn from 'classnames';
 
 import { Bar as BarShape, BarRounded, Line } from '@visx/shape';
 import ParentSize from '@visx/responsive/lib/components/ParentSize';
@@ -27,7 +26,7 @@ const Metrics = ({ categories, metricsData, metricsInfo }) => {
 	const [categorySelected, setCategorySelected] = useState(categories && categories[0].id)
 
 	useEffect(() => {
-		setCategorySelected(categories[0].id)
+		setCategorySelected(categories && categories[0].id)
 	}, [categories])
 
 	return (
@@ -51,24 +50,27 @@ const Metrics = ({ categories, metricsData, metricsInfo }) => {
 			extra={<InfoCircleOutlined />}
 			loading={!metricsData}
 		>
-			<Row wrap gutter={[24, 24]}>
-				{categories && metricsData && metricsInfo.map(metric => (
-					<Col span={12} key={metric.id}>
-						<Metric
-							categories={categories}
-							category={categorySelected}
-							info={metric}
-							data={metricsData[metric.id]}
-						/>
-					</Col>
-				))}
-			</Row>
+			<Space direction="vertical">
+				<Row wrap gutter={[24, 24]}>
+					{categories && metricsData && metricsInfo.map(metric => (
+						<Col span={12} key={metric.id}>
+							<Metric
+								categories={categories}
+								category={categorySelected}
+								info={metric}
+								data={metricsData[metric.id]}
+							/>
+						</Col>
+					))}
+				</Row>
+				<Typography.Text type="secondary">* métricas com valores teste.</Typography.Text>
+			</Space>
 		</Card>
 	)
 }
 
 const Metric = ({ category, categories, info, data }) => {
-	const level = Math.trunc(data.score * 4)
+	const level = Math.trunc((data.percentiles.categories[category] / 100) * 4) // TODO remove hardcoded
 	const label = levelLabels[level]
 	return (
 		<Card
@@ -97,7 +99,7 @@ function genQuartileMarkers(data, scale) {
 }
 
 function genQuartiles(quartileData, scale) {
-	return [scale(0), ...quartileData, scale(1)].reduce((acc, curV, curI, array) => (
+	return [scale(0), ...quartileData, scale(100)].reduce((acc, curV, curI, array) => (
 		[...(acc || []), {
 			start: array[curI - 1],
 			end: curV
@@ -107,10 +109,10 @@ function genQuartiles(quartileData, scale) {
 
 const Bar = ({ category, categories, info, data, width, height }) => {
 
-	const x = (d) => d.score;
+	const x = (d) => d.categories[category];
 	const xScale = scaleLinear({
 		range: [0, width],
-		domain: [0, 1]
+		domain: [0, 100]
 	});
 	const quartileData = info.categories[category]
 	const quartileMarkers = genQuartileMarkers(quartileData, (d) => xScale(d) ?? 0)
@@ -132,7 +134,8 @@ const Bar = ({ category, categories, info, data, width, height }) => {
 				<BarRounded
 					key={`metric-value-bar`}
 					height={height}
-					width={xScale(x(data))}
+					width={xScale(x(data.percentiles))}
+					className={utilStyles.transitionAll}
 					all
 					x={0}
 					y={0}
@@ -144,7 +147,7 @@ const Bar = ({ category, categories, info, data, width, height }) => {
 					key={`metric-quartile-bar-${i}`}
 					height={height}
 					width={quartile.end - quartile.start}
-					className={cn(colorScaleClass(i), utilStyles.transitionAll)}
+					className={colorScaleClass(i)}
 					x={quartile.start}
 					y={0}
 					clipPath={`url(#clipbar-${info.id})`}
@@ -153,12 +156,12 @@ const Bar = ({ category, categories, info, data, width, height }) => {
 			{quartileMarkers.map((marker, i) => (
 				<Line
 					key={`metric-quartile-marker-${i}`}
-					className={utilStyles.transitionAll}
 					from={new Point({ x: 0, y: 0 })}
 					to={new Point({ x: 0, y: height })}
 					style={{ transform: `translate(${marker}px, 0)` }}
 					stroke={'white'}
-					strokeWidth={1}
+					fill={'white'}
+					strokeWidth={2}
 				/>
 			))}
 		</svg>

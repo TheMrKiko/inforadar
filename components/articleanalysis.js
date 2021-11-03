@@ -425,19 +425,21 @@ class ArticleAnalysis extends React.Component {
 										objectFit={'cover'} />
 								</div>
 							) : (
-								<Space direction={'vertical'} size={'large'} className={styles.reportcontainer}>
-									<Typography.Title>Informação Nutricional</Typography.Title>
-									<Indicators
-										categories={this.state.categories}
-										indicatorsData={this.state.indicatorsData}
-										indicatorsInfo={this.state.indicatorsInfo}
-									/>
-									<Metrics
-										categories={this.state.categories}
-										metricsData={this.state.metricsData}
-										metricsInfo={this.state.metricsInfo}
-									/>
-								</Space>
+								<div className={utilStyles.justifyContentCenter}>
+									<Space direction={'vertical'} size={'large'} className={styles.reportcontainer}>
+										<Typography.Title>Informação Nutricional</Typography.Title>
+										<Indicators
+											categories={this.state.categories}
+											indicatorsData={this.state.indicatorsData}
+											indicatorsInfo={this.state.indicatorsInfo}
+										/>
+										<Metrics
+											categories={this.state.categories}
+											metricsData={this.state.metricsData}
+											metricsInfo={this.state.metricsInfo}
+										/>
+									</Space>
+								</div>
 							)}
 						</CSSTransition>
 					</SwitchTransition>

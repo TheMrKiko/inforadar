@@ -50,7 +50,7 @@ const Radar = ({ categories, info, data }) => (
 						key={i}
 					>
 						<Typography.Paragraph>
-							O artigo apresentado partilha um conjunto <Typography.Text strong>{label}</Typography.Text> ({Math.round(categoryData.score * 1000) / 10}%) de características com artigos classificados como <Typography.Text strong>{category.display_name.toLowerCase()}</Typography.Text>.
+							O artigo apresentado partilha um conjunto <Typography.Text strong>{label}</Typography.Text> de características com artigos classificados como <Typography.Text strong>{category.display_name.toLowerCase()}</Typography.Text>.
 						</Typography.Paragraph>
 					</Collapse.Panel>
 				)
