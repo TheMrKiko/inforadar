@@ -50,6 +50,7 @@ class ArticleAnalysis extends React.Component {
 			indicatorsData: null,
 			metricsInfo: null,
 			metricsData: null,
+			sourceInfo: null,
 			sourceData: null,
 			error: null,
 		}
@@ -84,6 +85,16 @@ class ArticleAnalysis extends React.Component {
 			headers: { 'content-type': 'application/json' }
 		}).then(result => {
 			this.onFetchMetricsInfo(result.data)
+		}).catch(error => this.setState({
+			error: new Error(error),
+		}));
+
+		axios({
+			method: 'get',
+			url: `${API_PATH}/source_checker`,
+			headers: { 'content-type': 'application/json' }
+		}).then(result => {
+			this.onFetchSourceInfo(result.data)
 		}).catch(error => this.setState({
 			error: new Error(error),
 		}));
@@ -214,7 +225,7 @@ class ArticleAnalysis extends React.Component {
 				}
 				break;
 			case stts.WAITING_DATA:
-				if (this.state.indicatorsData && this.state.metricsData && (this.state.sourceData || this.state.mode == md.TEXT)) {
+				if (this.state.indicatorsData && this.state.metricsData && ((this.state.sourceInfo && this.state.sourceData) || this.state.mode == md.TEXT)) {
 					return this.setState({
 						status: stts.DONE
 					})
@@ -263,6 +274,10 @@ class ArticleAnalysis extends React.Component {
 
 	onFetchMetricsData = (d) => {
 		this.setState({ metricsData: d })
+	}
+
+	onFetchSourceInfo = (i) => {
+		this.setState({ sourceInfo: i })
 	}
 
 	onFetchSourceData = (d) => {
@@ -379,20 +394,30 @@ class ArticleAnalysis extends React.Component {
 															</Space>
 														}
 													>
-														{this.state.sourceData.id ?
-															<>
+														{this.state.sourceInfo && (this.state.sourceData.id ?
+															<Space direction={'vertical'}>
 																<Typography.Text type={'secondary'}>
-																	Dados retirados do registo oficial.
+																	Dados retirados do
+																	<Typography.Link href="https://www.erc.pt/pt/listagem-registos-na-erc" target="_blank"> registo oficial</Typography.Link> a {new Date(this.state.sourceData["last_update"]).toLocaleDateString('fr-CA')}.
 																</Typography.Text>
+																<Space direction={'vertical'} size={'small'}>
+																	{["title", "owner", "location", "municipality", "registration_date"].map(key => (
+																		this.state.sourceData[key] ?
 																<Typography.Text>
-																	{JSON.stringify(this.state.sourceData)}
+																				<Typography.Text strong>
+																					{this.state.sourceInfo[key]}
 																</Typography.Text>
-															</>
+																				{`: ${!key.includes('date') ? this.state.sourceData[key] : new Date(this.state.sourceData[key]).toLocaleDateString('fr-CA')}`}
+																			</Typography.Text>
+																			: null
+																	))}
+																</Space>
+															</Space>
 															:
 															<Typography.Text type={'secondary'}>
-																Não há registos desta publicação.
+																Não há <Typography.Link href="https://www.erc.pt/pt/listagem-registos-na-erc" target="_blank">registos</Typography.Link> desta publicação.
 															</Typography.Text>
-														}
+														)}
 													</Collapse.Panel>
 												</Collapse>
 											}
