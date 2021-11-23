@@ -67,7 +67,7 @@ export default function Indicators({ categories, indicatorsData, indicatorsInfo 
 		>
 			{indicatorsData && indicatorsInfo.map(indicator => (
 				<Row justify={'center'}>
-					<Col span={14}>
+					<Col span={24} lg={{ span: 14 }}>
 						<ParentSize>{({ width, height }) => (
 							<Example
 								width={width}
@@ -79,7 +79,7 @@ export default function Indicators({ categories, indicatorsData, indicatorsInfo 
 						)}
 						</ParentSize>
 					</Col>
-					<Col span={10}>
+					<Col span={24} lg={{ span: 10 }}>
 						<Radar
 							key={indicator.id}
 							categories={categories}

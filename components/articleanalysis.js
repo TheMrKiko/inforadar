@@ -6,7 +6,8 @@ import Metrics from './metrics'
 import SearchBar from './searchbar'
 import Query from '../helpers/query'
 import { Error, textSizeValidation } from '../helpers/error'
-import { Card, Col, Collapse, Layout as AntLayout, Row, Space, Typography } from 'antd'
+import cn from 'classnames'
+import { Card, Col, Collapse, Row, Space, Typography } from 'antd'
 import { CheckCircleFilled, LeftCircleOutlined, ExclamationCircleFilled } from '@ant-design/icons'
 import axios from 'axios'
 import { CSSTransition, SwitchTransition, Transition } from 'react-transition-group'
@@ -15,8 +16,6 @@ import styles from '../styles/Home.module.css'
 import utilStyles from '../styles/utils.module.css'
 
 const API_PATH = 'https://inforadar.inesc-id.pt/api2'
-
-const { Sider, Content } = AntLayout;
 
 const stts = {
 	ERROR: -1,
@@ -307,11 +306,42 @@ class ArticleAnalysis extends React.Component {
 	}
 
 	render() {
-		const transitionWidth = {
-			entering: '30%',
-			entered: '30%',
-			exiting: '50%',
-			exited: '50%',
+		const transitionSpanLeft = {
+			entering: {
+				span: 24,
+				sm: { span: 8 }
+			},
+			entered: {
+				span: 24,
+				sm: { span: 8 }
+			},
+			exiting: {
+				span: 24,
+				sm: { span: 12 }
+			},
+			exited: {
+				span: 24,
+				sm: { span: 12 }
+			},
+		}
+
+		const transitionSpanRight = {
+			entering: {
+				span: 24,
+				sm: { span: 16 }
+			},
+			entered: {
+				span: 24,
+				sm: { span: 16 }
+			},
+			exiting: {
+				span: 24,
+				sm: { span: 12 }
+			},
+			exited: {
+				span: 24,
+				sm: { span: 12 }
+			},
 		}
 
 		const transitionOpacity = {
@@ -322,10 +352,10 @@ class ArticleAnalysis extends React.Component {
 		};
 
 		return (
-			<AntLayout>
-				<Transition in={this.opened()} timeout={500}>
-					{tstate => (
-						<Sider className={styles.sidebar} theme={'light'} width={transitionWidth[tstate]}>
+			<Transition in={this.opened()} timeout={500}>
+				{tstate => (
+					<Row>
+						<Col className={cn(styles.sidebar, utilStyles.transitionAll)} {...transitionSpanLeft[tstate]}>
 							<Row>
 								<Col offset={3} span={18}>
 									<Space direction={'vertical'} size={'large'} className={utilStyles.width100}>
@@ -335,8 +365,11 @@ class ArticleAnalysis extends React.Component {
 												level={1}
 											>Que artigo quer analisar?</Typography.Title>
 										) : (
-											<Typography.Title level={2}>
-												<LeftCircleOutlined onClick={this.onCancelSearching} />
+											<Typography.Title level={3}>
+												<Space size={"middle"}>
+													<LeftCircleOutlined onClick={this.onCancelSearching} />
+													<Typography.Text>Voltar</Typography.Text>
+												</Space>
 											</Typography.Title>
 										)}
 										<SearchBar
@@ -403,10 +436,10 @@ class ArticleAnalysis extends React.Component {
 																<Space direction={'vertical'} size={'small'}>
 																	{["title", "owner", "location", "municipality", "registration_date"].map(key => (
 																		this.state.sourceData[key] ?
-																<Typography.Text>
+																			<Typography.Text>
 																				<Typography.Text strong>
 																					{this.state.sourceInfo[key]}
-																</Typography.Text>
+																				</Typography.Text>
 																				{`: ${!key.includes('date') ? this.state.sourceData[key] : new Date(this.state.sourceData[key]).toLocaleDateString('fr-CA')}`}
 																			</Typography.Text>
 																			: null
@@ -426,50 +459,50 @@ class ArticleAnalysis extends React.Component {
 									</Space>
 								</Col>
 							</Row>
-						</Sider>
-					)}
-				</Transition>
-				<Content>
-					<SwitchTransition>
-						<CSSTransition
-							key={this.opened() ? 'open' : 'close'}
-							timeout={500}
-							classNames={{
-								enter: styles.fadeenter,
-								enterActive: styles.fadeactiveenter,
-								exit: styles.fadeexit,
-								exitActive: styles.fadeactiveexit,
-							}}
-						>
-							{!this.opened() ? (
-								<div className={styles.bgimage}>
-									<Image
-										priority
-										src={'/roman-kraft.jpg'}
-										layout={'fill'}
-										objectFit={'cover'} />
-								</div>
-							) : (
-								<div className={utilStyles.justifyContentCenter}>
-									<Space direction={'vertical'} size={'large'} className={styles.reportcontainer}>
-										<Typography.Title>Informação Nutricional</Typography.Title>
-										<Indicators
-											categories={this.state.categories}
-											indicatorsData={this.state.indicatorsData}
-											indicatorsInfo={this.state.indicatorsInfo}
-										/>
-										<Metrics
-											categories={this.state.categories}
-											metricsData={this.state.metricsData}
-											metricsInfo={this.state.metricsInfo}
-										/>
-									</Space>
-								</div>
-							)}
-						</CSSTransition>
-					</SwitchTransition>
-				</Content>
-			</AntLayout>
+						</Col>
+						<Col {...transitionSpanRight[tstate]}>
+							<SwitchTransition>
+								<CSSTransition
+									key={this.opened() ? 'open' : 'close'}
+									timeout={500}
+									classNames={{
+										enter: styles.fadeenter,
+										enterActive: styles.fadeactiveenter,
+										exit: styles.fadeexit,
+										exitActive: styles.fadeactiveexit,
+									}}
+								>
+									{!this.opened() ? (
+										<div className={styles.bgimage}>
+											<Image
+												priority
+												src={'/roman-kraft.jpg'}
+												layout={'fill'}
+												objectFit={'cover'} />
+										</div>
+									) : (
+										<div className={utilStyles.justifyContentCenter}>
+											<Space direction={'vertical'} size={'large'} className={styles.reportcontainer}>
+												<Typography.Title>Informação Nutricional</Typography.Title>
+												<Indicators
+													categories={this.state.categories}
+													indicatorsData={this.state.indicatorsData}
+													indicatorsInfo={this.state.indicatorsInfo}
+												/>
+												<Metrics
+													categories={this.state.categories}
+													metricsData={this.state.metricsData}
+													metricsInfo={this.state.metricsInfo}
+												/>
+											</Space>
+										</div>
+									)}
+								</CSSTransition>
+							</SwitchTransition>
+						</Col>
+					</Row>
+				)}
+			</Transition>
 		)
 	}
 }

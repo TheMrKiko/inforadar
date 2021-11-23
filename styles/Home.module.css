@@ -1,5 +1,6 @@
 .sidebar {
 	padding: 100px 0;
+	background-color: white;
 }
 
 .searchbar {
@@ -9,6 +10,7 @@
 .bgimage {
 	position: relative;
 	height: 100%;
+	min-height: 200px;
 }
 
 .block {
@@ -27,6 +29,13 @@
 	padding: 50px;
 	max-width: 100%;
 	width: 925px;
+}
+
+@media only screen and (max-width: 768px) {
+	.reportcontainer {
+		padding-right: 16px;
+		padding-left: 16px;
+	}
 }
 
 .innercard {

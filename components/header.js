@@ -21,7 +21,7 @@ export default function Header({ current }) {
 		<nav>
 			<Layout.Header className={cn(styles.antheader, 'ant-menu-horizontal')}>
 				<Row align={'middle'} justify={'center'}>
-					<Col span={4}>
+					<Col {...{ xxl: 4, xl: 5, lg: 6, md: 6, sm: 22, xs: 22 }}>
 						<Link href="/">
 							<a className={cn(utilStyles.justifyContentCenter)}>
 								<Image
@@ -34,12 +34,12 @@ export default function Header({ current }) {
 							</a>
 						</Link>
 					</Col>
-					<Col span={20} className={utilStyles.justifyContentCenter}>
+					<Col {...{ xxl: 20, xl: 19, lg: 18, md: 18, sm: 2, xs: 2 }} className={utilStyles.justifyContentCenter}>
 						<>{useIsClient() &&
 							<Menu
 								mode="horizontal"
-								disabledOverflow
 								selectedKeys={[current]}
+								className={cn(utilStyles.width100, utilStyles.justifyContentCenter)}
 							>
 								<Menu.Item key="sobre">
 									<Link href="/sobre">

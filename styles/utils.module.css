@@ -79,6 +79,22 @@
 	background: #fff;
 }
 
+@media only screen and (max-width: 992px) {
+	.container {
+		padding-right: 48px;
+		padding-left: 48px;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	.container {
+		margin-right: 0;
+		margin-left: 0;
+		padding-right: 16px;
+		padding-left: 16px;
+	}
+}
+
 .whiteSpaceNormal {
 	white-space: normal;
 }

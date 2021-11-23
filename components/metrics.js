@@ -50,10 +50,10 @@ const Metrics = ({ categories, metricsData, metricsInfo }) => {
 			extra={<InfoCircleOutlined />}
 			loading={!metricsData}
 		>
-			<Space direction="vertical">
+			<Space direction="vertical" className={utilStyles.width100}>
 				<Row wrap gutter={[24, 24]}>
 					{categories && metricsData && metricsInfo.map(metric => (
-						<Col span={12} key={metric.id}>
+						<Col span={24} md={12} key={metric.id}>
 							<Metric
 								categories={categories}
 								category={categorySelected}
