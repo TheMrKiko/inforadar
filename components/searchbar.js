@@ -91,8 +91,8 @@ const SearchBar = ({ mode, url, title, body, error, onChangeMode, onSearching: o
 							message: 'Coloque aqui o corpo de um artigo ou troque para URL.',
 						},
 						{
-							min: 2000,
-							message: 'É aconselhável colocar algo com pelo menos 2000 caracteres.',
+							min: 500,
+							message: 'É aconselhável colocar algo com pelo menos 500 caracteres.',
 							warningOnly: true
 						},
 						]}
