@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { withRouter } from 'next/router'
 import Indicators from './indicators'
 import Metrics from './metrics'
+import Summary from './summary'
 import SearchBar from './searchbar'
 import Query from '../helpers/query'
 import { Error, textSizeValidation } from '../helpers/error'
@@ -484,6 +485,13 @@ class ArticleAnalysis extends React.Component {
 										<div className={utilStyles.justifyContentCenter}>
 											<Space direction={'vertical'} size={'large'} className={styles.reportcontainer}>
 												<Typography.Title>Informação Nutricional</Typography.Title>
+												<Summary
+													categories={this.state.categories}
+													indicatorsData={this.state.indicatorsData}
+													indicatorsInfo={this.state.indicatorsInfo}
+													metricsData={this.state.metricsData}
+													metricsInfo={this.state.metricsInfo}
+												/>
 												<Indicators
 													categories={this.state.categories}
 													indicatorsData={this.state.indicatorsData}
