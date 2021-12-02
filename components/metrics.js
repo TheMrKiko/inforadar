@@ -15,19 +15,24 @@ import utilStyles from '../styles/utils.module.css'
 
 const levelLabels = {
 	0: 'baixo',
-	1: 'médio baixo',
-	2: 'médio alto',
+	1: 'médio-baixo',
+	2: 'médio-alto',
 	3: 'alto',
 	4: 'exato',
 }
 
 
-const Metrics = ({ categories, metricsData, metricsInfo }) => {
+const Metrics = ({ categories, metricsData, metricsInfo, indicatorsInfo, indicatorsData }) => {
 	const [categorySelected, setCategorySelected] = useState(categories && categories[0].id)
 
 	useEffect(() => {
-		setCategorySelected(categories && categories[0].id)
-	}, [categories])
+		categories && indicatorsInfo && indicatorsData && setCategorySelected(categories
+			.map(category => ({
+				...indicatorsData[indicatorsInfo[0].id].categories[category.id],
+				...category
+			}))
+			.sort((a, b) => b.score - a.score)[0].id)
+	}, [categories, indicatorsInfo, indicatorsData])
 
 	return (
 		<Card
