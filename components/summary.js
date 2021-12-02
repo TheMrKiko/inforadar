@@ -14,6 +14,14 @@ const levelLabels = {
 	4: 'exato',
 }
 
+function listFormat(list, oxfordcomma = false) {
+	if (list.length == 1)
+		return list[0];
+	const firsts = list.slice(0, list.length - 1);
+	const last = list[list.length - 1];
+	return <>{firsts.map((f, i, a) => <>{f}{i + 1 != a.length && ', '}</>)}{oxfordcomma && ','} e {last}</>;
+}
+
 const summaryBuilder = (categories, indicatorsData, indicatorsInfo, metricsData, metricsInfo) => {
 	const maxCategory = categories
 		.map(category => ({
@@ -22,8 +30,16 @@ const summaryBuilder = (categories, indicatorsData, indicatorsInfo, metricsData,
 		}))
 		.sort((a, b) => b.score - a.score)[0];
 	const maxLevel = Math.trunc(maxCategory.score * 4);
+	const Headline = (
+		<Typography.Text>A análise do artigo evidencia uma probabilidade {levelLabels[maxLevel].slice(0, -1)}a de corresponder a um artigo de <Typography.Text strong>{maxCategory.display_name.toLowerCase()}</Typography.Text>. </Typography.Text>
+	);
 	if (maxLevel < 2)
-		return <Typography.Text>O artigo tem uma probabilidade {levelLabels[maxLevel]} de corresponder a um artigo de <Typography.Text strong>{maxCategory.display_name.toLowerCase()}</Typography.Text>. Os valores apresentados não permitem atribuir um grau de confiança alto a esta classificação. Recomenda-se uma leitura crítica do artigo em análise.</Typography.Text>;
+		return (
+			<Typography.Text>
+				{Headline}
+				Os valores apresentados não permitem atribuir um grau de confiança elevado a esta classificação. Recomenda-se uma leitura crítica do artigo em análise.
+			</Typography.Text>
+		);
 
 	const matrix = {
 		1: { // factual
@@ -32,7 +48,7 @@ const summaryBuilder = (categories, indicatorsData, indicatorsInfo, metricsData,
 			}, 2: { // subjectivity
 				min: 0, max: 25
 			}, 3: { // spell_checking
-				min: 75, max: 100
+				min: null, max: null
 			}, 4: { // clickbait
 				min: 0, max: 25
 			}, 5: { // headline_accuracy
@@ -45,7 +61,7 @@ const summaryBuilder = (categories, indicatorsData, indicatorsInfo, metricsData,
 			}, 2: { // subjectivity
 				min: 25, max: 100
 			}, 3: { // spell_checking
-				min: 75, max: 100
+				min: null, max: null
 			}, 4: { // clickbait
 				min: null, max: null
 			}, 5: { // headline_accuracy
@@ -71,7 +87,7 @@ const summaryBuilder = (categories, indicatorsData, indicatorsInfo, metricsData,
 			}, 2: { // subjectivity
 				min: 0, max: 100
 			}, 3: { // spell_checking
-				min: 50, max: 100
+				min: null, max: null
 			}, 4: { // clickbait
 				min: 0, max: 100
 			}, 5: { // headline_accuracy
@@ -84,7 +100,7 @@ const summaryBuilder = (categories, indicatorsData, indicatorsInfo, metricsData,
 			}, 2: { // subjectivity
 				min: 0, max: 100
 			}, 3: { // spell_checking
-				min: 50, max: 100
+				min: null, max: null
 			}, 4: { // clickbait
 				min: 0, max: 100
 			}, 5: { // headline_accuracy
@@ -106,28 +122,28 @@ const summaryBuilder = (categories, indicatorsData, indicatorsInfo, metricsData,
 		return (percentil >= boundaries.min && percentil <= boundaries.max) ?
 			{
 				...prev,
-				pros: [...prev.pros, <Typography.Text>{levelLabels[level]} grau de <Typography.Text strong>{metric.display_name.toLowerCase()}</Typography.Text></Typography.Text>]
+				pros: {
+					...prev.pros,
+					[level]: [...(prev.pros[level] ?? []), <Typography.Text strong>{metric.display_name.toLowerCase()}</Typography.Text>]
+				}
 			} : {
 				...prev,
-				cons: [...prev.cons, <Typography.Text>um índice {levelLabels[level]} de <Typography.Text strong>{metric.display_name.toLowerCase()}</Typography.Text>, não expectável em artigos desta natureza</Typography.Text>]
+				cons: {
+					...prev.cons,
+					[level]: [...(prev.cons[level] ?? []), <Typography.Text strong>{metric.display_name.toLowerCase()}</Typography.Text>]
+				}
 			}
-	}, { pros: [], cons: [] })
+	}, { pros: {}, cons: {} })
 
 	return (
 		<>
-			<Typography.Text>O artigo tem uma probabilidade {levelLabels[maxLevel]} de corresponder a um artigo de <Typography.Text strong>{maxCategory.display_name.toLowerCase()}</Typography.Text>. </Typography.Text>
-			{pros.length != 0 && <>
-				<Typography.Text>Esta informação é corroborada pelo:</Typography.Text>
-				<ul>
-					{pros.map(p => <li>{p}</li>)}
-				</ul>
-			</>}
-			{cons.length != 0 && <>
-				<Typography.Text>No entanto, apresenta:</Typography.Text>
-				<ul>
-					{cons.map(c => <li>{c}</li>)}
-				</ul>
-			</>}
+			{Headline}
+			{Object.keys(pros).length != 0 &&
+				<Typography.Text>Esta informação é corroborada {listFormat(Object.keys(pros).sort().map(k => <>pelo índice {levelLabels[k]} de {listFormat(pros[k])}</>))}. </Typography.Text>
+			}
+			{Object.keys(cons).length != 0 &&
+				<Typography.Paragraph>No entanto, apresenta {listFormat(Object.keys(cons).sort().map(k => <>um índice {levelLabels[k]} de {listFormat(cons[k])}</>))}, o que não seria expectável em artigos desta natureza.</Typography.Paragraph>
+			}
 		</>
 	)
 }
