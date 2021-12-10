@@ -13,71 +13,155 @@ export default function ComoFunciona() {
             <AntLayout.Content className={utilStyles.container}>
                 <Typography.Title level={1}>Como Funciona</Typography.Title>
 
-                <Typography.Paragraph>Em vez de tentar rotular o conteúdo noticioso como pouco credível ou enganador (ou "fake news"), o InfoRadar é um modelo explicativo, que fornece ao leitor informação sobre um conjunto de indicadores relevantes acerca do conteúdo que pretendem consumir.</Typography.Paragraph>
+                <Typography.Paragraph>O <Typography.Text strong>InfoRadar</Typography.Text> fornece aos leitores um conjunto de informação importante para aferir a credibilidade do conteúdo textual que pretendem consumir e/ou partilhar.</Typography.Paragraph>
 
-                <Typography.Title level={2}>Indicadores apresentados</Typography.Title>
-                <Typography.Paragraph>Por analogia com os produtos alimentares, que disponibilizam um conjunto de informação nutricional, fundamental para o consumidor tomar decisões informadas quanto à aquisição, ou não, desses produtos, o InfoRadar apresenta um conjunto relevante de indicadores – caracterizadores do conteúdo noticioso – que poderão orientar o leitor no consumo e partilha de informação.</Typography.Paragraph>
+                <Typography.Paragraph>Para cada artigo apresentado, o <Typography.Text strong>InfoRadar</Typography.Text> estima o grau de probabilidade de o mesmo pertencer a cada uma das <Typography.Text italic><Typography.Link href={'#categorias'}>categorias de (des)informação</Typography.Link></Typography.Text> consideradas neste projeto.</Typography.Paragraph>
 
-                <Typography.Paragraph>Os indicadores contemplados no InfoRadar resultam de um rigoroso <Typography.Link href={'https://www.researchsquare.com/article/rs-173067/v1'}>trabalho de análise e anotação de notícias em português</Typography.Link>, organizados nas seguintes categorias:
-                    <ul>
-                        <li>Emoção</li>
-                        <li>Subjetividade</li>
-                        <li>Afetividade</li>
-                        <li>Credibilidade da fonte (ERC)</li>
-                        <li>Citação de fontes</li>
-                        <li>Utilização de estratégias de Clickbait</li>
-                    </ul>
+                <Typography.Paragraph>Além disso, o <Typography.Text strong>InfoRadar</Typography.Text> apresenta um conjunto de <Typography.Text italic><Typography.Link href={'#metricas'}>métricas explicativas</Typography.Link></Typography.Text> (ou indicadores) que poderão auxiliar o leitor a aferir a credibilidade do artigo em análise. Os valores de cada uma destas <Typography.Text italic>métricas explicativas</Typography.Text> correspondem aos percentis obtidos para cada artigo face aos valores apresentados para os 5 subconjuntos que representam as diferentes <Typography.Text italic>categorias de (des)informação</Typography.Text> incluídas na nossa <Typography.Link href={'#mint'}>coleção de referência</Typography.Link>. Esses valores devem ser interpretados em função da categoria envolvida.
                 </Typography.Paragraph>
 
-                <Typography.Title level={2}>Classificação dos artigos</Typography.Title>
-                <Typography.Paragraph>De acordo com o InfoRadar, o artigo em análise partilha um conjunto (muito) elevado/moderado/(muito) baixo de características com artigos classificados como:
+                <Typography.Title level={2}>Submissão do artigo para análise</Typography.Title>
+                <Typography.Paragraph>O leitor poderá submeter diretamente o artigo para avaliação, colando o URL do artigo ou, alternativamente, o texto que pretende analisar na janela à esquerda do <Typography.Text strong>InfoRadar</Typography.Text>.</Typography.Paragraph>
+                <Typography.Paragraph><Typography.Text italic>[inserir imagem]</Typography.Text></Typography.Paragraph>
 
+                <Typography.Paragraph>O <Typography.Text strong>InfoRadar</Typography.Text> analisa o artigo em duas dimensões distintas, mas complementares: classificação do artigo quanto à sua <Typography.Text italic><Typography.Link href={'#categorias'}>categoria de (des)informação</Typography.Link></Typography.Text> e apresentação de um conjunto de <Typography.Text italic><Typography.Link href={'#metricas'}>métricas explicativas</Typography.Link></Typography.Text> que procuram auxiliar o leitor a avaliar o seu conteúdo.</Typography.Paragraph>
+                <Typography.Paragraph><Typography.Text italic>[inserir imagem]</Typography.Text></Typography.Paragraph>
+
+                <Typography.Title id="categorias" level={2}>Categorias de (des)informação</Typography.Title>
+
+                <Typography.Paragraph>
+                    O artigo em análise é automaticamente classificado pelo <Typography.Text strong>InfoRadar</Typography.Text> em 4 níveis:
+                    <ol>
+                        <li>baixo</li>
+                        <li>médio-baixo</li>
+                        <li>médio-alto</li>
+                        <li>alto</li>
+                    </ol>
+
+                    que representam a probabilidade de este corresponder a uma das seguintes <Typography.Text italic>categorias de (des)informação</Typography.Text>:
                     <Collapse ghost>
-                        <Collapse.Panel header="notícia" key="noticia">
+                        <Collapse.Panel header={<Typography.Text strong>Notícia</Typography.Text>} key="noticia">
                             <Typography.Paragraph>
-                                É um texto marcadamente informativo, por norma curto, claro, conciso, direto e elaborado segundo regras jornalísticas bem determinadas. Tem título, em geral, direto e apelativo, que resulta do 'lead'. Este corresponde ao primeiro parágrafo da notícia, em que o leitor deve encontrar resposta para seis questões fundamentais: O quê? Quem? Quando? Onde? Porquê? E Como? As duas últimas podem ser exploradas nos parágrafos mais abaixo. Deve conter fontes, que conferem credibilidade à notícia, e é construída em forma de pirâmide invertida. Se precisarmos de fazer uma seleção ou um corte do texto, o mais importante está sempre nos parágrafos iniciais.
+                                Texto marcadamente informativo, por norma, claro, conciso, direto, objetivo e elaborado segundo regras jornalísticas bem definidas. Tem título, em geral, direto e informativo, que resulta do 'lead'. Este corresponde ao primeiro parágrafo da notícia, em que o leitor deverá encontrar resposta para seis questões fundamentais: <Typography.Text italic>O quê? Quem? Quando? Onde? Porquê? Como?</Typography.Text> As respostas às duas últimas questões poderão ser exploradas nos parágrafos mais abaixo. A notícia deve mencionar as fontes utilizadas, que conferem credibilidade à mesma, e é construída em forma de pirâmide invertida. Se precisarmos de fazer uma seleção ou um corte do texto, a informação mais relevante deverá estar nos parágrafos iniciais.
                             </Typography.Paragraph>
                             <Typography.Paragraph>
-                                Para compor a coleção de notícias, recolhemos artigos noticiosos publicados por nove conceituadas fontes jornalísticas portuguesas. Esses artigos abordam temas de âmbito nacional e internacional, tendo sido extraídos das versões online dos jornais selecionados, em particular, das secções classificadas como política, sociedade, economia, tecnologia, cultura e desporto.
-                            </Typography.Paragraph>
-                        </Collapse.Panel>
-                        <Collapse.Panel header="(artigo de) opinião" key="opiniao">
-                            <Typography.Paragraph>
-                                É um texto em que o seu autor, devidamente identificado, exprime pontos de vista subjetivos relativamente a temas que, por norma, abordam a atualidade, podendo gerar polémica. O estilo pode variar muito de autor para autor. Alguns preferem recorrer a factos e fontes credíveis, de modo a suportar os argumentos apresentados e as suas opiniões, permitindo retirar deduções e conclusões. Pode também ser apenas um texto leve e bem humorado, com pontos de vista pessoais sobre temas de costumes ou do quotidiano.
-                            </Typography.Paragraph>
-                            <Typography.Paragraph>
-                                Os artigos de opinião foram recolhidos da secção de opinião de dez jornais e revistas portugueses online. O processo de seleção priorizou a diversidade de autores, quer de fontes diferentes quer dentro da mesma fonte.
+                                A coleção de referência, utilizada neste estudo para efeitos de classificação automática e cálculo dos percentis dos indicadores, é constituída por 6000 artigos noticiosos publicados por nove fontes jornalísticas portuguesas registadas na ERC. Esses artigos abordam temas de âmbito nacional e internacional, tendo sido extraídos das versões online dos jornais selecionados, em particular, das secções classificadas como <Typography.Text italic>política</Typography.Text>, <Typography.Text italic>sociedade</Typography.Text>, <Typography.Text italic>economia</Typography.Text>, <Typography.Text italic>tecnologia</Typography.Text>, <Typography.Text italic>cultura</Typography.Text> e <Typography.Text italic>desporto</Typography.Text>.
                             </Typography.Paragraph>
                         </Collapse.Panel>
-                        <Collapse.Panel header="(artigo de) entretenimento" key="entretenimento">
+                        <Collapse.Panel header={<Typography.Text strong>(Artigo de) Opinião</Typography.Text>} key="opiniao">
                             <Typography.Paragraph>
-                                Estes textos são quase sempre baseados no princípio de querer 'agarrar' o leitor. Os temas são variadíssimos, mas apelam quase sempre a um ambicionado estilo de vida glamoroso, abordando áreas variadas, incluindo gastronomia, férias, cultura, tendências, moda, festas, beleza, alimentação, dietas, 'hobbies', desportos, luxo, aventura, entre muitas outras. São textos leves, de escrita apelativa, que suscitam a atenção, embora muitas vezes sejam apenas um repositório de informação já amplamente conhecida, sem novidade ou caráter noticioso.
+                                Texto em que o autor, devidamente identificado, exprime opiniões e pontos de vista subjetivos relativamente a temas que, por norma, abordam a atualidade, procurando marcar uma posição e gerar algum tipo de reação por parte dos leitores. O estilo pode variar muito de autor para autor. Alguns optam por apresentar factos e fontes credíveis, de modo a suportar os argumentos apresentados e a sustentar as suas conclusões. Outros optam por criar textos leves e, frequentemente, bem-humorados, abordando opiniões pessoais sobre temas de costumes ou do quotidiano.
                             </Typography.Paragraph>
                             <Typography.Paragraph>
-                                Para compor esta coleção, extraímos conteúdos publicados nas secções de celebridades, moda, beleza, família, lifestyle e cultura de seis revistas e suplementos de jornais portugueses.
-                            </Typography.Paragraph>
-                        </Collapse.Panel>
-                        <Collapse.Panel header="sátira" key="satira">
-                            <Typography.Paragraph>
-                                Textos que se baseiam numa técnica literária que visa ridicularizar um determinado assunto, indivíduo ou organização. A interpretação desta mensagem requer que o leitor esteja em perfeita sintonia com o autor, de modo a perceber a ironia do texto. Caso contrário, pode fazer uma leitura literal e interpretar de forma errada o conteúdo. A ironia utiliza recursos estilísticos tentando obter um efeito cómico, ridicularizando, exagerando. Por vezes, inventa factos, acontecimentos e personagens, apresentando-os de forma verossímil, por vezes plausível, outras não.
-                            </Typography.Paragraph>
-                            <Typography.Paragraph>
-                                Os artigos incluídos nesta coleção foram extraídos de dois conhecidos sites portugueses, autodeclarados fictícios, humorísticos e/ou satíricos nos seus estatutos editoriais.
+                                A coleção  de referência, utilizada neste estudo para efeitos de classificação automática e cálculo dos percentis dos indicadores, é constituída por 6000 artigos de opinião, coligidos a partir da secção de <Typography.Text italic>opinião</Typography.Text> de dez jornais e revistas portuguesas registadas na ERC. O processo de seleção procurou garantir a diversidade de autores, quer de fontes diferentes quer dentro da mesma fonte.
                             </Typography.Paragraph>
                         </Collapse.Panel>
-                        <Collapse.Panel header="(teoria da) conspiração" key="conspiracao">
+                        <Collapse.Panel header={<Typography.Text strong>(Artigo de) Entretenimento</Typography.Text>} key="entretenimento">
                             <Typography.Paragraph>
-                                É uma hipótese explicativa ou especulativa sobre determinado tema, em que um indivíduo ou organização nos tentou enganar, inventando algo, ou escondendo a realidade, de forma secreta. Tipicamente esse acontecimento é considerado ilegal ou prejudicial à humanidade. Por norma, envolvem sociedades secretas que controlam ou tentam controlar a humanidade; o controlo pode ainda ser exercido por extraterrestres ou por humanos com poderes paranormais. Sempre existiram teorias da conspiração, mas, com a massificação das redes sociais, tornaram-se mais visíveis e mais 'criativas'.
+                                Textos quase sempre baseados no princípio de querer 'agarrar' o leitor. Os temas abordados neste tipo de artigos são variadíssimos, mas apelam frequentemente a um ambicionado estilo de vida glamoroso, abordando áreas variadas, incluindo gastronomia, férias, cultura, tendências, moda, festas, beleza, alimentação, dietas, 'hobbies', desportos, luxo, aventura, entre muitas outras. São textos leves, de escrita apelativa, que suscitam a atenção, embora muitas vezes sejam apenas um repositório de informação já amplamente conhecida, sem novidade ou caráter noticioso.
                             </Typography.Paragraph>
                             <Typography.Paragraph>
-                                Dada a dificuldade em identificar automaticamente as teorias da conspiração, utilizamos uma abordagem semiautomática para selecionar e classificar este tipo de artigo. Em concreto, exploramos websites específicos que haviam publicado anteriormente, pelo menos, cinco artigos suportando teorias da conspiração, particularmente sobre a origem, escala, prevenção, diagnóstico e tratamento da pandemia COVID-19. Tivemos como foco o tema COVID-19, uma vez que este acontecimento impulsionou a proliferação deste tipo de conteúdos nas redes sociais a níveis sem precedentes. De acordo com estudos recentes, a negação, ou seja, a predisposição psicológica para rejeitar informação especializada e autorizada, o pensamento conspirativo, ou seja, a tendência para encarar eventos sociais desafiantes como o produto de conspirações, e o partidarismo são os ingrediente-chave que sustentam, por exemplo, as inúmeras teorias da conspiração relacionadas com a COVID-19. Para identificar as teorias da conspiração, compilamos uma lista de tópicos a partir de uma seleção de <Typography.Link href={'https://en.wikipedia.org/wiki/COVID-19_misinformation'}>histórias de conspiração disponíveis na Wikipédia</Typography.Link>, e inspecionamos manualmente um conjunto de sites candidatos. Os tópicos selecionados cobrem narrativas como o uso do novo coronavírus como arma biológica, a ligação entre a tecnologia 5G e COVID-19 e vacinas baseadas em mRNA que alterariam o DNA humano.
+                                A coleção de referência, utilizada neste estudo para efeitos de classificação automática e cálculo dos percentis dos indicadores, é constituída por 6000 artigos de entretenimento, extraídos das secções de <Typography.Text italic>celebridades</Typography.Text>, <Typography.Text italic>moda</Typography.Text>, <Typography.Text italic>beleza</Typography.Text>, <Typography.Text italic>família</Typography.Text>, <Typography.Text italic>lifestyle</Typography.Text> e <Typography.Text italic>cultura</Typography.Text> de seis revistas e suplementos de jornais portugueses.
+                            </Typography.Paragraph>
+                        </Collapse.Panel>
+                        <Collapse.Panel header={<Typography.Text strong>Sátira</Typography.Text>} key="satira">
+                            <Typography.Paragraph>
+                                Texto que recorre a um conjunto de estratégias retóricas (em particular, a sátira, a ironia e o humor) que visam ridicularizar um determinado assunto, indivíduo ou organização e/ou gerar um efeito cómico. A correta interpretação desta mensagem requer que o leitor esteja em perfeita sintonia com o autor, de modo a perceber a ironia do texto. Neste tipo de texto, o autor inventa ou recria frequentemente factos, acontecimentos e personagens, apresentando-os de forma verossímil, mas nem sempre plausível.
+                            </Typography.Paragraph>
+                            <Typography.Paragraph>
+                                A coleção de referência, utilizada neste estudo para efeitos de classificação automática e cálculo dos percentis dos indicadores, é constituída por 1029 artigos, extraídos de dois conhecidos sites portugueses, autodeclarados fictícios, humorísticos e/ou satíricos nos seus estatutos editoriais.
+                            </Typography.Paragraph>
+                        </Collapse.Panel>
+                        <Collapse.Panel header={<Typography.Text strong>(Teoria da) Conspiração</Typography.Text>} key="conspiracao">
+                            <Typography.Paragraph>
+                                É uma hipótese explicativa ou especulativa sobre determinado tema, em que supostamente um indivíduo ou organização nos tentou enganar, inventando algo ou escondendo a realidade, de forma secreta. Tipicamente esse acontecimento é considerado ilegal, colocando em causa o debate livre e informativo e, consequentemente, a fragilização das sociedades democráticas. Por norma, as teorias da conspiração envolvem sociedades secretas que controlam ou tentam controlar a humanidade; o controlo pode ainda ser exercido por extraterrestres ou por humanos com poderes paranormais.
+                            </Typography.Paragraph>
+                            <Typography.Paragraph>
+                                A coleção de referência, utilizada neste estudo para efeitos de classificação automática e cálculo dos percentis dos indicadores, é constituída por 1249 artigos semiautomaticamente classificados como conspiração. Os tópicos cobertos nesta coleção são de natureza bastante diversificada, abrangendo, entre outras, questões políticas e económicas, de saúde e tecnologia.
+                            </Typography.Paragraph>
+                            <Typography.Paragraph>
+                                A seleção e classificação deste tipo de conteúdos assenta numa abordagem semiautomática. Em concreto, compilamos uma lista de tópicos a partir de uma seleção de <Typography.Link href={'https://en.wikipedia.org/wiki/COVID-19_misinformation'}>histórias de conspiração disponíveis na Wikipédia</Typography.Link> e inspecionamos manualmente um conjunto de sites candidatos. A lista final inclui seis websites que haviam publicado anteriormente, pelo menos, cinco artigos suportando teorias da conspiração. Os artigos selecionados cobrem narrativas como, por exemplo, o uso do novo coronavírus como arma biológica, a ligação entre a tecnologia 5G e COVID-19 e vacinas baseadas em RNA que alterariam o ADN humano.
+                            </Typography.Paragraph>
+                            <Typography.Paragraph>
+                                O tema COVID-19 predomina nesta coleção, uma vez que este acontecimento impulsionou a proliferação deste tipo de conteúdos tanto nos canais de informação tradicionais como nas redes sociais a níveis sem precedentes. De acordo com estudos recentes, a negação, ou seja, a predisposição psicológica para rejeitar informação especializada e autorizada, o pensamento conspirativo, ou seja, a tendência para encarar eventos sociais desafiantes como o produto de conspirações, e o partidarismo são os ingredientes-chave que sustentam, por exemplo, as inúmeras teorias da conspiração relacionadas com a COVID-19.
                             </Typography.Paragraph>
                         </Collapse.Panel>
                     </Collapse>
                 </Typography.Paragraph>
 
-                <Typography.Title level={2}>Valores dos indicadores</Typography.Title>
-                <Typography.Paragraph>A classificação sugerida resulta da aplicação de um conjunto de cinco classificadores automáticos, treinados com base numa vasta coleção de documentos (nº?), extraídos de um vasto conjunto de fontes (nº?). Cada um dos documentos foi manualmente anotado como pertencendo a uma das categorias consideradas.</Typography.Paragraph>
+                <Typography.Title id="metricas" level={2}>Métricas Explicativas</Typography.Title>
+                <Typography.Paragraph>As métricas explicativas contempladas no <Typography.Text strong>InfoRadar</Typography.Text> resultam de um trabalho de investigação que envolveu a análise e anotação de conteúdos noticiosos por parte de profissionais da comunicação e leitores comuns (ver artigos científicos <Typography.Link href={'#artigo1'}>1</Typography.Link>, <Typography.Link href={'#artigo2'}>2</Typography.Link> e <Typography.Link href={'#artigo3'}>3</Typography.Link>). Em concreto, os resultados apresentados deverão ajudar o leitor a refletir sobre a credibilidade do conteúdo do artigo que estão a analisar, tendo em consideração os aspetos computados em cada métrica:
+
+                    <Collapse ghost>
+                        <Collapse.Panel header={<Typography.Text strong>Sentimento</Typography.Text>} key="sentimento">
+                            <Typography.Paragraph>
+                                Contrariamente às notícias convencionais, onde é requerida a utilização de um tom neutro e objetivo, em artigos de outra natureza (por exemplo, em artigos de opinião), é comum o emprego de palavras e expressões com carga emocional (ou sentimento), procurando provocar uma reação junto dos leitores.
+                            </Typography.Paragraph>
+                            <Typography.Paragraph>
+                                O sentimento é avaliado com base em contagem de ocorrências lexicais que têm associada informação acerca da polaridade ou intensidade do sentimento. Para tal, foram utilizados como referência o <Typography.Link href={'#artigo4'}>SentiLex</Typography.Link>, um léxico de palavras de sentimento desenvolvidos para o Português.
+                            </Typography.Paragraph>
+                        </Collapse.Panel>
+                        <Collapse.Panel header={<Typography.Text strong>Subjetividade</Typography.Text>} key="subjetividade">
+                            <Typography.Paragraph>
+                                Contrariamente às notícias convencionais, onde é requerida a utilização de um tom neutro e objetivo, em artigos de outra natureza (por exemplo, em artigos de opinião), é comum o emprego de uma maior subjetividade, no sentido em que o autor procura exprimir as suas próprias opiniões e pontos de vista, procurando provocar uma reação junto dos leitores.
+                            </Typography.Paragraph>
+                            <Typography.Paragraph>
+                                A subjetividade é avaliada também a partir de contagem lexical, considerando termos presentes no <Typography.Link href={'#artigo5'}>Subjectivity Lexicon</Typography.Link>. Como este léxico foi desenvolvido para a língua inglesa, geramos uma tradução do mesmo para o português através de tradução automática.
+                            </Typography.Paragraph>
+                        </Collapse.Panel>
+                        <Collapse.Panel header={<Typography.Text strong>Representatividade do Título</Typography.Text>} key="representatividade">
+                            <Typography.Paragraph>
+                                O principal objetivo do título é captar a atenção do leitor para a história que este apresenta. No entanto, alguns títulos podem ser enganosos e/ou não representar, com clareza e precisão, o conteúdo do artigo, o que poderá apontar para a falta de credibilidade de alguns tipos de conteúdos, em particular, os noticiosos.
+                            </Typography.Paragraph>
+                            <Typography.Paragraph>
+                                A representatividade do título é avaliada por meio da similaridade do cosseno calculada entre as representações vetoriais do título e do corpo do texto do artigo em questão. Para gerar representações vetoriais, recorremos à técnica de <Typography.Text italic>word embeddings</Typography.Text> estáticos, <Typography.Link href={'#artigo6'}>disponíveis em português</Typography.Link>, gerados a partir de <Typography.Link href={'#artigo7'}>Word2vec</Typography.Link>.
+                            </Typography.Paragraph>
+                        </Collapse.Panel>
+                        <Collapse.Panel header={<Typography.Text strong>Sensacionalismo</Typography.Text>} key="sensacionalismo">
+                            <Typography.Paragraph>
+                                O jornalismo de natureza sensacionalista ou viral recorre frequentemente a táticas ou estratégias de clickbait (ou caça ao clique) para levar o leitor a clicar num determinado tipo de conteúdo, geralmente não credível.
+                            </Typography.Paragraph>
+                            <Typography.Paragraph>
+                                Estas estratégias são genericamente englobadas na categoria sensacionalismo, que é avaliada com base...
+                            </Typography.Paragraph>
+                        </Collapse.Panel>
+                        <Collapse.Panel header={<Typography.Text strong>Cobertura lexical</Typography.Text>} key="lexical">
+                            <Typography.Paragraph>
+                                A correção linguística é um aspeto fundamental a ter em consideração na redação de qualquer tipo de conteúdo, que se pretende rigoroso, claro, coeso e isento de qualquer tipo de erro (lexical, sintático, semântico, discursivo ou estrutural).
+                            </Typography.Paragraph>
+                            <Typography.Paragraph>
+                                Embora seja nosso objetivo avaliar todas estas dimensões, na versão atual do <Typography.Text strong>InfoRadar</Typography.Text>, apenas se avalia a cobertura lexical do texto, isto é, a possibilidade de o artigo apresentar palavras ou expressões não dicionarizadas ou desconhecidas. Tais palavras ou expressões poderão corresponder a nomes próprios, siglas ou acrónimos, neologismos ou erros ortográficos. Em particular, a existência de erros ortográficos no texto é uma forte evidência de que o mesmo poderá corresponder a um conteúdo não credível.
+                            </Typography.Paragraph>
+                        </Collapse.Panel>
+                    </Collapse>
+                </Typography.Paragraph>
+
+                <Typography.Title level={2}>Classificadores</Typography.Title>
+                <Typography.Paragraph>A classificação dos artigos apresentada no <Typography.Text strong>InfoRadar</Typography.Text> resulta da aplicação de um classificador automático baseado em <Typography.Link href={'#artigo8'}>modelos de "contextual embeddings"</Typography.Link>, treinados com base num corpus criado para o efeito: <Typography.Link href={'#artigo3'}>MINT (Mainstream and Independent News Text)</Typography.Link>.</Typography.Paragraph>
+
+                <Typography.Title level={2}>Material de referência</Typography.Title>
+                <Typography.Title level={3} id="mint">MINT Corpus</Typography.Title>
+                <Typography.Paragraph>O Corpus MINT é constituído por mais de 20.000 artigos, publicados entre 1 de junho de 2020 e 31 de maio de 2021, em 33 plataformas de media convencionais e blogues. Cada um dos documentos que compõem o corpus foi classificado como pertencendo a uma das cinco <Typography.Text italic>categorias de (des)informação</Typography.Text> consideradas. Disponível no <Typography.Link href={'https://github.com/dcaled/mint'}>GitHub</Typography.Link>.</Typography.Paragraph>
+
+                <Typography.Title level={3}>Artigos científicos</Typography.Title>
+                <ul>
+                    <li id="artigo1">Carvalho, P., Caled, D., Silva, M.J., Martins, B., Carvalho, J.P., Carreira, J., Fonseca, J.P., Gomes, T., Camacho, P.: <Typography.Link href={'https://combatefakenews.lusa.pt/wp-content/uploads/2021/07/Carvalho_submission.pdf'}>Assessing news credibility: Misinformation content indicators (2021)</Typography.Link></li>
+
+                    <li id="artigo2">Carvalho, P., Caled, D., Silva, M.J., Martins, B., Carvalho.: Annotation and Assessment of News Credibility (2021)</li>
+
+                    <li id="artigo3">Caled, D., Carvalho, P., Silva, M.J.: <Typography.Link href={'https://arxiv.org/abs/2108.06249'}>MINT - Mainstream and Independent News Text Corpus</Typography.Link>. In: Proceedings of the International Conference on Computational Processing of Portuguese (2022)</li>
+
+                    <li id="artigo4">Silva, M.J., Carvalho, P., Sarmento, L.: <Typography.Link href={'https://link.springer.com/chapter/10.1007/978-3-642-28885-2_25'}>Building a sentiment lexicon for social judgement mining</Typography.Link>. In: International Conference on Computational Processing of the Portuguese Language. Springer. (2012)</li>
+
+                    <li id="artigo5">Wilson, T., Wiebe, J., Hoffmann, P.: <Typography.Link href={'https://dl.acm.org/doi/10.3115/1220575.1220619'}>Recognizing Contextual Polarity in Phrase-Level Sentiment Analysis</Typography.Link>. In: Proceedings of HLT-EMNLP-2005. (2005)</li>
+
+                    <li id="artigo6">Hartmann, N.S., Fonseca, E.R., Shulby, C.D., Treviso, M.V., Silva J.R., Aluísio, S.M.: <Typography.Link href={'http://143.107.183.175:22980/Proceedings%20STIL%202017.pdf'}>Portuguese Word Embeddings: Evaluating on Word Analogies and Natural Language Tasks</Typography.Link>. In: Anais do XI Simpósio Brasileiro de Tecnologia da Informação e da Linguagem Humana. SBC. (2017)</li>
+
+                    <li id="artigo7">Mikolov, T., Chen, K., Corrado, G., and Dean, J.: <Typography.Link href={'https://arxiv.org/pdf/1301.3781.pdf'}>Efficient estimation of word representations in vector space</Typography.Link>. In: Proceedings of International Conference on Learning Representations Workshop. (2013)</li>
+
+                    <li id="artigo8">Devlin, J., Chang, M. W., Lee, K., Toutanova, K.: <Typography.Link href={'https://aclanthology.org/N19-1423.pdf'}>BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</Typography.Link>. In: Proceedings of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies (2019)</li>
+                </ul>
+
             </AntLayout.Content>
         </Layout>
     )
