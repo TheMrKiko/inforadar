@@ -44,7 +44,7 @@ function genDataPoints(data, scale, getValue) {
 	});
 }
 
-const defaultMargin = { top: 40, left: 80, right: 80, bottom: 40 };
+const defaultMargin = { top: 40, left: 85, right: 85, bottom: 40 };
 
 export default function Example({ width, height, margin = defaultMargin, categories, info, data }) {
 	const levels = 4;

@@ -37,8 +37,8 @@ const Metrics = ({ categories, metricsData, metricsInfo, indicatorsInfo, indicat
 	return (
 		<Card
 			title={
-				<Space>
-					<Typography.Text>MÉTRICAS EXPLICATIVAS DE</Typography.Text>
+				<Typography.Text className={utilStyles.whiteSpaceNormal}>
+					<Typography.Text>MÉTRICAS EXPLICATIVAS FACE À COLEÇÃO DE </Typography.Text>
 					<Select
 						loading={!categories}
 						disabled={!categories}
@@ -50,7 +50,7 @@ const Metrics = ({ categories, metricsData, metricsInfo, indicatorsInfo, indicat
 							))
 						}
 					</Select>
-				</Space>
+				</Typography.Text>
 			}
 			extra={<InfoCircleOutlined />}
 			loading={!metricsData}
