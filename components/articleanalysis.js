@@ -477,7 +477,7 @@ class ArticleAnalysis extends React.Component {
 										<div className={styles.bgimage}>
 											<Image
 												priority
-												src={'/roman-kraft.jpg'}
+												src={`${process.env.BASE_PATH}/roman-kraft.jpg`}
 												layout={'fill'}
 												objectFit={'cover'} />
 										</div>

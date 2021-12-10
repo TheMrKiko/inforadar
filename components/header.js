@@ -26,7 +26,7 @@ export default function Header({ current }) {
 							<a className={cn(utilStyles.justifyContentCenter)}>
 								<Image
 									priority
-									src="/inforadar.svg"
+									src={`${process.env.BASE_PATH}/inforadar.svg`}
 									height={32}
 									width={161}
 									alt={'Logo'}

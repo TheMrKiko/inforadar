@@ -20,7 +20,7 @@ export default function Footer() {
 				<Col span={4} pull={3}>
 					<a>
 						<Image
-							src="/contrafake-white.svg"
+							src={`${process.env.BASE_PATH}/contrafake-white.svg`}
 							layout={'fill'}
 							objectFit={'scale-down'}
 							alt={'Logo'}
@@ -30,7 +30,7 @@ export default function Footer() {
 				<Col span={4}>
 					<a>
 						<Image
-							src="/incd.png"
+							src={`${process.env.BASE_PATH}/incd.png`}
 							layout={'fill'}
 							objectFit={'scale-down'}
 							alt={'Logo'}
@@ -40,7 +40,7 @@ export default function Footer() {
 				<Col span={4} push={3}>
 					<a>
 						<Image
-							src="/inescid.png"
+							src={`${process.env.BASE_PATH}/inescid.png`}
 							layout={'fill'}
 							objectFit={'scale-down'}
 							alt={'Logo'}
