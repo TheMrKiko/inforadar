@@ -25,3 +25,16 @@ img {
   max-width: 100%;
   display: block;
 }
+
+:target {
+    animation: target-fade 3s 1;
+}
+
+@keyframes target-fade {
+    0% {
+      background-color: yellow; 
+    }
+    100% {
+      background-color: rgba(255, 255, 0, 0);
+    }
+}
