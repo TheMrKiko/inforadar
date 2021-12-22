@@ -143,7 +143,7 @@ export default function ComoFunciona() {
                 <Typography.Title level={3} id="mint">MINT Corpus</Typography.Title>
                 <Typography.Paragraph>O Corpus MINT é constituído por mais de 20.000 artigos, publicados entre 1 de junho de 2020 e 31 de maio de 2021, em 33 plataformas de media convencionais e blogues. Cada um dos documentos que compõem o corpus foi classificado como pertencendo a uma das cinco <Typography.Text italic>categorias de (des)informação</Typography.Text> consideradas. Disponível no <Typography.Link href={'https://github.com/dcaled/mint'}>GitHub</Typography.Link>.</Typography.Paragraph>
 
-                <Typography.Title level={3}>Artigos científicos</Typography.Title>
+                <Typography.Title level={3}>Publicações</Typography.Title>
                 <ul>
                     <li id="artigo1">Carvalho, P., Caled, D., Silva, M.J., Martins, B., Carvalho, J.P., Carreira, J., Fonseca, J.P., Gomes, T., Camacho, P.: <Typography.Link href={'https://combatefakenews.lusa.pt/wp-content/uploads/2021/07/Carvalho_submission.pdf'}>Assessing news credibility: Misinformation content indicators (2021)</Typography.Link></li>
 

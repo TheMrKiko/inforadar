@@ -63,6 +63,7 @@ const SearchBar = ({ mode, url, title, body, error, onChangeMode, onSearching: o
 					<Input.Search
 						autoFocus
 						enterButton
+						allowClear
 						size="large"
 						className={styles.searchbar}
 						placeholder="Cole o URL de um artigo aqui..."
@@ -77,6 +78,7 @@ const SearchBar = ({ mode, url, title, body, error, onChangeMode, onSearching: o
 					<Input.Search
 						autoFocus
 						enterButton
+						allowClear
 						size="large"
 						className={styles.searchbar}
 						placeholder="Cole o título de um artigo aqui..."
@@ -101,6 +103,7 @@ const SearchBar = ({ mode, url, title, body, error, onChangeMode, onSearching: o
 						extra={error ? error.submessage : undefined}
 					>
 						<Input.TextArea
+							allowClear
 							showCount
 							autoSize={{ maxRows: 10 }}
 							placeholder="Cole o corpo de um artigo aqui..."

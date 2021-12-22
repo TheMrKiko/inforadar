@@ -432,7 +432,7 @@ class ArticleAnalysis extends React.Component {
 															<Space direction={'vertical'}>
 																<Typography.Text type={'secondary'}>
 																	Dados retirados do
-																	<Typography.Link href="https://www.erc.pt/pt/listagem-registos-na-erc" target="_blank"> registo oficial</Typography.Link> a {new Date(this.state.sourceData["last_update"]).toLocaleDateString('fr-CA')}.
+																	<Typography.Link href="https://www.erc.pt/pt/listagem-registos-na-erc" target="_blank"> registo oficial da ERC</Typography.Link> a {new Date(this.state.sourceData["last_update"]).toLocaleDateString()}.
 																</Typography.Text>
 																<Space direction={'vertical'} size={'small'}>
 																	{["title", "owner", "location", "municipality", "registration_date"].map(key => (
@@ -441,7 +441,7 @@ class ArticleAnalysis extends React.Component {
 																				<Typography.Text strong>
 																					{this.state.sourceInfo[key]}
 																				</Typography.Text>
-																				{`: ${!key.includes('date') ? this.state.sourceData[key] : new Date(this.state.sourceData[key]).toLocaleDateString('fr-CA')}`}
+																				{`: ${!key.includes('date') ? this.state.sourceData[key] : new Date(this.state.sourceData[key]).toLocaleDateString()}`}
 																			</Typography.Text>
 																			: null
 																	))}
