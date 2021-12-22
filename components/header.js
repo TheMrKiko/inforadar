@@ -51,11 +51,6 @@ export default function Header({ current }) {
 										<a className={utilStyles.colorInherit}>Como funciona</a>
 									</Link>
 								</Menu.Item>
-								<Menu.Item key="avaliacao">
-									<Link href="/avaliacao">
-										<a className={utilStyles.colorInherit}>Avaliação</a>
-									</Link>
-								</Menu.Item>
 							</Menu>}</>
 					</Col>
 				</Row>
