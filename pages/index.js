@@ -3,7 +3,8 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../components/layout'
 import ArticleAnalysis from '../components/articleanalysis'
-import { Button, Card, Col, Layout as AntLayout, Row, Space, Typography } from 'antd'
+import Examples from '../components/examples'
+import { Button, Col, Layout as AntLayout, Row, Space, Typography } from 'antd'
 import cn from 'classnames'
 
 import styles from '../styles/Home.module.css'
@@ -63,70 +64,12 @@ export default function Home() {
                         </Button>
                     </Space>
                 </HomeBlock>
-                <HomeBlock span={18}>
-                    <Space direction={'vertical'} size={'large'}>
+                <HomeBlock span={18} className={utilStyles.width100}>
+                    <Space direction={'vertical'} size={'large'} className={utilStyles.width100}>
                         <Typography.Title level={2}>
                             Exemplos
                         </Typography.Title>
-                        <Row justify={"space-between"} gutter={[0, 20]}>
-                            <Col md={7} sm={11} span={24}>
-                                <Link
-                                    href={{
-                                        query: { 'url': 'https://www.publico.pt/2021/06/25/sociedade/noticia/psp-controla-sai-entra-regiao-lisboa-comboio-autocarro-aviao-1967991' }
-                                    }}
-                                >
-                                    <Card
-                                        hoverable
-                                        cover={<img alt="example" src={"https://imagens.publico.pt/imagens.aspx/1598362?tp=UH&db=IMAGENS&type=JPG&share=1"} />}
-                                    >
-                                        <Card.Meta
-                                            title={<Typography.Text className={utilStyles.whiteSpaceNormal}>{
-                                                "PSP controla quem sai ou entra na região de Lisboa de comboio, autocarro ou avião"
-                                            }</Typography.Text>}
-                                            description="publico.pt"
-                                        />
-                                    </Card>
-                                </Link>
-                            </Col>
-                            <Col md={7} sm={11} span={24}>
-                                <Link
-                                    href={{
-                                        query: { 'url': 'https://www.publico.pt/2021/06/25/mundo/noticia/portugal-vai-assinar-declaracao-repudio-lei-direitos-lgbti-hungria-1967963' }
-                                    }}
-                                >
-                                    <Card
-                                        hoverable
-                                        cover={<img alt="example" src={"https://imagens.publico.pt/imagens.aspx/1598279?tp=UH&db=IMAGENS&type=JPG&share=1"} />}
-                                    >
-                                        <Card.Meta
-                                            title={<Typography.Text className={utilStyles.whiteSpaceNormal}>{
-                                                "Portugal vai assinar declaração de repúdio à lei contra os direitos LGBTI na Hungria"
-                                            }</Typography.Text>}
-                                            description="publico.pt"
-                                        />
-                                    </Card>
-                                </Link>
-                            </Col>
-                            <Col md={7} sm={11} span={24}>
-                                <Link
-                                    href={{
-                                        query: { 'url': 'https://www.publico.pt/2021/06/25/local/noticia/associacao-portuguesa-ambiente-aprova-central-fotovoltaica-herdade-torre-bela-1967894' }
-                                    }}
-                                >
-                                    <Card
-                                        hoverable
-                                        cover={<img alt="example" src={"https://imagens.publico.pt/imagens.aspx/1598059?tp=UH&db=IMAGENS&type=JPG&share=1"} />}
-                                    >
-                                        <Card.Meta
-                                            title={<Typography.Text className={utilStyles.whiteSpaceNormal}>{
-                                                "Ambiente dá parecer favorável condicionado às centrais fotovoltaicas da Torre Bela"
-                                            }</Typography.Text>}
-                                            description="publico.pt"
-                                        />
-                                    </Card>
-                                </Link>
-                            </Col>
-                        </Row>
+                        <Examples />
                     </Space>
                 </HomeBlock>
             </AntLayout.Content>
