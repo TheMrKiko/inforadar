@@ -16,7 +16,7 @@ import { CSSTransition, SwitchTransition, Transition } from 'react-transition-gr
 import styles from '../styles/Home.module.css'
 import utilStyles from '../styles/utils.module.css'
 
-const API_PATH = 'https://inforadar.inesc-id.pt/api2'
+const { API_PATH } = process.env
 
 const stts = {
 	ERROR: -1,
