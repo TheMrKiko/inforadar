@@ -30,7 +30,7 @@ class Examples extends React.Component {
 	}
 
 	onFetchExamples = (e) => {
-		this.setState({ examples: e })
+		this.setState({ examples: this.state.examples.map((a, i) => e[i] ?? a) })
 	}
 
 	render() {
