@@ -52,6 +52,7 @@ class ArticleAnalysis extends React.Component {
 			metricsData: null,
 			sourceInfo: null,
 			sourceData: null,
+			matrixRules: null,
 			error: null,
 		}
 	}
@@ -95,6 +96,16 @@ class ArticleAnalysis extends React.Component {
 			headers: { 'content-type': 'application/json' }
 		}).then(result => {
 			this.onFetchSourceInfo(result.data)
+		}).catch(error => this.setState({
+			error: new Error(error),
+		}));
+
+		axios({
+			method: 'get',
+			url: `${API_PATH}/explainable_rules`,
+			headers: { 'content-type': 'application/json' }
+		}).then(result => {
+			this.onFetchMatrixRules(result.data)
 		}).catch(error => this.setState({
 			error: new Error(error),
 		}));
@@ -281,7 +292,11 @@ class ArticleAnalysis extends React.Component {
 	}
 
 	onFetchSourceData = (d) => {
-		this.setState({ sourceData: d ?? {} })
+		this.setState({ sourceData: d })
+	}
+
+	onFetchMatrixRules = (m) => {
+		this.setState({ matrixRules: m })
 	}
 
 	onSearching = () => {
@@ -487,6 +502,7 @@ class ArticleAnalysis extends React.Component {
 												<Typography.Title>Informação Nutricional</Typography.Title>
 												<Summary
 													categories={this.state.categories}
+													matrixRules={this.state.matrixRules}
 													indicatorsData={this.state.indicatorsData}
 													indicatorsInfo={this.state.indicatorsInfo}
 													metricsData={this.state.metricsData}

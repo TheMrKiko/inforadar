@@ -22,7 +22,7 @@ function listFormat(list, oxfordcomma = false) {
 	return <>{firsts.map((f, i, a) => <>{f}{i + 1 != a.length && ', '}</>)}{oxfordcomma && ','} e {last}</>;
 }
 
-const summaryBuilder = (categories, indicatorsData, indicatorsInfo, metricsData, metricsInfo) => {
+const summaryBuilder = (categories, matrixRules, indicatorsData, indicatorsInfo, metricsData, metricsInfo) => {
 	const maxCategory = categories
 		.map(category => ({
 			...indicatorsData[indicatorsInfo[0].id].categories[category.id],
@@ -41,78 +41,10 @@ const summaryBuilder = (categories, indicatorsData, indicatorsInfo, metricsData,
 			</Typography.Text>
 		);
 
-	const matrix = {
-		1: { // factual
-			1: { // sentiment
-				min: 0, max: 25
-			}, 2: { // subjectivity
-				min: 0, max: 25
-			}, 3: { // spell_checking
-				min: null, max: null
-			}, 4: { // clickbait
-				min: 0, max: 25
-			}, 5: { // headline_accuracy
-				min: 75, max: 100
-			}
-		},
-		2: { // opinion
-			1: { // sentiment
-				min: 25, max: 100
-			}, 2: { // subjectivity
-				min: 25, max: 100
-			}, 3: { // spell_checking
-				min: null, max: null
-			}, 4: { // clickbait
-				min: null, max: null
-			}, 5: { // headline_accuracy
-				min: null, max: null
-			}
-		},
-		3: { // entertainment
-			1: { // sentiment
-				min: 50, max: 100
-			}, 2: { // subjectivity
-				min: 50, max: 100
-			}, 3: { // spell_checking
-				min: null, max: null
-			}, 4: { // clickbait
-				min: 50, max: 100
-			}, 5: { // headline_accuracy
-				min: null, max: null
-			}
-		},
-		4: { // satire
-			1: { // sentiment
-				min: 0, max: 100
-			}, 2: { // subjectivity
-				min: 0, max: 100
-			}, 3: { // spell_checking
-				min: null, max: null
-			}, 4: { // clickbait
-				min: 0, max: 100
-			}, 5: { // headline_accuracy
-				min: 0, max: 100
-			}
-		},
-		5: { // conspiracy
-			1: { // sentiment
-				min: 0, max: 100
-			}, 2: { // subjectivity
-				min: 0, max: 100
-			}, 3: { // spell_checking
-				min: null, max: null
-			}, 4: { // clickbait
-				min: 0, max: 100
-			}, 5: { // headline_accuracy
-				min: 0, max: 100
-			}
-		}
-	}
-
 	const { pros, cons } = metricsInfo.reduce((prev, metric) => {
 		const percentil = metricsData[metric.id].percentiles.categories[maxCategory.id];
 		const level = Math.trunc((percentil / 100) * 4);
-		const boundaries = matrix[maxCategory.id][metric.id];
+		const boundaries = matrixRules.categories[maxCategory.id].metrics[metric.id];
 		if (!boundaries.min && !boundaries.max)
 			return prev;
 
@@ -148,9 +80,9 @@ const summaryBuilder = (categories, indicatorsData, indicatorsInfo, metricsData,
 	)
 }
 
-const Summary = ({ categories, indicatorsData, indicatorsInfo, metricsData, metricsInfo }) => (
-	categories && indicatorsData && indicatorsInfo && metricsData && metricsInfo &&
-	<Typography.Text>{summaryBuilder(categories, indicatorsData, indicatorsInfo, metricsData, metricsInfo)}</Typography.Text>
+const Summary = ({ categories, matrixRules, indicatorsData, indicatorsInfo, metricsData, metricsInfo }) => (
+	categories && matrixRules && indicatorsData && indicatorsInfo && metricsData && metricsInfo &&
+	<Typography.Text>{summaryBuilder(categories, matrixRules, indicatorsData, indicatorsInfo, metricsData, metricsInfo)}</Typography.Text>
 )
 
 export default Summary
