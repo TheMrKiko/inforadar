@@ -3,6 +3,8 @@ import { colorScaleClass, colorScaleType } from "../helpers/color";
 import { Card, Col, Space, Row, Select, Typography } from 'antd'
 import { InfoCircleOutlined } from '@ant-design/icons'
 
+import { Histogram } from '@ant-design/plots'
+
 import { Bar as BarShape, BarRounded, Line } from '@visx/shape';
 import ParentSize from '@visx/responsive/lib/components/ParentSize';
 import { scaleLinear } from "@visx/scale";
@@ -22,7 +24,7 @@ const levelLabels = {
 }
 
 
-const Metrics = ({ categories, metricsData, metricsInfo, indicatorsInfo, indicatorsData }) => {
+const Metrics = ({ categories, metricsData, metricsInfo, metricsHistogram, indicatorsInfo, indicatorsData }) => {
 	const [categorySelected, setCategorySelected] = useState(categories && categories[0].id)
 
 	useEffect(() => {
@@ -64,6 +66,7 @@ const Metrics = ({ categories, metricsData, metricsInfo, indicatorsInfo, indicat
 								category={categorySelected}
 								info={metric}
 								data={metricsData[metric.id]}
+								histogram={metricsHistogram[metric.id]}
 							/>
 						</Col>
 					))}
@@ -74,7 +77,7 @@ const Metrics = ({ categories, metricsData, metricsInfo, indicatorsInfo, indicat
 	)
 }
 
-const Metric = ({ category, categories, info, data }) => {
+const Metric = ({ category, categories, info, data, histogram }) => {
 	const level = Math.trunc((data.percentiles.categories[category] / 100) * 4) // TODO remove hardcoded
 	const label = levelLabels[level]
 	return (
@@ -83,6 +86,16 @@ const Metric = ({ category, categories, info, data }) => {
 			extra={<Typography.Text className={colorScaleClass(level)} strong>{label}</Typography.Text>}
 			type={'inner'}
 			className={styles.innercard}>
+			<Histogram
+				data={histogram.reduce((pm, h) => pm.concat(...Array(h.count).fill({ value: h.value })), [])}
+				binField={'value'}
+				binNumber={20}
+				tooltip={{
+					showMarkers: false,
+				}}
+				autoFit={false}
+				height={150}
+			/>
 			<ParentSize>{({ width, height }) => (
 				<Bar
 					width={width}
@@ -92,8 +105,7 @@ const Metric = ({ category, categories, info, data }) => {
 					info={info}
 					data={data}
 				/>
-			)
-			}</ParentSize>
+			)}</ParentSize>
 			<Typography.Text>{info.description}</Typography.Text>
 		</Card>
 	)

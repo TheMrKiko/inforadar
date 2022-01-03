@@ -50,6 +50,7 @@ class ArticleAnalysis extends React.Component {
 			indicatorsData: null,
 			metricsInfo: null,
 			metricsData: null,
+			metricsHistogram: null,
 			sourceInfo: null,
 			sourceData: null,
 			matrixRules: null,
@@ -86,6 +87,18 @@ class ArticleAnalysis extends React.Component {
 			headers: { 'content-type': 'application/json' }
 		}).then(result => {
 			this.onFetchMetricsInfo(result.data)
+			axios({
+				method: 'post',
+				url: `${API_PATH}/histogram`,
+				headers: { 'content-type': 'application/json' },
+				data: {
+					'metrics': this.state.metricsInfo.map(i => i.id)
+				}
+			}).then(result => {
+				this.onFetchMetricsHistogram(result.data)
+			}).catch(error => this.setState({
+				error: new Error(error),
+			}));
 		}).catch(error => this.setState({
 			error: new Error(error),
 		}));
@@ -285,6 +298,10 @@ class ArticleAnalysis extends React.Component {
 
 	onFetchMetricsData = (d) => {
 		this.setState({ metricsData: d })
+	}
+
+	onFetchMetricsHistogram = (h) => {
+		this.setState({ metricsHistogram: h })
 	}
 
 	onFetchSourceInfo = (i) => {
@@ -517,6 +534,7 @@ class ArticleAnalysis extends React.Component {
 													categories={this.state.categories}
 													metricsData={this.state.metricsData}
 													metricsInfo={this.state.metricsInfo}
+													metricsHistogram={this.state.metricsHistogram}
 													indicatorsData={this.state.indicatorsData}
 													indicatorsInfo={this.state.indicatorsInfo}
 												/>
