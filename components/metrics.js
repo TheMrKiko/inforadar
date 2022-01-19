@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { colorScaleClass, colorScaleType } from "../helpers/color";
-import { Card, Col, Space, Row, Select, Typography } from 'antd'
+import { Card, Col, Space, Row, Select, Typography, Collapse, Radio, Skeleton } from 'antd'
 import { InfoCircleOutlined } from '@ant-design/icons'
 
 import { Histogram } from '@ant-design/plots'
@@ -11,6 +11,8 @@ import { scaleLinear } from "@visx/scale";
 import { Group } from '@visx/group';
 import { Point } from "@visx/point";
 import { ClipPath } from '@visx/clip-path';
+
+import parse, { attributesToProps, domToReact } from 'html-react-parser';
 
 import styles from '../styles/Home.module.css'
 import utilStyles from '../styles/utils.module.css'
@@ -26,6 +28,7 @@ const levelLabels = {
 
 const Metrics = ({ categories, metricsData, metricsInfo, metricsHistogram, indicatorsInfo, indicatorsData }) => {
 	const [categorySelected, setCategorySelected] = useState(categories && categories[0].id)
+	const [filter, setFilter] = useState("simple")
 
 	useEffect(() => {
 		categories && indicatorsInfo && indicatorsData && setCategorySelected(categories
@@ -54,7 +57,10 @@ const Metrics = ({ categories, metricsData, metricsInfo, metricsHistogram, indic
 					</Select>
 				</Typography.Text>
 			}
-			extra={<InfoCircleOutlined />}
+			extra={<Radio.Group defaultValue="simple" onChange={(a) => setFilter(a.target.value)}>
+				<Radio.Button value="simple">Simples</Radio.Button>
+				<Radio.Button value="details">Detalhes</Radio.Button>
+			</Radio.Group>}
 			loading={!metricsData}
 		>
 			<Space direction="vertical" className={utilStyles.width100}>
@@ -62,11 +68,12 @@ const Metrics = ({ categories, metricsData, metricsInfo, metricsHistogram, indic
 					{categories && metricsData && metricsInfo.map(metric => (
 						<Col span={24} md={12} key={metric.id}>
 							<Metric
+								filter={filter}
 								categories={categories}
 								category={categorySelected}
 								info={metric}
 								data={metricsData[metric.id]}
-								histogram={metricsHistogram[metric.id]}
+								histogram={metricsHistogram && metricsHistogram[metric.id]}
 							/>
 						</Col>
 					))}
@@ -77,25 +84,39 @@ const Metrics = ({ categories, metricsData, metricsInfo, metricsHistogram, indic
 	)
 }
 
-const Metric = ({ category, categories, info, data, histogram }) => {
+const Metric = ({ filter, category, categories, info, data, histogram }) => {
 	const level = Math.trunc((data.percentiles.categories[category] / 100) * 4) // TODO remove hardcoded
 	const label = levelLabels[level]
+	const options = {
+		replace: (domNode) => {
+			const { name, attribs, children } = domNode;
+			if (attribs && name === 'svg')
+				return <svg {...{
+					...attributesToProps(attribs),
+					width: undefined,
+					height: undefined
+				}}>
+					{domToReact(children, options)}
+				</svg>
+			else if (attribs && name === 'text') {
+				const props = attributesToProps(attribs);
+				return <text {...props}
+					style={{
+						...props.style,
+						fontFamily: 'inherit'
+					}}>
+					{domToReact(children, options)}
+				</text>
+			}
+			return domToReact(domNode, options)
+		}
+	}
 	return (
 		<Card
 			title={info.display_name}
 			extra={<Typography.Text className={colorScaleClass(level)} strong>{label}</Typography.Text>}
 			type={'inner'}
 			className={styles.innercard}>
-			<Histogram
-				data={histogram.reduce((pm, h) => pm.concat(...Array(h.count).fill({ value: h.value })), [])}
-				binField={'value'}
-				binNumber={20}
-				tooltip={{
-					showMarkers: false,
-				}}
-				autoFit={false}
-				height={150}
-			/>
 			<ParentSize>{({ width, height }) => (
 				<Bar
 					width={width}
@@ -107,6 +128,25 @@ const Metric = ({ category, categories, info, data, histogram }) => {
 				/>
 			)}</ParentSize>
 			<Typography.Text>{info.description}</Typography.Text>
+			{(filter == "simple") ?
+				(null) : (
+					<Space direction={'vertical'} className={utilStyles.width100}>
+						{!!histogram ? !!histogram.categories[category].pos.length && <Histogram
+							data={histogram.categories[category].pos.reduce((pm, h) => pm.concat(...Array(h.count).fill({ value: h.value })), [])}
+							binField={'value'}
+							binNumber={20}
+							tooltip={false}
+							autoFit={false}
+							height={150}
+							color={({ range }) => range[0] < data.score && data.score < range[1] ? '#F4664A' : '#5B8FF9'}
+						/> : <Skeleton.Image />}
+						<Typography.Text type={'secondary'}>O artigo tem um score de {info.display_name.toLowerCase()} de {Math.round(data.score * 100) / 100}.</Typography.Text>
+						{!!histogram ?
+							<div className={utilStyles.width100}>
+								{parse(histogram.categories[category].svg, options)}
+							</div> : <Skeleton.Image />}
+					</Space>
+				)}
 		</Card>
 	)
 }
