@@ -3,8 +3,6 @@ import { colorScaleClass, colorScaleType } from "../helpers/color";
 import { Card, Col, Space, Row, Select, Typography, Collapse, Radio, Skeleton } from 'antd'
 import { InfoCircleOutlined } from '@ant-design/icons'
 
-import { Histogram } from '@ant-design/plots'
-
 import { Bar as BarShape, BarRounded, Line } from '@visx/shape';
 import ParentSize from '@visx/responsive/lib/components/ParentSize';
 import { scaleLinear } from "@visx/scale";
@@ -131,20 +129,11 @@ const Metric = ({ filter, category, categories, info, data, histogram }) => {
 			{(filter == "simple") ?
 				(null) : (
 					<Space direction={'vertical'} className={utilStyles.width100}>
-						{!!histogram ? !!histogram.categories[category].pos.length && <Histogram
-							data={histogram.categories[category].pos.reduce((pm, h) => pm.concat(...Array(h.count).fill({ value: h.value })), [])}
-							binField={'value'}
-							binNumber={20}
-							tooltip={false}
-							autoFit={false}
-							height={150}
-							color={({ range }) => range[0] < data.score && data.score < range[1] ? '#F4664A' : '#5B8FF9'}
-						/> : <Skeleton.Image />}
-						<Typography.Text type={'secondary'}>O artigo tem um score de {info.display_name.toLowerCase()} de {Math.round(data.score * 100) / 100}.</Typography.Text>
 						{!!histogram ?
 							<div className={utilStyles.width100}>
 								{parse(histogram.categories[category].svg, options)}
 							</div> : <Skeleton.Image />}
+						<Typography.Text type={'secondary'}>O artigo tem um score de {info.display_name.toLowerCase()} de {Math.round(data.score * 100) / 100}.</Typography.Text>
 					</Space>
 				)}
 		</Card>
