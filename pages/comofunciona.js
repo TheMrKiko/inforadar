@@ -1,10 +1,60 @@
+import React, { useEffect, useState } from 'react'
+import { Error } from '../helpers/error'
+import Histogram from '../components/histogram'
 import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../components/layout'
 import { Layout as AntLayout, Input, Space, Row, Col, Typography, Button, Collapse } from 'antd'
+import axios from 'axios'
 import utilStyles from '../styles/utils.module.css'
 
-export default function ComoFunciona() {
+const { API_PATH } = process.env
+
+const ComoFunciona = () => {
+    const [categories, setCategories] = useState(null);
+    const [metricsInfo, setMetricsInfo] = useState(null);
+    const [metricsHistogram, setMetricsHistogram] = useState(null);
+    const [appError, setError] = useState(null);
+
+    useEffect(() => {
+        axios({
+            method: 'get',
+            url: `${API_PATH}/metadata`,
+            headers: { 'content-type': 'application/json' }
+        }).then(result => {
+            setCategories(result.data)
+        }).catch(error => setError(new Error(error)));
+        axios({
+            method: 'get',
+            url: `${API_PATH}/metrics`,
+            headers: { 'content-type': 'application/json' }
+        }).then(result => {
+            setMetricsInfo(result.data)
+            axios({
+                method: 'post',
+                url: `${API_PATH}/histogram`,
+                headers: { 'content-type': 'application/json' },
+                data: {
+                    'metrics': result.data.map(i => i.id),
+                }
+            }).then(result => {
+                setMetricsHistogram(result.data)
+            }).catch(error => setError(new Error(error)));
+        }).catch(error => setError(new Error(error)));
+    }, []);
+
+    const HistogramBlock = (categories, metricid, metricsHistogram) => (
+        <Row>
+            {categories && metricsHistogram && metricsHistogram[metricid] && categories.map(c => (
+                <Col span={8}>
+                    <Typography.Title level={5}>{c.display_name}</Typography.Title>
+                    <Histogram histogram={metricsHistogram[metricid]} category={c.id} />
+                    <Typography.Text type={'secondary'}>{metricsHistogram[metricid].categories[c.id].ks_2samp.stat}</Typography.Text>
+                </Col>
+            ))}
+        </Row>
+    )
+
     return (
         <Layout current={'comofunciona'}>
             <Head>
@@ -100,6 +150,7 @@ export default function ComoFunciona() {
                             <Typography.Paragraph>
                                 O sentimento é avaliado com base em contagem de ocorrências lexicais que têm associada informação acerca da polaridade ou intensidade do sentimento. Para tal, foram utilizados como referência o <Typography.Link href={'#artigo4'}>SentiLex</Typography.Link>, um léxico de palavras de sentimento desenvolvidos para o Português.
                             </Typography.Paragraph>
+                            {HistogramBlock(categories, 1, metricsHistogram)}
                         </Collapse.Panel>
                         <Collapse.Panel header={<Typography.Text strong>Subjetividade</Typography.Text>} key="subjetividade">
                             <Typography.Paragraph>
@@ -108,6 +159,7 @@ export default function ComoFunciona() {
                             <Typography.Paragraph>
                                 A subjetividade é avaliada também a partir de contagem lexical, considerando termos presentes no <Typography.Link href={'#artigo5'}>Subjectivity Lexicon</Typography.Link>. Como este léxico foi desenvolvido para a língua inglesa, geramos uma tradução do mesmo para o português através de tradução automática.
                             </Typography.Paragraph>
+                            {HistogramBlock(categories, 2, metricsHistogram)}
                         </Collapse.Panel>
                         <Collapse.Panel header={<Typography.Text strong>Representatividade do Título</Typography.Text>} key="representatividade">
                             <Typography.Paragraph>
@@ -116,6 +168,7 @@ export default function ComoFunciona() {
                             <Typography.Paragraph>
                                 A representatividade do título é avaliada por meio da similaridade do cosseno calculada entre as representações vetoriais do título e do corpo do texto do artigo em questão. Para gerar representações vetoriais, recorremos à técnica de <Typography.Text italic>word embeddings</Typography.Text> estáticos, <Typography.Link href={'#artigo6'}>disponíveis em português</Typography.Link>, gerados a partir de <Typography.Link href={'#artigo7'}>Word2vec</Typography.Link>.
                             </Typography.Paragraph>
+                            {HistogramBlock(categories, 5, metricsHistogram)}
                         </Collapse.Panel>
                         <Collapse.Panel header={<Typography.Text strong>Sensacionalismo</Typography.Text>} key="sensacionalismo">
                             <Typography.Paragraph>
@@ -124,6 +177,7 @@ export default function ComoFunciona() {
                             <Typography.Paragraph>
                                 Estas estratégias são genericamente englobadas na categoria sensacionalismo, que é avaliada com base...
                             </Typography.Paragraph>
+                            {HistogramBlock(categories, 4, metricsHistogram)}
                         </Collapse.Panel>
                         <Collapse.Panel header={<Typography.Text strong>Cobertura lexical</Typography.Text>} key="lexical">
                             <Typography.Paragraph>
@@ -132,6 +186,7 @@ export default function ComoFunciona() {
                             <Typography.Paragraph>
                                 Embora seja nosso objetivo avaliar todas estas dimensões, na versão atual do <Typography.Text strong>InfoRadar</Typography.Text>, apenas se avalia a cobertura lexical do texto, isto é, a possibilidade de o artigo apresentar palavras ou expressões não dicionarizadas ou desconhecidas. Tais palavras ou expressões poderão corresponder a nomes próprios, siglas ou acrónimos, neologismos ou erros ortográficos. Em particular, a existência de erros ortográficos no texto é uma forte evidência de que o mesmo poderá corresponder a um conteúdo não credível.
                             </Typography.Paragraph>
+                            {HistogramBlock(categories, 3, metricsHistogram)}
                         </Collapse.Panel>
                     </Collapse>
                 </Typography.Paragraph>
@@ -166,3 +221,5 @@ export default function ComoFunciona() {
         </Layout>
     )
 }
+
+export default ComoFunciona
