@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { colorScaleClass, colorScaleType } from "../helpers/color";
-import { Card, Col, Space, Row, Select, Typography, Collapse, Radio, Skeleton } from 'antd'
+import { Card, Col, Space, Row, Select, Typography, Collapse, Radio } from 'antd'
 import { InfoCircleOutlined } from '@ant-design/icons'
 
 import { Bar as BarShape, BarRounded, Line } from '@visx/shape';
@@ -10,7 +10,7 @@ import { Group } from '@visx/group';
 import { Point } from "@visx/point";
 import { ClipPath } from '@visx/clip-path';
 
-import parse, { attributesToProps, domToReact } from 'html-react-parser';
+import Histogram from './histogram';
 
 import styles from '../styles/Home.module.css'
 import utilStyles from '../styles/utils.module.css'
@@ -85,30 +85,6 @@ const Metrics = ({ categories, metricsData, metricsInfo, metricsHistogram, indic
 const Metric = ({ filter, category, categories, info, data, histogram }) => {
 	const level = Math.trunc((data.percentiles.categories[category] / 100) * 4) // TODO remove hardcoded
 	const label = levelLabels[level]
-	const options = {
-		replace: (domNode) => {
-			const { name, attribs, children } = domNode;
-			if (attribs && name === 'svg')
-				return <svg {...{
-					...attributesToProps(attribs),
-					width: undefined,
-					height: undefined
-				}}>
-					{domToReact(children, options)}
-				</svg>
-			else if (attribs && name === 'text') {
-				const props = attributesToProps(attribs);
-				return <text {...props}
-					style={{
-						...props.style,
-						fontFamily: 'inherit'
-					}}>
-					{domToReact(children, options)}
-				</text>
-			}
-			return domToReact(domNode, options)
-		}
-	}
 	return (
 		<Card
 			title={info.display_name}
@@ -129,10 +105,7 @@ const Metric = ({ filter, category, categories, info, data, histogram }) => {
 			{(filter == "simple") ?
 				(null) : (
 					<Space direction={'vertical'} className={utilStyles.width100}>
-						{!!histogram ?
-							<div className={utilStyles.width100}>
-								{parse(histogram.categories[category].svg, options)}
-							</div> : <Skeleton.Image />}
+						<Histogram category={category} histogram={histogram} />
 						<Typography.Text type={'secondary'}>O artigo tem um score de {info.display_name.toLowerCase()} de {Math.round(data.score * 100) / 100}.</Typography.Text>
 					</Space>
 				)}
