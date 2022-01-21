@@ -87,18 +87,6 @@ class ArticleAnalysis extends React.Component {
 			headers: { 'content-type': 'application/json' }
 		}).then(result => {
 			this.onFetchMetricsInfo(result.data)
-			axios({
-				method: 'post',
-				url: `${API_PATH}/histogram`,
-				headers: { 'content-type': 'application/json' },
-				data: {
-					'metrics': this.state.metricsInfo.map(i => i.id)
-				}
-			}).then(result => {
-				this.onFetchMetricsHistogram(result.data)
-			}).catch(error => this.setState({
-				error: new Error(error),
-			}));
 		}).catch(error => this.setState({
 			error: new Error(error),
 		}));
@@ -223,6 +211,22 @@ class ArticleAnalysis extends React.Component {
 						}
 					}).then(result => {
 						this.onFetchMetricsData(result.data)
+						axios({
+							method: 'post',
+							url: `${API_PATH}/histogram`,
+							headers: { 'content-type': 'application/json' },
+							data: {
+								'metrics': this.state.metricsInfo.map(i => i.id),
+								'metric_scores': Object.fromEntries(
+									Object.entries(this.state.metricsData).map(
+										([m, d]) => [m, { score: d.score }]
+									))
+							}
+						}).then(result => {
+							this.onFetchMetricsHistogram(result.data)
+						}).catch(error => this.setState({
+							error: new Error(error),
+						}));
 					}).catch(error => this.setState({
 						status: stts.ERROR,
 						error: new Error(error),
