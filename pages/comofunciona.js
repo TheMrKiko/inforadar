@@ -145,7 +145,7 @@ const ComoFunciona = () => {
                 <Typography.Paragraph>As métricas explicativas contempladas no <Typography.Text strong>InfoRadar</Typography.Text> resultam de um trabalho de investigação que envolveu a análise e anotação de conteúdos noticiosos por parte de profissionais da comunicação e leitores comuns (ver artigos científicos <Typography.Link href={'#artigo1'}>1</Typography.Link>, <Typography.Link href={'#artigo2'}>2</Typography.Link> e <Typography.Link href={'#artigo3'}>3</Typography.Link>). Em concreto, os resultados apresentados deverão ajudar o leitor a refletir sobre a credibilidade do conteúdo do artigo que estão a analisar, tendo em consideração os aspetos computados em cada métrica:
 
                     <Collapse ghost>
-                        <Collapse.Panel header={<Typography.Text strong>Sentimento</Typography.Text>} key="sentimento">
+                        <Collapse.Panel header={<Typography.Text strong>Sentimento</Typography.Text>} key="sentiment" id="sentiment">
                             <Typography.Paragraph>
                                 Contrariamente às notícias convencionais, onde é requerida a utilização de um tom neutro e objetivo, em artigos de outra natureza (por exemplo, em artigos de opinião), é comum o emprego de palavras e expressões com carga emocional (ou sentimento), procurando provocar uma reação junto dos leitores.
                             </Typography.Paragraph>
@@ -154,7 +154,7 @@ const ComoFunciona = () => {
                             </Typography.Paragraph>
                             {HistogramBlock(categories, 1, metricsHistogram)}
                         </Collapse.Panel>
-                        <Collapse.Panel header={<Typography.Text strong>Subjetividade</Typography.Text>} key="subjetividade">
+                        <Collapse.Panel header={<Typography.Text strong>Subjetividade</Typography.Text>} key="subjectivity" id="subjectivity">
                             <Typography.Paragraph>
                                 Contrariamente às notícias convencionais, onde é requerida a utilização de um tom neutro e objetivo, em artigos de outra natureza (por exemplo, em artigos de opinião), é comum o emprego de uma maior subjetividade, no sentido em que o autor procura exprimir as suas próprias opiniões e pontos de vista, procurando provocar uma reação junto dos leitores.
                             </Typography.Paragraph>
@@ -163,7 +163,7 @@ const ComoFunciona = () => {
                             </Typography.Paragraph>
                             {HistogramBlock(categories, 2, metricsHistogram)}
                         </Collapse.Panel>
-                        <Collapse.Panel header={<Typography.Text strong>Representatividade do Título</Typography.Text>} key="representatividade">
+                        <Collapse.Panel header={<Typography.Text strong>Representatividade do Título</Typography.Text>} key="headline_accuracy" id="headline_accuracy">
                             <Typography.Paragraph>
                                 O principal objetivo do título é captar a atenção do leitor para a história que este apresenta. No entanto, alguns títulos podem ser enganosos e/ou não representar, com clareza e precisão, o conteúdo do artigo, o que poderá apontar para a falta de credibilidade de alguns tipos de conteúdos, em particular, os noticiosos.
                             </Typography.Paragraph>
@@ -172,7 +172,7 @@ const ComoFunciona = () => {
                             </Typography.Paragraph>
                             {HistogramBlock(categories, 5, metricsHistogram)}
                         </Collapse.Panel>
-                        <Collapse.Panel header={<Typography.Text strong>Sensacionalismo do Título</Typography.Text>} key="sensacionalismo">
+                        <Collapse.Panel header={<Typography.Text strong>Sensacionalismo do Título</Typography.Text>} key="clickbait" id="clickbait">
                             <Typography.Paragraph>
                                 O jornalismo de natureza sensacionalista ou viral recorre frequentemente a táticas ou estratégias de clickbait (ou caça ao clique) para levar o leitor a clicar num determinado tipo de conteúdo, geralmente não credível.
                             </Typography.Paragraph>
@@ -181,7 +181,7 @@ const ComoFunciona = () => {
                             </Typography.Paragraph>
                             {HistogramBlock(categories, 4, metricsHistogram)}
                         </Collapse.Panel>
-                        <Collapse.Panel header={<Typography.Text strong>Cobertura lexical</Typography.Text>} key="lexical">
+                        <Collapse.Panel header={<Typography.Text strong>Cobertura lexical</Typography.Text>} key="spell_checking" id="spell_checking">
                             <Typography.Paragraph>
                                 A correção linguística é um aspeto fundamental a ter em consideração na redação de qualquer tipo de conteúdo, que se pretende rigoroso, claro, coeso e isento de qualquer tipo de erro (lexical, sintático, semântico, discursivo ou estrutural).
                             </Typography.Paragraph>

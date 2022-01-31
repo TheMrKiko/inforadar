@@ -57,7 +57,7 @@ const Metrics = ({ categories, metricsData, metricsInfo, metricsHistogram, indic
 			}
 			extra={<Radio.Group defaultValue="simple" onChange={(a) => setFilter(a.target.value)}>
 				<Radio.Button value="simple">Simples</Radio.Button>
-				<Radio.Button value="details">Detalhes</Radio.Button>
+				<Radio.Button value="details">Completo</Radio.Button>
 			</Radio.Group>}
 			loading={!metricsData}
 		>
@@ -99,13 +99,21 @@ const Metric = ({ filter, category, categories, info, data, histogram }) => {
 				/>
 			)}</ParentSize>
 			<Typography.Text>{info.description}</Typography.Text>
-			{(filter == "simple") ?
-				(null) : (
-					<Space direction={'vertical'} className={utilStyles.width100}>
+			{filter == "details" && (
+				<>
+					<Typography.Title level={5}>Detalhes</Typography.Title>
+					<Space direction={'vertical'}>
+						<Typography.Text>
+							O artigo tem um score de {info.display_name.toLowerCase()} de {Math.round(data.score * 100) / 100}.
+							<Typography.Link href={`${process.env.BASE_PATH}/comofunciona#${info.name}`}> Ver como este valor foi calculado.</Typography.Link>
+						</Typography.Text>
 						<Histogram category={category} histogram={histogram} />
-						<Typography.Text type={'secondary'}>O <Typography.Text strong style={{ color: '#f4664a' }}>artigo</Typography.Text> tem um score de {info.display_name.toLowerCase()} de {Math.round(data.score * 100) / 100}, face à coleção de <Typography.Text strong style={{ color: '#00539d' }}>{categories.find(c => c.id == category).display_name.toLowerCase()}</Typography.Text> e das <Typography.Text strong style={{ color: '#8c8c8c' }}>outras</Typography.Text> categorias.</Typography.Text>
+						<Typography.Text type={'secondary'}>
+							O histograma representa a métrica de {info.display_name.toLowerCase()} do <Typography.Text strong style={{ color: '#f4664a' }}>artigo</Typography.Text> face à coleção de <Typography.Text strong style={{ color: '#00539d' }}>{categories.find(c => c.id == category).display_name.toLowerCase()}</Typography.Text> e das <Typography.Text strong style={{ color: '#8c8c8c' }}>restantes</Typography.Text> categorias.
+						</Typography.Text>
 					</Space>
-				)}
+				</>
+			)}
 		</Card>
 	)
 }
