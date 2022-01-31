@@ -36,6 +36,7 @@ const ComoFunciona = () => {
                 headers: { 'content-type': 'application/json' },
                 data: {
                     'metrics': result.data.map(i => i.id),
+                    'settings': { graphs: ['notcumulative', 'cumulative'], legend: true },
                 }
             }).then(result => {
                 setMetricsHistogram(result.data)
@@ -49,6 +50,7 @@ const ComoFunciona = () => {
                 <Col span={8}>
                     <Typography.Title level={5}>{c.display_name}</Typography.Title>
                     <Histogram histogram={metricsHistogram[metricid]} category={c.id} />
+                    <Histogram histogram={metricsHistogram[metricid]} category={c.id} type={'cumulative'} />
                     <Typography.Text type={'secondary'}>{metricsHistogram[metricid].categories[c.id].ks_2samp.stat}</Typography.Text>
                 </Col>
             ))}

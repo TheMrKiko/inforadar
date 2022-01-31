@@ -5,7 +5,7 @@ import parse, { attributesToProps, domToReact } from 'html-react-parser';
 
 import utilStyles from '../styles/utils.module.css'
 
-const Histogram = ({ category, histogram }) => {
+const Histogram = ({ category, histogram, type = "notcumulative" }) => {
 	const options = {
 		replace: (domNode) => {
 			const { name, attribs, children } = domNode;
@@ -32,7 +32,7 @@ const Histogram = ({ category, histogram }) => {
 	}
 	return !!histogram ?
 		<div className={utilStyles.width100}>
-			{parse(histogram.categories[category].svg, options)}
+			{parse(histogram.categories[category].svg[type], options)}
 		</div> :
 		<Skeleton.Image />
 }

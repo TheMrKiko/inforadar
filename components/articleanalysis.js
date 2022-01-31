@@ -220,7 +220,8 @@ class ArticleAnalysis extends React.Component {
 								'metric_scores': Object.fromEntries(
 									Object.entries(this.state.metricsData).map(
 										([m, d]) => [m, { score: d.score }]
-									))
+									)),
+								'settings': { graphs: ['notcumulative'], legend: false },
 							}
 						}).then(result => {
 							this.onFetchMetricsHistogram(result.data)

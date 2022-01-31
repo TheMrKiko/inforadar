@@ -103,7 +103,7 @@ const Metric = ({ filter, category, categories, info, data, histogram }) => {
 				(null) : (
 					<Space direction={'vertical'} className={utilStyles.width100}>
 						<Histogram category={category} histogram={histogram} />
-						<Typography.Text type={'secondary'}>O artigo tem um score de {info.display_name.toLowerCase()} de {Math.round(data.score * 100) / 100}.</Typography.Text>
+						<Typography.Text type={'secondary'}>O <Typography.Text strong style={{ color: '#f4664a' }}>artigo</Typography.Text> tem um score de {info.display_name.toLowerCase()} de {Math.round(data.score * 100) / 100}, face à coleção de <Typography.Text strong style={{ color: '#00539d' }}>{categories.find(c => c.id == category).display_name.toLowerCase()}</Typography.Text> e das <Typography.Text strong style={{ color: '#8c8c8c' }}>outras</Typography.Text> categorias.</Typography.Text>
 					</Space>
 				)}
 		</Card>
