@@ -61,23 +61,20 @@ const Metrics = ({ categories, metricsData, metricsInfo, metricsHistogram, indic
 			</Radio.Group>}
 			loading={!metricsData}
 		>
-			<Space direction="vertical" className={utilStyles.width100}>
-				<Row wrap gutter={[24, 24]}>
-					{categories && metricsData && metricsInfo.map(metric => (
-						<Col span={24} md={12} key={metric.id}>
-							<Metric
-								filter={filter}
-								categories={categories}
-								category={categorySelected}
-								info={metric}
-								data={metricsData[metric.id]}
-								histogram={metricsHistogram && metricsHistogram[metric.id]}
-							/>
-						</Col>
-					))}
-				</Row>
-				<Typography.Text type="secondary">* métricas com valores teste.</Typography.Text>
-			</Space>
+			<Row wrap gutter={[24, 24]}>
+				{categories && metricsData && metricsInfo.map(metric => (
+					<Col span={24} md={12} key={metric.id}>
+						<Metric
+							filter={filter}
+							categories={categories}
+							category={categorySelected}
+							info={metric}
+							data={metricsData[metric.id]}
+							histogram={metricsHistogram && metricsHistogram[metric.id]}
+						/>
+					</Col>
+				))}
+			</Row>
 		</Card>
 	)
 }
