@@ -170,12 +170,12 @@ const ComoFunciona = () => {
                             </Typography.Paragraph>
                             {HistogramBlock(categories, 5, metricsHistogram)}
                         </Collapse.Panel>
-                        <Collapse.Panel header={<Typography.Text strong>Sensacionalismo</Typography.Text>} key="sensacionalismo">
+                        <Collapse.Panel header={<Typography.Text strong>Sensacionalismo do Título</Typography.Text>} key="sensacionalismo">
                             <Typography.Paragraph>
                                 O jornalismo de natureza sensacionalista ou viral recorre frequentemente a táticas ou estratégias de clickbait (ou caça ao clique) para levar o leitor a clicar num determinado tipo de conteúdo, geralmente não credível.
                             </Typography.Paragraph>
                             <Typography.Paragraph>
-                                Estas estratégias são genericamente englobadas na categoria sensacionalismo, que é avaliada com base...
+                                Estas estratégias são genericamente englobadas na categoria sensacionalismo, que é avaliada com base em um algoritmo de Regressão Logística, treinado num <Typography.Link href={'#clickdataset'}>corpus</Typography.Link> traduzido para o Português e atualizado com notícias extraídas do corpus MINT.
                             </Typography.Paragraph>
                             {HistogramBlock(categories, 4, metricsHistogram)}
                         </Collapse.Panel>
@@ -195,8 +195,12 @@ const ComoFunciona = () => {
                 <Typography.Paragraph>A classificação dos artigos apresentada no <Typography.Text strong>InfoRadar</Typography.Text> resulta da aplicação de um classificador automático baseado em <Typography.Link href={'#artigo8'}>modelos de "contextual embeddings"</Typography.Link>, treinados com base num corpus criado para o efeito: <Typography.Link href={'#artigo3'}>MINT (Mainstream and Independent News Text)</Typography.Link>.</Typography.Paragraph>
 
                 <Typography.Title level={2}>Material de referência</Typography.Title>
-                <Typography.Title level={3} id="mint">MINT Corpus</Typography.Title>
+                <Typography.Title level={3}>Coleções</Typography.Title>
+                <Typography.Title level={4} id="mint">MINT Corpus</Typography.Title>
                 <Typography.Paragraph>O Corpus MINT é constituído por mais de 20.000 artigos, publicados entre 1 de junho de 2020 e 31 de maio de 2021, em 33 plataformas de media convencionais e blogues. Cada um dos documentos que compõem o corpus foi classificado como pertencendo a uma das cinco <Typography.Text italic>categorias de (des)informação</Typography.Text> consideradas. Disponível no <Typography.Link href={'https://github.com/dcaled/mint'}>GitHub</Typography.Link>.</Typography.Paragraph>
+
+                <Typography.Title level={4} id="clickdataset">Clickbait Dataset</Typography.Title>
+                <Typography.Paragraph>Dataset of news articles for classification into clickbait and non-clickbait. Disponível <Typography.Link href={'https://www.kaggle.com/amananandrai/clickbait-dataset'}>aqui</Typography.Link>.</Typography.Paragraph>
 
                 <Typography.Title level={3}>Publicações</Typography.Title>
                 <ul>
