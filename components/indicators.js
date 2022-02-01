@@ -39,7 +39,10 @@ export default function Indicators({ categories, indicatorsData, indicatorsInfo 
 				</Row>
 				<Row justify={'end'}>
 					<Col>
-						<Feedback categories={categories} />
+						<Feedback
+							categories={categories}
+							data={indicatorsData[indicator.id]}
+						/>
 					</Col>
 				</Row>
 			</>

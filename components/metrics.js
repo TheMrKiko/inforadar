@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Metric from './metric';
+import { getMainCategory } from '../helpers/function';
 
 import { Card, Col, Radio, Row, Select, Typography } from 'antd';
 
@@ -10,12 +11,7 @@ const Metrics = ({ categories, metricsData, metricsInfo, metricsHistogram, indic
 	const [filter, setFilter] = useState("simple")
 
 	useEffect(() => {
-		categories && indicatorsInfo && indicatorsData && setCategorySelected(categories
-			.map(category => ({
-				...indicatorsData[indicatorsInfo[0].id].categories[category.id],
-				...category
-			}))
-			.sort((a, b) => b.score - a.score)[0].id)
+		categories && indicatorsInfo && indicatorsData && setCategorySelected(getMainCategory(categories, indicatorsData[indicatorsInfo[0].id]).id)
 	}, [categories, indicatorsInfo, indicatorsData])
 
 	return (
@@ -59,8 +55,5 @@ const Metrics = ({ categories, metricsData, metricsInfo, metricsHistogram, indic
 		</Card>
 	)
 }
-
-
-
 
 export default Metrics

@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
+import { getMainCategory } from '../helpers/function';
 
 import { Button, Row, Select, Space, Typography } from 'antd';
 
-const Feedback = ({ categories }) => {
+const Feedback = ({ categories, data }) => {
+	const maxCategory = getMainCategory(categories, data)
+	const filteredCategories = categories && categories.filter(c => c.id != maxCategory.id)
+
 	const [feedback, setFeedback] = useState()
 	const [feedbackSuggested, setFeedbackSuggested] = useState(false)
-	const [suggestionSelected, setSuggestionSelected] = useState(categories && categories[0].id)
+	const [suggestionSelected, setSuggestionSelected] = useState(categories && filteredCategories[0].id)
 	const isFeedbackGiven = () => feedback == "agree" || (feedback == "disagree" && feedbackSuggested)
+
 	return !isFeedbackGiven() ? (
 		feedback != "disagree" ? (
 			<Row>
@@ -26,7 +31,7 @@ const Feedback = ({ categories }) => {
 						onChange={setSuggestionSelected}
 					>
 						{
-							categories && categories.map(cat => (
+							filteredCategories && filteredCategories.map(cat => (
 								<Select.Option key={cat.id} value={cat.id}>{cat.display_name}</Select.Option>
 							))
 						}

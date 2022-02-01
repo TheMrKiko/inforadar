@@ -1,5 +1,6 @@
 import React from 'react';
 import { colorScaleClass, colorScaleType } from '../helpers/color';
+import { getMainCategory } from '../helpers/function';
 import { levelLabels } from '../helpers/label';
 
 import { Card, Col, Space, Row, Select, Typography } from 'antd';
@@ -17,12 +18,7 @@ function listFormat(list, oxfordcomma = false) {
 }
 
 const summaryBuilder = (categories, matrixRules, indicatorsData, indicatorsInfo, metricsData, metricsInfo) => {
-	const maxCategory = categories
-		.map(category => ({
-			...indicatorsData[indicatorsInfo[0].id].categories[category.id],
-			...category
-		}))
-		.sort((a, b) => b.score - a.score)[0];
+	const maxCategory = getMainCategory(categories, indicatorsData[indicatorsInfo[0].id]);
 	const maxLevel = Math.trunc(maxCategory.score * 4);
 	const Headline = (
 		<Typography.Text>A análise do artigo evidencia uma probabilidade {levelLabels[maxLevel].slice(0, -1)}a de corresponder a um artigo de <Typography.Text strong>{maxCategory.display_name.toLowerCase()}</Typography.Text>. </Typography.Text>
