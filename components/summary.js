@@ -1,10 +1,11 @@
-import React from 'react'
-import { colorScaleClass, colorScaleType } from "../helpers/color";
-import { Card, Col, Space, Row, Select, Typography } from 'antd'
-import { InfoCircleOutlined } from '@ant-design/icons'
+import React from 'react';
+import { colorScaleClass, colorScaleType } from '../helpers/color';
 
-import styles from '../styles/Home.module.css'
-import utilStyles from '../styles/utils.module.css'
+import { Card, Col, Space, Row, Select, Typography } from 'antd';
+import { InfoCircleOutlined } from '@ant-design/icons';
+
+import styles from '../styles/Home.module.css';
+import utilStyles from '../styles/utils.module.css';
 
 const levelLabels = {
 	0: 'baixo',

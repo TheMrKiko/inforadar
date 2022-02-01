@@ -1,12 +1,11 @@
-import React from "react";
+import React from 'react';
+import { colorScaleClass, colorScaleType } from '../helpers/color';
 
-import { colorScaleClass, colorScaleType } from "../helpers/color";
-
-import { Group } from "@visx/group";
-import { scaleLinear } from "@visx/scale";
-import { Point } from "@visx/point";
-import { Line, Circle } from "@visx/shape";
-import { Text } from "@visx/text";
+import { Group } from '@visx/group';
+import { Point } from '@visx/point';
+import { scaleLinear } from '@visx/scale';
+import { Circle, Line } from '@visx/shape';
+import { Text } from '@visx/text';
 
 const pumpkin = "#CC333F";
 const silver = "#8C8C8C";
@@ -46,7 +45,7 @@ function genDataPoints(data, scale, getValue) {
 
 const defaultMargin = { top: 40, left: 85, right: 85, bottom: 40 };
 
-export default function Example({ width, height, margin = defaultMargin, categories, info, data }) {
+const Radar = ({ width, height, margin = defaultMargin, categories, info, data }) => {
 	const levels = 4;
 	const zeroPoint = new Point({ x: 0, y: 0 });
 
@@ -150,3 +149,5 @@ export default function Example({ width, height, margin = defaultMargin, categor
 		</svg >
 	);
 }
+
+export default Radar
