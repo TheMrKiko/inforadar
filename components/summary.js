@@ -1,19 +1,12 @@
 import React from 'react';
 import { colorScaleClass, colorScaleType } from '../helpers/color';
+import { levelLabels } from '../helpers/label';
 
 import { Card, Col, Space, Row, Select, Typography } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 
 import styles from '../styles/Home.module.css';
 import utilStyles from '../styles/utils.module.css';
-
-const levelLabels = {
-	0: 'baixo',
-	1: 'médio-baixo',
-	2: 'médio-alto',
-	3: 'alto',
-	4: 'exato',
-}
 
 function listFormat(list, oxfordcomma = false) {
 	if (list.length == 1)

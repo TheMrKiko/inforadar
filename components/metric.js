@@ -2,19 +2,12 @@ import React from 'react';
 import Histogram from './histogram';
 import QuartileBar from './quartilebar';
 import { colorScaleClass } from '../helpers/color';
+import { levelLabels } from '../helpers/label';
 
 import { Card, Space, Typography } from 'antd';
 import ParentSize from '@visx/responsive/lib/components/ParentSize';
 
 import styles from '../styles/Home.module.css';
-
-const levelLabels = {
-	0: 'baixo',
-	1: 'médio-baixo',
-	2: 'médio-alto',
-	3: 'alto',
-	4: 'exato',
-}
 
 const Metric = ({ filter, category, categories, info, data, histogram }) => {
 	const level = Math.trunc((data.percentiles.categories[category] / 100) * 4) // TODO remove hardcoded

@@ -1,17 +1,11 @@
 import React from 'react';
 import { colorScaleClass } from '../helpers/color';
+import { levelLabels } from '../helpers/label';
 
 import { Collapse, Space, Typography } from 'antd';
 
 import utilStyles from '../styles/utils.module.css';
 
-const levelLabels = {
-	0: 'baixo',
-	1: 'médio-baixo',
-	2: 'médio-alto',
-	3: 'alto',
-	4: 'exato',
-}
 
 const RadarLegend = ({ categories, info, data }) => (
 	<Collapse

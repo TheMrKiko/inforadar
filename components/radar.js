@@ -1,5 +1,6 @@
 import React from 'react';
 import { colorScaleClass, colorScaleType } from '../helpers/color';
+import { levelLabels } from '../helpers/label';
 
 import { Group } from '@visx/group';
 import { Point } from '@visx/point';
@@ -9,13 +10,6 @@ import { Text } from '@visx/text';
 
 const pumpkin = "#CC333F";
 const silver = "#8C8C8C";
-const levelLabels = {
-	0: 'baixo',
-	1: 'médio-baixo',
-	2: 'médio-alto',
-	3: 'alto',
-	4: 'exato',
-}
 
 const genEdgePoints = (axes, radius) => {
 	const step = (Math.PI * 2) / axes.length;
