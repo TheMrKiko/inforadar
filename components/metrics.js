@@ -34,7 +34,7 @@ const Metrics = ({ categories, metricsData, metricsInfo, metricsHistogram, indic
 			}
 			extra={<Radio.Group defaultValue="simple" onChange={(a) => setFilter(a.target.value)}>
 				<Radio.Button value="simple">Simples</Radio.Button>
-				<Radio.Button value="details">Completo</Radio.Button>
+				<Radio.Button value="details">Detalhado</Radio.Button>
 			</Radio.Group>}
 			loading={!metricsData}
 		>
