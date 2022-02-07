@@ -95,7 +95,7 @@ const ComoFunciona = () => {
                 <Typography.Paragraph>O leitor poderá submeter diretamente o artigo para avaliação, colando o URL do artigo ou, alternativamente, o texto que pretende analisar na janela à esquerda do <Typography.Text strong>InfoRadar</Typography.Text>.</Typography.Paragraph>
                 <Typography.Paragraph><Typography.Text italic>[inserir imagem]</Typography.Text></Typography.Paragraph>
 
-                <Typography.Paragraph>O <Typography.Text strong>InfoRadar</Typography.Text> analisa o artigo em duas dimensões distintas, mas complementares: classificação do artigo quanto à sua <Typography.Text italic><Typography.Link href={'#categorias'}>categoria de (des)informação</Typography.Link></Typography.Text> e apresentação de um conjunto de <Typography.Text italic><Typography.Link href={'#metricas'}>métricas explicativas</Typography.Link></Typography.Text> que procuram auxiliar o leitor a avaliar o seu conteúdo.</Typography.Paragraph>
+                <Typography.Paragraph>O <Typography.Text strong>InfoRadar</Typography.Text> produz uma ficha com <Typography.Text strong>Informação Nutricional</Typography.Text>, analisando o artigo em duas dimensões distintas, mas complementares: classificação do artigo quanto à sua <Typography.Text italic><Typography.Link href={'#categorias'}>categoria de (des)informação</Typography.Link></Typography.Text> e apresentação de um conjunto de <Typography.Text italic><Typography.Link href={'#metricas'}>métricas explicativas</Typography.Link></Typography.Text> que procuram auxiliar o leitor a avaliar o seu conteúdo.</Typography.Paragraph>
                 <Typography.Paragraph><Typography.Text italic>[inserir imagem]</Typography.Text></Typography.Paragraph>
 
                 <Typography.Title id="categorias" level={2}>Categorias de (des)informação</Typography.Title>
@@ -109,7 +109,7 @@ const ComoFunciona = () => {
                         <li>alto</li>
                     </ol>
 
-                    que representam a probabilidade de este corresponder a uma das seguintes <Typography.Text italic>categorias de (des)informação</Typography.Text>:
+                    que representam uma classe de probabilidade de este corresponder a uma das seguintes <Typography.Text italic>categorias de (des)informação</Typography.Text>:
                     <Collapse ghost>
                         <Collapse.Panel header={<Typography.Text strong>Notícia</Typography.Text>} key="noticia">
                             <Typography.Paragraph>
@@ -169,7 +169,7 @@ const ComoFunciona = () => {
                                 Contrariamente às notícias convencionais, onde é requerida a utilização de um tom neutro e objetivo, em artigos de outra natureza (por exemplo, em artigos de opinião), é comum o emprego de palavras e expressões com carga emocional (ou sentimento), procurando provocar uma reação junto dos leitores.
                             </Typography.Paragraph>
                             <Typography.Paragraph>
-                                O sentimento é avaliado com base em contagem de ocorrências lexicais que têm associada informação acerca da polaridade ou intensidade do sentimento. Para tal, foram utilizados como referência o <Typography.Link href={'#artigo4'}>SentiLex</Typography.Link>, um léxico de palavras de sentimento desenvolvidos para o Português.
+                                O sentimento é avaliado com base em contagem de ocorrências lexicais que têm associada informação acerca da polaridade ou intensidade do sentimento. Para tal, foram utilizados como referência o <Typography.Link href={'#artigo4'}>SentiLex</Typography.Link>, um léxico de palavras de sentimento desenvolvidos para o português.
                             </Typography.Paragraph>
                             {HistogramBlock(categories, 1, metricsHistogram)}
                         </Collapse.Panel>
@@ -178,7 +178,7 @@ const ComoFunciona = () => {
                                 Contrariamente às notícias convencionais, onde é requerida a utilização de um tom neutro e objetivo, em artigos de outra natureza (por exemplo, em artigos de opinião), é comum o emprego de uma maior subjetividade, no sentido em que o autor procura exprimir as suas próprias opiniões e pontos de vista, procurando provocar uma reação junto dos leitores.
                             </Typography.Paragraph>
                             <Typography.Paragraph>
-                                A subjetividade é avaliada também a partir de contagem lexical, considerando termos presentes no <Typography.Link href={'#artigo5'}>Subjectivity Lexicon</Typography.Link>. Como este léxico foi desenvolvido para a língua inglesa, geramos uma tradução do mesmo para o português através de tradução automática.
+                                A subjetividade é avaliada também a partir de contagem lexical, considerando termos presentes no <Typography.Link href={'#artigo5'}>Subjectivity Lexicon</Typography.Link>. Como este léxico foi desenvolvido para a língua inglesa, geramos uma tradução do mesmo para o português por aplicação de algoritmos/métodos de tradução automática.
                             </Typography.Paragraph>
                             {HistogramBlock(categories, 2, metricsHistogram)}
                         </Collapse.Panel>
@@ -196,7 +196,7 @@ const ComoFunciona = () => {
                                 O jornalismo de natureza sensacionalista ou viral recorre frequentemente a táticas ou estratégias de clickbait (ou caça ao clique) para levar o leitor a clicar num determinado tipo de conteúdo, geralmente não credível.
                             </Typography.Paragraph>
                             <Typography.Paragraph>
-                                Estas estratégias são genericamente englobadas na categoria sensacionalismo, que é avaliada com base em um algoritmo de Regressão Logística, treinado num <Typography.Link href={'#clickdataset'}>corpus</Typography.Link> traduzido para o Português e atualizado com notícias extraídas do corpus MINT.
+                                Estas estratégias são genericamente englobadas na categoria sensacionalismo, que é avaliada com base em um algoritmo de Regressão Logística, treinado num <Typography.Link href={'#clickdataset'}>corpus</Typography.Link> original em inglês, que foi traduzido para o português e atualizado com notícias extraídas do corpus MINT.
                             </Typography.Paragraph>
                             {HistogramBlock(categories, 4, metricsHistogram)}
                         </Collapse.Panel>
