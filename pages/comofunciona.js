@@ -44,28 +44,30 @@ const ComoFunciona = () => {
         }).catch(error => setError(new Error(error)));
     }, []);
 
+    const SciNotation = (n) => n < 10e-6 ? " < 10e-6" : ` = ${n.toExponential(2)}`
+
     const HistogramBlock = (categories, metricid, metricsHistogram) => {
         const [filter, setFilter] = useState("notcumulative")
         return <Space direction={'vertical'} className={utilStyles.width100}>
             <Space direction={'horizontal'}>
                 <Typography.Text type={'secondary'}>Tipo de histograma</Typography.Text>
                 <Radio.Group value={filter} onChange={(a) => setFilter(a.target.value)}>
-                    <Radio.Button value="notcumulative">Não cumulativo</Radio.Button>
+                    <Radio.Button value="notcumulative">Probabilidade</Radio.Button>
                     <Radio.Button value="cumulative">Cumulativo</Radio.Button>
                 </Radio.Group>
             </Space>
             <Row>
                 {categories && categories.map(c => (
                     <Col span={8}>
-                        <Typography.Title level={5}>Face à coleção de {c.display_name}</Typography.Title>
+                        <Typography.Title level={5}>Distribuição da coleção de {c.display_name}</Typography.Title>
                         <Histogram histogram={metricsHistogram && metricsHistogram[metricid]} category={c.id} type={filter} />
                         <Typography.Paragraph>
-                            <Typography.Text type={'secondary'}>Este histograma representa a distribuição dos scores da métrica pela coleção de {c.display_name.toLowerCase()} relativamente às restantes.</Typography.Text>
+                            <Typography.Text type={'secondary'}>Este histograma representa a distribuição das pontuações da métrica pela coleção de {c.display_name.toLowerCase()} relativamente às restantes.</Typography.Text>
                         </Typography.Paragraph>
                         {
                             metricsHistogram && metricsHistogram[metricid] &&
                             <Typography.Paragraph>
-                                O <Typography.Link href={'https://pt.wikipedia.org/wiki/Teste_Kolmogorov-Smirnov'}>teste de Kolmogorov-Smirnov</Typography.Link> aplicado a esta coleção face às restantes tem como resultado a estatística K-S = {Math.round(metricsHistogram[metricid].categories[c.id].ks_2samp.stat * 1000) / 1000} (p={Math.round(metricsHistogram[metricid].categories[c.id].ks_2samp.p * 10000) / 10000}).
+                                O <Typography.Link href={'https://pt.wikipedia.org/wiki/Teste_Kolmogorov-Smirnov'}>teste de Kolmogorov-Smirnov</Typography.Link> aplicado a esta coleção face às restantes tem como resultado a estatística K-S = {Math.round(metricsHistogram[metricid].categories[c.id].ks_2samp.stat * 1000) / 1000} (<Typography.Text italic>P</Typography.Text>{SciNotation(metricsHistogram[metricid].categories[c.id].ks_2samp.p)}).
                             </Typography.Paragraph>
                         }
                     </Col>
