@@ -34,27 +34,30 @@ const summaryBuilder = (categories, matrixRules, indicatorsData, indicatorsInfo,
 	const { pros, cons } = metricsInfo.reduce((prev, metric) => {
 		const percentil = metricsData[metric.id].percentiles.categories[maxCategory.id];
 		const level = Math.trunc((percentil / 100) * 4);
-		const boundaries = matrixRules.categories[maxCategory.id].metrics[metric.id];
-		if (!boundaries.min && !boundaries.max)
+		const inBoundaries = matrixRules.categories[maxCategory.id].metrics[metric.id].in;
+		const outBoundaries = matrixRules.categories[maxCategory.id].metrics[metric.id].out;
+		if (!inBoundaries.min && !inBoundaries.max)
 			return prev;
 
 		if (percentil == undefined)
 			return prev;
 
-		return (percentil >= boundaries.min && percentil <= boundaries.max) ?
+		return (percentil >= inBoundaries.min && percentil <= inBoundaries.max) ?
 			{
 				...prev,
 				pros: {
 					...prev.pros,
 					[level]: [...(prev.pros[level] ?? []), <Typography.Text strong>{metric.display_name.toLowerCase()}</Typography.Text>]
 				}
-			} : {
+			} : ((percentil >= outBoundaries.min && percentil <= outBoundaries.max) ? {
 				...prev,
 				cons: {
 					...prev.cons,
 					[level]: [...(prev.cons[level] ?? []), <Typography.Text strong>{metric.display_name.toLowerCase()}</Typography.Text>]
 				}
-			}
+			} : {
+				...prev
+			})
 	}, { pros: {}, cons: {} })
 
 	return (
