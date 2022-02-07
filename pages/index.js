@@ -53,15 +53,22 @@ export default function Home() {
                 </HomeBlock>
                 <HomeBlock className={styles.browserblock} span={12}>
                     <Space direction={'vertical'} size={'large'}>
-                        <Typography.Title level={2}>
-                            Ajudamos a analisar os sites que visita
-                        </Typography.Title>
-                        <Button
-                            shape={'round'}
-                            size={'large'}
-                        >
-                            Obter extensão para browser
-                        </Button>
+                        <div>
+                            <Typography.Title level={2}>
+                                Ajudamos a analisar os sites que visita
+                            </Typography.Title>
+                            <Typography.Paragraph mark>
+                                A extensão do InfoRadar agiliza a análise de artigos durante a navegação web, providenciando um atalho para a nossa plataforma.
+                            </Typography.Paragraph>
+                        </div>
+                        <Link href={'https://chrome.google.com/webstore/detail/inforadar/hbgghmlepngdalgcnhggaobapcgblikd'}>
+                            <Button
+                                shape={'round'}
+                                size={'large'}
+                            >
+                                Obter extensão para browser
+                            </Button>
+                        </Link>
                     </Space>
                 </HomeBlock>
                 <HomeBlock span={18} className={utilStyles.width100}>
