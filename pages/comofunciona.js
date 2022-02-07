@@ -36,7 +36,7 @@ const ComoFunciona = () => {
                 headers: { 'content-type': 'application/json' },
                 data: {
                     'metrics': result.data.map(i => i.id),
-                    'settings': { graphs: ['notcumulative', 'cumulative'], legend: true },
+                    'settings': { graphs: ['notcumulative', 'cumulative', 'count'], legend: true },
                 }
             }).then(result => {
                 setMetricsHistogram(result.data)
@@ -47,11 +47,12 @@ const ComoFunciona = () => {
     const SciNotation = (n) => n < 10e-6 ? " < 10e-6" : ` = ${n.toExponential(2)}`
 
     const HistogramBlock = (categories, metricid, metricsHistogram) => {
-        const [filter, setFilter] = useState("notcumulative")
+        const [filter, setFilter] = useState("count")
         return <Space direction={'vertical'} className={utilStyles.width100}>
             <Space direction={'horizontal'}>
                 <Typography.Text type={'secondary'}>Tipo de histograma</Typography.Text>
                 <Radio.Group value={filter} onChange={(a) => setFilter(a.target.value)}>
+                    <Radio.Button value="count">Contagem</Radio.Button>
                     <Radio.Button value="notcumulative">Probabilidade</Radio.Button>
                     <Radio.Button value="cumulative">Cumulativo</Radio.Button>
                 </Radio.Group>
