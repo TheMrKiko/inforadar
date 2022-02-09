@@ -4,7 +4,7 @@ import Histogram from '../components/histogram'
 import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../components/layout'
-import { Layout as AntLayout, Input, Space, Row, Radio, Col, Typography, Button, Collapse } from 'antd'
+import { Layout as AntLayout, Input, Space, Row, Radio, Col, Table, Typography, Button, Collapse } from 'antd'
 import axios from 'axios'
 import utilStyles from '../styles/utils.module.css'
 
@@ -77,6 +77,61 @@ const ComoFunciona = () => {
         </Space>
     }
 
+    const dataSource = [
+        {
+            key: 'factual',
+            category: 'Notícia',
+            articles: 6000,
+            sources: 9,
+        },
+        {
+            key: 'opinion',
+            category: '(Artigo de) Opinião',
+            articles: 6000,
+            sources: 10,
+        },
+        {
+            key: 'entertainment',
+            category: '(Artigo de) Entretenimento',
+            articles: 6000,
+            sources: 6,
+        },
+        {
+            key: 'satire',
+            category: 'Sátira',
+            articles: 1029,
+            sources: 2,
+        },
+        {
+            key: 'conspiracy',
+            category: '(Teoria da) Conspiração',
+            articles: 1249,
+            sources: 6,
+        },
+    ];
+
+    const columns = [
+        {
+            title: 'Categoria',
+            dataIndex: 'category',
+            key: 'category',
+            width: 250,
+        },
+        {
+            title: 'Nº Artigos',
+            dataIndex: 'articles',
+            key: 'articles',
+            width: 150,
+
+        },
+        {
+            title: 'Nº Fontes',
+            dataIndex: 'sources',
+            key: 'sources',
+            width: 150,
+        },
+    ];
+
     return (
         <Layout current={'comofunciona'}>
             <Head>
@@ -87,7 +142,7 @@ const ComoFunciona = () => {
 
                 <Typography.Paragraph>O <Typography.Text strong>InfoRadar</Typography.Text> fornece aos leitores um conjunto de informação importante para aferir a credibilidade do conteúdo textual que pretendem consumir e/ou partilhar.</Typography.Paragraph>
 
-                <Typography.Paragraph>Para cada artigo apresentado, o <Typography.Text strong>InfoRadar</Typography.Text> estima o grau de probabilidade de o mesmo pertencer a cada uma das <Typography.Text italic><Typography.Link href={'#categorias'}>categorias de (des)informação</Typography.Link></Typography.Text> consideradas neste projeto.</Typography.Paragraph>
+                <Typography.Paragraph>Para cada artigo apresentado, o <Typography.Text strong>InfoRadar</Typography.Text> estima o grau de probabilidade de o mesmo pertencer a cada uma das <Typography.Text italic><Typography.Link href={'#categorias'}>categorias de (des)informação</Typography.Link></Typography.Text> consideradas neste projeto, sendo o resultado da aplicação de um classificador automático baseado em <Typography.Link href={'#artigo8'}>modelos de "contextual embeddings"</Typography.Link>, treinados com base num <Typography.Link href={'#mint'}>corpus</Typography.Link> criado para o efeito.</Typography.Paragraph>
 
                 <Typography.Paragraph>Além disso, o <Typography.Text strong>InfoRadar</Typography.Text> apresenta um conjunto de <Typography.Text italic><Typography.Link href={'#metricas'}>métricas explicativas</Typography.Link></Typography.Text> (ou indicadores) que poderão auxiliar o leitor a aferir a credibilidade do artigo em análise. Os valores de cada uma destas <Typography.Text italic>métricas explicativas</Typography.Text> correspondem aos percentis obtidos para cada artigo face aos valores apresentados para os 5 subconjuntos que representam as diferentes <Typography.Text italic>categorias de (des)informação</Typography.Text> incluídas na nossa <Typography.Link href={'#mint'}>coleção de referência</Typography.Link>. Esses valores devem ser interpretados em função da categoria envolvida.
                 </Typography.Paragraph>
@@ -213,13 +268,35 @@ const ComoFunciona = () => {
                     </Collapse>
                 </Typography.Paragraph>
 
-                <Typography.Title level={2}>Classificadores</Typography.Title>
-                <Typography.Paragraph>A classificação dos artigos apresentada no <Typography.Text strong>InfoRadar</Typography.Text> resulta da aplicação de um classificador automático baseado em <Typography.Link href={'#artigo8'}>modelos de "contextual embeddings"</Typography.Link>, treinados com base num corpus criado para o efeito: <Typography.Link href={'#artigo3'}>MINT (Mainstream and Independent News Text)</Typography.Link>.</Typography.Paragraph>
-
                 <Typography.Title level={2}>Material de referência</Typography.Title>
                 <Typography.Title level={3}>Coleções</Typography.Title>
                 <Typography.Title level={4} id="mint">MINT Corpus</Typography.Title>
-                <Typography.Paragraph>O Corpus MINT é constituído por mais de 20.000 artigos, publicados entre 1 de junho de 2020 e 31 de maio de 2021, em 33 plataformas de media convencionais e blogues. Cada um dos documentos que compõem o corpus foi classificado como pertencendo a uma das cinco <Typography.Text italic>categorias de (des)informação</Typography.Text> consideradas. Disponível no <Typography.Link href={'https://github.com/dcaled/mint'}>GitHub</Typography.Link>.</Typography.Paragraph>
+                <Typography.Paragraph>O Corpus <Typography.Link href={'#artigo3'}>MINT (Mainstream and Independent News Text)</Typography.Link> é constituído por mais de 20.000 artigos, publicados entre 1 de junho de 2020 e 31 de maio de 2021, em 33 plataformas de media convencionais e blogues. Cada um dos documentos que compõem o corpus foi classificado como pertencendo a uma das cinco <Typography.Text italic>categorias de (des)informação</Typography.Text> consideradas. Disponível no <Typography.Link href={'https://github.com/dcaled/mint'}>GitHub</Typography.Link>.</Typography.Paragraph>
+
+                <Typography.Paragraph>
+                    <Space>
+                        <Table
+                            pagination={false}
+                            size={'medium'}
+                            dataSource={dataSource}
+                            columns={columns}
+                            bordered
+                            summary={pageData => {
+                                const [tarticles, tsources] = pageData.reduce((sum, curr) => [sum[0] + curr.articles, sum[1] + curr.sources], [0, 0]);
+
+                                return (
+                                    <Table.Summary>
+                                        <Table.Summary.Row style={{ background: '#fafafa' }}>
+                                            <Table.Summary.Cell>Total</Table.Summary.Cell>
+                                            <Table.Summary.Cell>{tarticles}</Table.Summary.Cell>
+                                            <Table.Summary.Cell>{tsources}</Table.Summary.Cell>
+                                        </Table.Summary.Row>
+                                    </Table.Summary>
+                                )
+                            }}
+                        />
+                    </Space>
+                </Typography.Paragraph>
 
                 <Typography.Title level={4} id="clickdataset">Clickbait Dataset</Typography.Title>
                 <Typography.Paragraph>Dataset of news articles for classification into clickbait and non-clickbait. Disponível <Typography.Link href={'https://www.kaggle.com/amananandrai/clickbait-dataset'}>aqui</Typography.Link>.</Typography.Paragraph>
