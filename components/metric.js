@@ -4,8 +4,9 @@ import QuartileBar from './quartilebar';
 import { colorScaleClass } from '../helpers/color';
 import { levelLabels } from '../helpers/label';
 
-import { Card, Space, Typography } from 'antd';
+import { Card, Divider, Space, Typography } from 'antd';
 import ParentSize from '@visx/responsive/lib/components/ParentSize';
+import { Collapse } from 'react-collapse';
 
 import styles from '../styles/Home.module.css';
 
@@ -30,9 +31,9 @@ const Metric = ({ filter, category, categories, info, data, histogram }) => {
 				/>
 			)}</ParentSize>
 			<Typography.Text>{info.description}</Typography.Text>
-			{filter == "details" && (
+			<Collapse isOpened={filter == "details"}>
 				<>
-					<Typography.Title level={5}>Detalhes</Typography.Title>
+					<Divider plain><Typography.Text strong>Detalhes</Typography.Text></Divider>
 					<Space direction={'vertical'}>
 						<Typography.Text>
 							O artigo tem uma {isPercentage ? "percentagem" : "pontuação"} de {Math.round(data.score * 1000) / (isPercentage ? 10 : 1000)}{isPercentage && "%"} de {info.display_name.toLowerCase()}, o que representa um valor {label} face à coleção de {categories.find(c => c.id == category).display_name.toLowerCase()}.
@@ -44,7 +45,7 @@ const Metric = ({ filter, category, categories, info, data, histogram }) => {
 						</Typography.Text>
 					</Space>
 				</>
-			)}
+			</Collapse>
 		</Card>
 	)
 }
