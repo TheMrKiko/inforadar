@@ -40,19 +40,33 @@ const Feedback = ({ article, categories, info, data }) => {
 			setStatus(fb_stts.THANKS);
 			setFeedback({
 				category: suggestedCategory,
-				id: result.data,
+				id: result.data.id,
+				auth: result.data.auth,
 			})
 		}).catch(error => {
-			setError(new Error(error))
-			setStatus(fb_stts.ERROR)
+			setError(new Error(error));
+			setStatus(fb_stts.ERROR);
 		});
 
 		setStatus(fb_stts.SENDING);
 	}
 
 	const cancelFeedback = () => {
-		setStatus(feedback.category == maxCategory.id ? fb_stts.INITIAL : fb_stts.SUGGESTING)
-		setFeedback({})
+		axios({
+			method: 'post',
+			url: `${API_PATH}/delete_feedback`,
+			headers: { 'content-type': 'application/json' },
+			data: {
+				'id': feedback.id,
+				'auth': feedback.auth,
+			}
+		}).then(result => {
+			setStatus(feedback.category == maxCategory.id ? fb_stts.INITIAL : fb_stts.SUGGESTING);
+			setFeedback({});
+		}).catch(error => {
+			setError(new Error(error));
+			setStatus(fb_stts.ERROR);
+		});
 	}
 
 	return <>
