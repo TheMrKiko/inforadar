@@ -531,6 +531,7 @@ class ArticleAnalysis extends React.Component {
 													metricsInfo={this.state.metricsInfo}
 												/>
 												<Indicators
+													article={this.state.article}
 													categories={this.state.categories}
 													indicatorsData={this.state.indicatorsData}
 													indicatorsInfo={this.state.indicatorsInfo}
