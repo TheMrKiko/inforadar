@@ -6,9 +6,20 @@ import { Layout, Row, Col, Space, Typography } from 'antd'
 import styles from './footer.module.css'
 import utilStyles from '../styles/utils.module.css'
 
-export default function Footer() {
+export default function Footer({ login }) {
 	return (
 		<Layout.Footer className={styles.antfooter}>
+			<Row justify={'center'}>
+				<Col>
+					<Typography.Paragraph>
+						{login && login.authenticated && login.userData && (
+							<Typography.Text className={utilStyles.whiteText}>Registado como {login.userData.name}
+								<Typography.Link onClick={login.logout}> (Sair)</Typography.Link>
+							</Typography.Text>
+						)}
+					</Typography.Paragraph>
+				</Col>
+			</Row>
 			<Row justify={'center'}>
 				<Col>
 					<Typography.Paragraph>
