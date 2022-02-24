@@ -26,7 +26,7 @@ class LoginOptions extends React.Component {
         // Redirect if authentication is done:
         if (this.props.login.authenticated)
             this.props.router.push({
-                pathname: '/'
+                pathname: '/avaliacao'
             })
     }
 
