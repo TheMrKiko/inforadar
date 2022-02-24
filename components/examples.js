@@ -36,8 +36,8 @@ class Examples extends React.Component {
 	render() {
 		return (
 			<Row justify={"space-between"} gutter={[0, 20]}>
-				{this.state.examples.map(e => (
-					<Col md={7} sm={11} span={24}>
+				{this.state.examples.map((e, i) => (
+					<Col md={7} sm={11} span={24} key={i}>
 						<Link
 							href={{
 								query: { 'url': e && e.url }
