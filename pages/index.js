@@ -22,9 +22,9 @@ function HomeBlock({ children, className, span }) {
     )
 }
 
-export default function Home() {
+export default function Home({ login }) {
     return (
-        <Layout current={'index'}>
+        <Layout current={'index'} login={login}>
             <Head>
                 <title>InfoRadar</title>
             </Head>
