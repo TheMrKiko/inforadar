@@ -61,7 +61,7 @@ const ComoFunciona = () => {
             <Row>
                 {categories && categories.map(c => (
                     <Col xs={24} md={12} lg={8} xxl={4}>
-                        <Typography.Title level={5}>Distribuição da coleção de {c.display_name}</Typography.Title>
+                        <Typography.Title level={5}>Distribuição da coleção {c.display_name}</Typography.Title>
                         <Histogram histogram={metricsHistogram && metricsHistogram[metricid]} category={c.id} type={filter} />
                         <Typography.Paragraph>
                             <Typography.Text type={'secondary'}>Este histograma representa a distribuição das pontuações da métrica pela coleção de {c.display_name.toLowerCase()} relativamente às restantes.</Typography.Text>
