@@ -9,13 +9,12 @@ const Login = ({ login }) => {
     return (
         <Layout current={'login'} login={login}>
             <Head>
-                <title>Login | InfoRadar</title>
+                <title>Iniciar Sessão | InfoRadar</title>
             </Head>
             <AntLayout.Content className={utilStyles.container}>
-                <Typography.Title level={1}>Login</Typography.Title>
-
+                <Typography.Title level={1}>Iniciar Sessão</Typography.Title>
+                <Typography.Paragraph>Não associamos o seu endereço de email aos registos.</Typography.Paragraph>
                 <LoginOptions login={login} />
-
             </AntLayout.Content>
         </Layout>
     )
