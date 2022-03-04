@@ -119,10 +119,10 @@ const SocioDemForm = () => {
 			</Form.Item>
 			<Form.Item {...tailLayout}>
 				<Button type={'primary'} htmlType={'submit'}>
-					Submit
+					Submeter
 				</Button>
 				<Button htmlType={'reset'} onClick={onReset}>
-					Reset
+					Limpar
 				</Button>
 			</Form.Item>
 		</Form>
