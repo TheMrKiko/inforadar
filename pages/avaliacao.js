@@ -4,6 +4,7 @@ import Layout from '../components/layout'
 import { Alert, Layout as AntLayout, Input, Space, Row, Col, Typography, Button } from 'antd'
 import utilStyles from '../styles/utils.module.css'
 import LoginOptions from '../components/login'
+import SocioDemForm from '../components/sdform'
 
 const Avaliacao = ({ login }) => {
     return (
@@ -25,6 +26,7 @@ const Avaliacao = ({ login }) => {
                             showIcon
                             action={<Button size={'middle'}>Preencher</Button>}
                         />
+                        <SocioDemForm />
                     </Typography.Paragraph>
                     <Typography.Title level={2}>Avaliar o InfoRadar</Typography.Title>
                     <Typography.Paragraph>Vamos pedir que leia um artigo e a sua análise pelo InfoRadar e, de seguida responda a algumas perguntas sobre a Informação Nutricional desse artigo. Isto irá demorar no máximo 5 minutos.</Typography.Paragraph>
