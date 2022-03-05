@@ -1,20 +1,9 @@
-import React from 'react'
-import Image from 'next/image'
-import { withRouter } from 'next/router'
-import Indicators from './indicators'
-import Metrics from './metrics'
-import Summary from './summary'
-import SearchBar from './searchbar'
-import Query from '../helpers/query'
-import { Error, textSizeValidation } from '../helpers/error'
-import cn from 'classnames'
-import { Card, Col, Collapse, Row, Space, Typography } from 'antd'
-import { CheckCircleFilled, LeftCircleOutlined, ExclamationCircleFilled } from '@ant-design/icons'
-import axios from 'axios'
-import { CSSTransition, SwitchTransition, Transition } from 'react-transition-group'
-
-import styles from '../styles/Home.module.css'
-import utilStyles from '../styles/utils.module.css'
+import React from 'react';
+import { withRouter } from 'next/router';
+import { Query, md } from '../helpers/query';
+import { compose } from '../helpers/function';
+import { Error, textSizeValidation } from '../helpers/error';
+import axios from 'axios';
 
 const { API_PATH } = process.env
 
@@ -29,12 +18,7 @@ const stts = {
 	DONE: 6,
 }
 
-const md = {
-	URL: 0,
-	TEXT: 1,
-}
-
-class ArticleAnalysis extends React.Component {
+const withArticle = (BaseComponent) => class extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -344,217 +328,23 @@ class ArticleAnalysis extends React.Component {
 	}
 
 	render() {
-		const transitionSpanLeft = {
-			entering: {
-				span: 24,
-				sm: { span: 8 }
-			},
-			entered: {
-				span: 24,
-				sm: { span: 8 }
-			},
-			exiting: {
-				span: 24,
-				sm: { span: 12 }
-			},
-			exited: {
-				span: 24,
-				sm: { span: 12 }
-			},
-		}
-
-		const transitionSpanRight = {
-			entering: {
-				span: 24,
-				sm: { span: 16 }
-			},
-			entered: {
-				span: 24,
-				sm: { span: 16 }
-			},
-			exiting: {
-				span: 24,
-				sm: { span: 12 }
-			},
-			exited: {
-				span: 24,
-				sm: { span: 12 }
-			},
-		}
-
-		const transitionOpacity = {
-			entering: { opacity: 0 },
-			entered: { opacity: 0 },
-			exiting: { opacity: 1 },
-			exited: { opacity: 1 },
-		};
-
 		return (
-			<Transition in={this.opened()} timeout={500}>
-				{tstate => (
-					<Row>
-						<Col className={cn(styles.sidebar, utilStyles.transitionAll)} {...transitionSpanLeft[tstate]}>
-							<Row>
-								<Col offset={3} span={18}>
-									<Space direction={'vertical'} size={'large'} className={utilStyles.width100}>
-										{!this.opened() ? (
-											<Typography.Title
-												style={transitionOpacity[tstate]}
-												level={1}
-											>Que artigo quer analisar?</Typography.Title>
-										) : (
-											<Typography.Title level={3}>
-												<Space size={"middle"}>
-													<LeftCircleOutlined onClick={this.onCancelSearching} />
-													<Typography.Text>Voltar</Typography.Text>
-												</Space>
-											</Typography.Title>
-										)}
-										<SearchBar
-											onChangeMode={this.onChangeMode}
-											onSearching={this.onSearching}
-											onChangeUrl={this.onChangeUrl}
-											onChangeTitle={this.onChangeTitle}
-											onChangeBody={this.onChangeBody}
-											{...this.state}
-										/>
-										<Space direction={'vertical'} size={'small'} className={utilStyles.width100}>
-											{this.opened() && <Card
-												hoverable
-												loading={!this.state.article}
-												cover={
-													this.state.article && this.state.article.top_image &&
-													<img alt={this.state.article.headline} src={this.state.article.top_image} />
-												}
-											>
-												{this.state.article && <Card.Meta
-													className={utilStyles.whiteSpacePreLine}
-													title={
-														<Typography.Text
-															className={utilStyles.whiteSpaceNormal}
-															disabled={!this.state.article.headline}
-														>
-															{this.state.article.headline || "Texto inserido manualmente"}
-														</Typography.Text>
-													}
-													description={<Typography.Paragraph ellipsis={{
-														expandable: true,
-														rows: 3,
-														symbol: 'Ver mais',
-													}}>
-														{this.state.article.body_text.trim()}
-													</Typography.Paragraph>} />}
-											</Card>}
-											{this.opened() && this.state.article && this.state.mode == md.URL && this.state.sourceData &&
-												<Collapse
-													expandIconPosition={"right"}
-												>
-													<Collapse.Panel
-														header={
-															<Space>
-																<Typography.Text type={
-																	this.state.sourceData.id ? "success" : "warning"}
-																>
-																	{
-																		this.state.sourceData.id ?
-																			<CheckCircleFilled /> :
-																			<ExclamationCircleFilled />
-																	}
-																</Typography.Text>
-																{`Fonte ${!this.state.sourceData.id ? 'não ' : ''}registada na ERC`}
-															</Space>
-														}
-													>
-														{this.state.sourceInfo && (this.state.sourceData.id ?
-															<Space direction={'vertical'}>
-																<Typography.Text type={'secondary'}>
-																	Dados retirados do
-																	<Typography.Link href="https://www.erc.pt/pt/listagem-registos-na-erc" target="_blank"> registo oficial da ERC</Typography.Link> a {new Date(this.state.sourceData["last_update"]).toLocaleDateString()}.
-																</Typography.Text>
-																<Space direction={'vertical'} size={'small'}>
-																	{["title", "owner", "location", "municipality", "registration_date"].map(key => (
-																		this.state.sourceData[key] ?
-																			<Typography.Text>
-																				<Typography.Text strong>
-																					{this.state.sourceInfo[key]}
-																				</Typography.Text>
-																				{`: ${!key.includes('date') ? this.state.sourceData[key] : new Date(this.state.sourceData[key]).toLocaleDateString()}`}
-																			</Typography.Text>
-																			: null
-																	))}
-																</Space>
-															</Space>
-															:
-															<Typography.Text type={'secondary'}>
-																Não há <Typography.Link href="https://www.erc.pt/pt/listagem-registos-na-erc" target="_blank">registos</Typography.Link> desta publicação.
-															</Typography.Text>
-														)}
-													</Collapse.Panel>
-												</Collapse>
-											}
-
-										</Space>
-									</Space>
-								</Col>
-							</Row>
-						</Col>
-						<Col {...transitionSpanRight[tstate]}>
-							<SwitchTransition>
-								<CSSTransition
-									key={this.opened() ? 'open' : 'close'}
-									timeout={500}
-									classNames={{
-										enter: styles.fadeenter,
-										enterActive: styles.fadeactiveenter,
-										exit: styles.fadeexit,
-										exitActive: styles.fadeactiveexit,
-									}}
-								>
-									{!this.opened() ? (
-										<div className={styles.bgimage}>
-											<Image
-												priority
-												src={`${process.env.BASE_PATH}/roman-kraft.jpg`}
-												layout={'fill'}
-												objectFit={'cover'} />
-										</div>
-									) : (
-										<div className={utilStyles.justifyContentCenter}>
-											<Space direction={'vertical'} size={'large'} className={styles.reportcontainer}>
-												<Typography.Title>Informação Nutricional</Typography.Title>
-												<Summary
-													categories={this.state.categories}
-													matrixRules={this.state.matrixRules}
-													indicatorsData={this.state.indicatorsData}
-													indicatorsInfo={this.state.indicatorsInfo}
-													metricsData={this.state.metricsData}
-													metricsInfo={this.state.metricsInfo}
-												/>
-												<Indicators
-													article={this.state.article}
-													categories={this.state.categories}
-													indicatorsData={this.state.indicatorsData}
-													indicatorsInfo={this.state.indicatorsInfo}
-												/>
-												<Metrics
-													categories={this.state.categories}
-													metricsData={this.state.metricsData}
-													metricsInfo={this.state.metricsInfo}
-													metricsHistogram={this.state.metricsHistogram}
-													indicatorsData={this.state.indicatorsData}
-													indicatorsInfo={this.state.indicatorsInfo}
-												/>
-											</Space>
-										</div>
-									)}
-								</CSSTransition>
-							</SwitchTransition>
-						</Col>
-					</Row>
-				)}
-			</Transition>
+			<BaseComponent
+				{...this.props}
+				article={this.state}
+				opened={this.opened}
+				onSearching={this.onSearching}
+				onCancelSearching={this.onCancelSearching}
+				onChangeMode={this.onChangeMode}
+				onChangeUrl={this.onChangeUrl}
+				onChangeTitle={this.onChangeTitle}
+				onChangeBody={this.onChangeBody}
+			/>
 		)
 	}
 }
 
-export default withRouter(ArticleAnalysis)
+export default compose(
+	withArticle,
+	withRouter
+)

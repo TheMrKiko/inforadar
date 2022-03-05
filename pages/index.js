@@ -1,14 +1,111 @@
-import React from 'react'
-import Head from 'next/head'
-import Link from 'next/link'
-import Layout from '../components/layout'
-import ArticleAnalysis from '../components/articleanalysis'
-import Examples from '../components/examples'
-import { Button, Col, Layout as AntLayout, Row, Space, Typography } from 'antd'
-import cn from 'classnames'
+import React from 'react';
+import Head from 'next/head';
+import Image from 'next/image';
+import Link from 'next/link';
+import Layout from '../components/layout';
+import withArticle from '../components/articleanalysis';
+import Examples from '../components/examples';
+import ArticleCard from '../components/articlecard';
+import ERCLabel from '../components/erclabel';
+import NutritionalInfo from '../components/nutrinfo';
+import SearchBar from '../components/searchbar';
+import { md } from '../helpers/query';
+import { transitionOpacity, transitionSpanLeft, transitionSpanRight } from '../helpers/transition';
+import { LeftCircleOutlined } from '@ant-design/icons';
+import { Button, Col, Layout as AntLayout, Row, Space, Typography } from 'antd';
+import { CSSTransition, SwitchTransition, Transition } from 'react-transition-group';
+import cn from 'classnames';
 
-import styles from '../styles/Home.module.css'
-import utilStyles from '../styles/utils.module.css'
+import styles from '../styles/Home.module.css';
+import utilStyles from '../styles/utils.module.css';
+
+const AnalysisBlock = (props) => (
+    <Transition in={props.opened()} timeout={500}>
+        {tstate => (
+            <Row>
+                <Col className={cn(styles.sidebar, utilStyles.transitionAll)} {...transitionSpanLeft[tstate]}>
+                    <Row>
+                        <Col offset={3} span={18}>
+                            <Space direction={'vertical'} size={'large'} className={utilStyles.width100}>
+                                {!props.opened() ? (
+                                    <Typography.Title
+                                        style={transitionOpacity[tstate]}
+                                        level={1}
+                                    >Que artigo quer analisar?</Typography.Title>
+                                ) : (
+                                    <Typography.Title level={3}>
+                                        <Space size={"middle"}>
+                                            <LeftCircleOutlined onClick={props.onCancelSearching} />
+                                            <Typography.Text>Voltar</Typography.Text>
+                                        </Space>
+                                    </Typography.Title>
+                                )}
+                                <SearchBar
+                                    onChangeMode={props.onChangeMode}
+                                    onSearching={props.onSearching}
+                                    onChangeUrl={props.onChangeUrl}
+                                    onChangeTitle={props.onChangeTitle}
+                                    onChangeBody={props.onChangeBody}
+                                    {...props.article}
+                                />
+                                <Space direction={'vertical'} size={'small'} className={utilStyles.width100}>
+                                    {props.opened() &&
+                                        <ArticleCard article={props.article.article} />
+                                    }
+                                    {props.opened() && props.article.article && props.article.mode == md.URL && props.article.sourceData &&
+                                        <ERCLabel
+                                            sourceInfo={props.article.sourceInfo}
+                                            sourceData={props.article.sourceData}
+                                        />
+                                    }
+                                </Space>
+                            </Space>
+                        </Col>
+                    </Row>
+                </Col>
+                <Col {...transitionSpanRight[tstate]}>
+                    <SwitchTransition>
+                        <CSSTransition
+                            key={props.opened() ? 'open' : 'close'}
+                            timeout={500}
+                            classNames={{
+                                enter: styles.fadeenter,
+                                enterActive: styles.fadeactiveenter,
+                                exit: styles.fadeexit,
+                                exitActive: styles.fadeactiveexit,
+                            }}
+                        >
+                            {!props.opened() ? (
+                                <div className={styles.bgimage}>
+                                    <Image
+                                        priority
+                                        src={`${process.env.BASE_PATH}/roman-kraft.jpg`}
+                                        layout={'fill'}
+                                        objectFit={'cover'} />
+                                </div>
+                            ) : (
+                                <div className={utilStyles.justifyContentCenter}>
+                                    <NutritionalInfo
+                                        categories={props.article.categories}
+                                        article={props.article.article}
+                                        matrixRules={props.article.matrixRules}
+                                        indicatorsData={props.article.indicatorsData}
+                                        indicatorsInfo={props.article.indicatorsInfo}
+                                        metricsInfo={props.article.metricsInfo}
+                                        metricsData={props.article.metricsData}
+                                        metricsHistogram={props.article.metricsHistogram}
+                                    />
+                                </div>
+                            )}
+                        </CSSTransition>
+                    </SwitchTransition>
+                </Col>
+            </Row>
+        )}
+    </Transition>
+)
+
+const ArticleAnalysis = withArticle(AnalysisBlock)
 
 function HomeBlock({ children, className, span }) {
     return (

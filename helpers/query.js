@@ -1,4 +1,4 @@
-class Query {
+export class Query {
 	constructor(queryplainobj = {}) {
 		this.url = queryplainobj.url ?? undefined;
 		this.title = queryplainobj.title ?? undefined;
@@ -15,4 +15,7 @@ class Query {
 	}
 }
 
-export default Query;
+export const md = {
+	URL: 0,
+	TEXT: 1,
+}

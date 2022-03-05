@@ -6,3 +6,5 @@ export function getMainCategory(categories, indicatorData) {
 		}))
 		.sort((a, b) => b.score - a.score)[0];
 }
+
+export const compose = (...fn) => arg => fn.reduce((returned, fn) => fn(returned), arg)
