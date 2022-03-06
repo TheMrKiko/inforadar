@@ -7,12 +7,13 @@ import { Card, Col, Row } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import ParentSize from '@visx/responsive/lib/components/ParentSize';
 
-export default function Indicators({ article, categories, indicatorsData, indicatorsInfo }) {
+export default function Indicators({ article, categories, indicatorsData, indicatorsInfo, inner = false }) {
 	return (
 		<Card
 			title={"ARTIGO FACE ÀS COLEÇÕES DE REFERÊNCIA"}
 			extra={<InfoCircleOutlined />}
 			loading={!indicatorsData}
+			type={inner && 'inner'}
 		>
 			{indicatorsData && indicatorsInfo.map(indicator => (<>
 				<Row justify={'center'}>

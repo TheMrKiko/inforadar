@@ -6,7 +6,7 @@ import { Card, Col, Radio, Row, Select, Typography } from 'antd';
 
 import utilStyles from '../styles/utils.module.css';
 
-const Metrics = ({ categories, metricsData, metricsInfo, metricsHistogram, indicatorsInfo, indicatorsData }) => {
+const Metrics = ({ categories, metricsData, metricsInfo, metricsHistogram, indicatorsInfo, indicatorsData, inner = false }) => {
 	const [categorySelected, setCategorySelected] = useState(categories && categories[0].id)
 	const [filter, setFilter] = useState("simple")
 
@@ -37,6 +37,7 @@ const Metrics = ({ categories, metricsData, metricsInfo, metricsHistogram, indic
 				<Radio.Button value="details">Detalhado</Radio.Button>
 			</Radio.Group>}
 			loading={!metricsData}
+			type={inner && 'inner'}
 		>
 			<Row wrap gutter={[24, 24]}>
 				{categories && metricsData && metricsInfo.map(metric => (

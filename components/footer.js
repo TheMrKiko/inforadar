@@ -11,13 +11,13 @@ export default function Footer({ login }) {
 		<Layout.Footer className={styles.antfooter}>
 			<Row justify={'center'}>
 				<Col>
-					<Typography.Paragraph>
-						{login && login.authenticated && login.userData && (
+					{login && login.authenticated && login.userData && (
+						<Typography.Paragraph>
 							<Typography.Text className={utilStyles.whiteText}>Registado como {login.userData.name}
 								<Typography.Link onClick={login.logout}> (Sair)</Typography.Link>
 							</Typography.Text>
-						)}
-					</Typography.Paragraph>
+						</Typography.Paragraph>
+					)}
 				</Col>
 			</Row>
 			<Row justify={'center'}>

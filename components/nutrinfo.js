@@ -4,11 +4,8 @@ import Metrics from './metrics';
 import Indicators from './indicators';
 import { Space, Typography } from 'antd';
 
-import styles from '../styles/Home.module.css';
-
 const NutritionalInfo = (props) => (
-	<Space direction={'vertical'} size={'large'} className={styles.reportcontainer}>
-		<Typography.Title>Informação Nutricional</Typography.Title>
+	<Space direction={'vertical'} size={'large'}>
 		<Summary
 			categories={props.categories}
 			matrixRules={props.matrixRules}
@@ -22,6 +19,7 @@ const NutritionalInfo = (props) => (
 			categories={props.categories}
 			indicatorsData={props.indicatorsData}
 			indicatorsInfo={props.indicatorsInfo}
+			inner={props.inner}
 		/>
 		<Metrics
 			categories={props.categories}
@@ -30,6 +28,7 @@ const NutritionalInfo = (props) => (
 			metricsHistogram={props.metricsHistogram}
 			indicatorsData={props.indicatorsData}
 			indicatorsInfo={props.indicatorsInfo}
+			inner={props.inner}
 		/>
 	</Space>
 )

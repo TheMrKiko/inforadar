@@ -85,16 +85,19 @@ const AnalysisBlock = (props) => (
                                 </div>
                             ) : (
                                 <div className={utilStyles.justifyContentCenter}>
-                                    <NutritionalInfo
-                                        categories={props.article.categories}
-                                        article={props.article.article}
-                                        matrixRules={props.article.matrixRules}
-                                        indicatorsData={props.article.indicatorsData}
-                                        indicatorsInfo={props.article.indicatorsInfo}
-                                        metricsInfo={props.article.metricsInfo}
-                                        metricsData={props.article.metricsData}
-                                        metricsHistogram={props.article.metricsHistogram}
-                                    />
+                                    <Space direction={'vertical'} size={'large'} className={styles.reportcontainer}>
+                                        <Typography.Title>Informação Nutricional</Typography.Title>
+                                        <NutritionalInfo
+                                            categories={props.article.categories}
+                                            article={props.article.article}
+                                            matrixRules={props.article.matrixRules}
+                                            indicatorsData={props.article.indicatorsData}
+                                            indicatorsInfo={props.article.indicatorsInfo}
+                                            metricsInfo={props.article.metricsInfo}
+                                            metricsData={props.article.metricsData}
+                                            metricsHistogram={props.article.metricsHistogram}
+                                        />
+                                    </Space>
                                 </div>
                             )}
                         </CSSTransition>

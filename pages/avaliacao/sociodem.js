@@ -9,7 +9,7 @@ const SocioDem = ({ login }) => {
     return (
         <Layout current={'avaliacao'} login={login}>
             <Head>
-                <title>Avaliação | InfoRadar</title>
+                <title>Questionário Sociodemográfico | InfoRadar</title>
             </Head>
             <AntLayout.Content className={utilStyles.container}>
                 <Breadcrumb>
