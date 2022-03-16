@@ -6,20 +6,17 @@ import axios from 'axios';
 const { API_PATH } = process.env
 
 const withLogin = (BaseComponent) => (props) => {
-	const [authenticated, setAuthenticated] = useState(false);
 	const [userData, setUserData] = useState(null);
 	const [loginErrors, setLoginError] = useState(false);
 	const [logoutErrors, setLogoutError] = useState(false);
 
 	const clearLogin = () => {
-		setAuthenticated(false);
 		setUserData(null);
 		setLogoutError(false);
 		localStorage.removeItem("inforadarlogin");
 	}
 
 	const login = (data) => {
-		setAuthenticated(true);
 		setUserData(data);
 		setLoginError(false);
 		try {
@@ -77,7 +74,7 @@ const withLogin = (BaseComponent) => (props) => {
 		<BaseComponent
 			{...props}
 			login={{
-				authenticated: authenticated,
+				authenticated: !!userData,
 				login: login,
 				logout: logout,
 				loginError: loginError,
