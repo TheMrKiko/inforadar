@@ -4,8 +4,10 @@ import Metrics from './metrics';
 import Indicators from './indicators';
 import { Space, Typography } from 'antd';
 
+import utilStyles from '../styles/utils.module.css';
+
 const NutritionalInfo = (props) => (
-	<Space direction={'vertical'} size={'large'}>
+	<Space direction={'vertical'} size={'large'} className={utilStyles.width100}>
 		<Summary
 			categories={props.categories}
 			matrixRules={props.matrixRules}
