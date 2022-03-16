@@ -1,4 +1,4 @@
-import { Form, Checkbox, Input, Button, Radio, Switch, Select, Row, Col } from 'antd';
+import { Form, Checkbox, Input, Button, Radio, Switch, Select, Space, Row, Col } from 'antd';
 
 const layout = {
 	labelCol: {
@@ -15,11 +15,18 @@ const tailLayout = {
 	},
 };
 
-const SocioDemForm = () => {
+const validateMessages = {
+	required: "Campo obrigatório.",
+	array: {
+		max: "Pode, no máximo, selecionar ${max} opções.",
+	},
+};
+
+const SocioDemForm = ({ onSubmit, submitting }) => {
 	const [form] = Form.useForm();
 
 	const onFinish = (values) => {
-		console.log(values);
+		onSubmit(values);
 	};
 
 	const onReset = () => {
@@ -27,7 +34,14 @@ const SocioDemForm = () => {
 	};
 
 	return (
-		<Form {...layout} form={form} name="control-hooks" labelWrap onFinish={onFinish}>
+		<Form
+			form={form}
+			name="sociodemographic"
+			onFinish={onFinish}
+			validateMessages={validateMessages}
+			labelWrap
+			{...layout}
+		>
 			<Form.Item
 				name="nationality"
 				label="Nacionalidade"
@@ -67,7 +81,7 @@ const SocioDemForm = () => {
 				</Select>
 			</Form.Item>
 			<Form.Item
-				name="csFormation"
+				name="cs_qualifications"
 				label="Tem formação ou exerce atividade na área de comunicação social?"
 				rules={[{ required: true }]}
 			>
@@ -88,9 +102,9 @@ const SocioDemForm = () => {
 				</Select>
 			</Form.Item>
 			<Form.Item
-				name="consumedContent"
+				name="consumed_content"
 				label="Que tipo de conteúdo consome com maior frequência?"
-				rules={[{ max: 2, type: 'array' }, { required: true }]}
+				rules={[{ max: 3, type: 'array' }, { required: true }]}
 			>
 				<Checkbox.Group>
 					<Row>
@@ -103,7 +117,7 @@ const SocioDemForm = () => {
 				</Checkbox.Group>
 			</Form.Item>
 			<Form.Item
-				name="newsConsumption"
+				name="news_consumption"
 				label="Qual o tipo de meio que mais utiliza para consumir notícias?"
 				rules={[{ required: true }]}
 			>
@@ -118,12 +132,14 @@ const SocioDemForm = () => {
 				</Radio.Group>
 			</Form.Item>
 			<Form.Item {...tailLayout}>
-				<Button type={'primary'} htmlType={'submit'}>
-					Submeter
-				</Button>
-				<Button htmlType={'reset'} onClick={onReset}>
-					Limpar
-				</Button>
+				<Space>
+					<Button htmlType={'reset'} onClick={onReset}>
+						Limpar
+					</Button>
+					<Button loading={submitting} type={'primary'} htmlType={'submit'}>
+						Submeter
+					</Button>
+				</Space>
 			</Form.Item>
 		</Form>
 	);
