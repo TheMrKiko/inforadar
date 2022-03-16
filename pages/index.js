@@ -50,7 +50,10 @@ const AnalysisBlock = (props) => (
                                 />
                                 <Space direction={'vertical'} size={'small'} className={utilStyles.width100}>
                                     {props.opened() &&
-                                        <ArticleCard article={props.article.article} />
+                                        <ArticleCard
+                                            article={props.article.article}
+                                            url={props.article.url}
+                                        />
                                     }
                                     {props.opened() && props.article.article && props.article.mode == md.URL && props.article.sourceData &&
                                         <ERCLabel

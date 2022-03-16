@@ -22,13 +22,18 @@ const ArticleCard = (props) => (
 					{props.article.headline || "Texto inserido manualmente"}
 				</Typography.Text>
 			}
-			description={<Typography.Paragraph ellipsis={{
-				expandable: true,
-				rows: 3,
-				symbol: 'Ver mais',
-			}}>
-				{props.article.body_text.trim()}
-			</Typography.Paragraph>} />}
+			description={<>
+				<Typography.Paragraph ellipsis={{
+					expandable: true,
+					rows: 3,
+					symbol: 'Ver mais',
+				}}>
+					{props.article.body_text.trim()}
+				</Typography.Paragraph>
+				{props.url && <Typography.Paragraph type={'secondary'}>
+					<Typography.Link href={props.url} target="_blank">{new URL(props.url).hostname}</Typography.Link>
+				</Typography.Paragraph>}
+			</>} />}
 	</Card>
 )
 
