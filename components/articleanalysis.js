@@ -27,6 +27,7 @@ const withArticle = (BaseComponent) => class extends React.Component {
 			url: "",
 			title: "",
 			body: "",
+			mid: "",
 			query: new Query(),
 			article: null,
 			categories: null,
@@ -117,17 +118,19 @@ const withArticle = (BaseComponent) => class extends React.Component {
 
 		switch (this.state.status) {
 			case stts.NEW_QUERY:
-				const { url: oldUrl, title: oldTitle, body: oldBody, mode: oldMode } = this.state
+				const { url: oldUrl, title: oldTitle, body: oldBody, mid: oldMid, mode: oldMode } = this.state
 
 				const url = query.url ?? oldUrl
 				const title = query.title ?? oldTitle
 				const body = query.body ?? oldBody
+				const mid = query.mid ?? oldMid
 				const mode = query.mode ?? oldMode
 				this.setState({
 					mode: parseInt(mode),
 					url: url,
 					title: title,
 					body: body,
+					mid: mid,
 					status: query.valid() ? stts.QUERY_VALID : stts.QUERY_INVALID
 				})
 				break;
@@ -149,14 +152,28 @@ const withArticle = (BaseComponent) => class extends React.Component {
 					return this.setState({
 						status: stts.WAITING_SCRAPPER
 					});
-				} else {
+				} else if (this.state.mode == md.TEXT) {
 					return this.setState({
 						status: stts.WAITING_SCRAPPER,
 						article: {
 							headline: this.state.title,
 							body_text: this.state.body,
 						}
-					})
+					});
+				} else if (this.state.mode == md.MINT) {
+					axios({
+						method: 'get',
+						url: `${API_PATH}/corpus_article?id=${this.state.mid}`,
+						headers: { 'content-type': 'application/json' },
+					}).then(result => {
+						this.onFetchArticle(result.data)
+					}).catch(error => this.setState({
+						status: stts.ERROR,
+						error: new Error(error),
+					}));
+					return this.setState({
+						status: stts.WAITING_SCRAPPER
+					});
 				}
 				break;
 			case stts.WAITING_SCRAPPER:
@@ -216,13 +233,13 @@ const withArticle = (BaseComponent) => class extends React.Component {
 						status: stts.ERROR,
 						error: new Error(error),
 					}));
-					if (this.state.mode == md.URL) {
+					if (this.state.mode != md.TEXT) {
 						axios({
 							method: 'post',
 							url: `${API_PATH}/source_checker`,
 							headers: { 'content-type': 'application/json' },
 							data: {
-								'url': this.state.url
+								'url': this.state.mode == md.URL ? this.state.url : this.state.article.url
 							}
 						}).then(result => {
 							this.onFetchSourceData(result.data)
