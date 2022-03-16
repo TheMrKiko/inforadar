@@ -37,7 +37,6 @@ class LoginOptions extends React.Component {
         axios.post(`${API_PATH}/me`, formData, {
             headers: { 'X-Requested-With': 'XmlHttpRequest' },
         }).then(result => {
-            debugger
             this.props.login.login(result.data);
         }).catch(error => {
             this.props.login.loginError(error);

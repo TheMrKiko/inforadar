@@ -18,13 +18,12 @@ const withLogin = (BaseComponent) => (props) => {
 		localStorage.removeItem("inforadarlogin");
 	}
 
-
 	const login = (data) => {
 		setAuthenticated(true);
 		setUserData(data);
 		setLoginError(false);
 		try {
-			localStorage.setItem("inforadarlogin", 5); //meter um 5 no numero de vezes da cookie e ir reduzindo
+			localStorage.setItem("inforadarlogin", 1);
 		} catch (error) {
 		}
 	}
@@ -83,6 +82,7 @@ const withLogin = (BaseComponent) => (props) => {
 				logout: logout,
 				loginError: loginError,
 				userData: userData,
+				setUserData: setUserData,
 			}}
 		/>
 	)
