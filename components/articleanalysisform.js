@@ -232,11 +232,10 @@ const MetricsForm = ({ metricsInfo, fields, onChange, onSubmit, submitting }) =>
 			)}
 			<Form.Item
 				label={<Typography.Text strong>Qual a métrica que considera mais relevante ou informativa para determinar o grau de credibilidade do artigo?</Typography.Text>}
-				rules={[{ required: true }]}
 			>
 				<Row>
 					<Col>
-						<Form.Item name="most_relevant_metric" noStyle>
+						<Form.Item name="most_relevant_metric" noStyle rules={[{ required: true }]}>
 							<Select
 								placeholder="Escolha uma opção"
 								allowClear
@@ -249,11 +248,10 @@ const MetricsForm = ({ metricsInfo, fields, onChange, onSubmit, submitting }) =>
 			</Form.Item>
 			<Form.Item
 				label={<Typography.Text strong>Qual a métrica que considera menos relevante ou informativa para determinar o grau de credibilidade do artigo?</Typography.Text>}
-				rules={[{ required: true }]}
 			>
 				<Row>
 					<Col>
-						<Form.Item name="least_relevant_metric" noStyle>
+						<Form.Item name="least_relevant_metric" noStyle rules={[{ required: true }]}>
 							<Select
 								placeholder="Escolha uma opção"
 								allowClear
