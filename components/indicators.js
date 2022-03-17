@@ -38,7 +38,7 @@ export default function Indicators({ article, categories, indicatorsData, indica
 						/>
 					</Col>
 				</Row>
-				<Row justify={'end'}>
+				{!inner && <Row justify={'end'}>
 					<Col>
 						<Feedback
 							article={article}
@@ -47,7 +47,7 @@ export default function Indicators({ article, categories, indicatorsData, indica
 							data={indicatorsData[indicator.id]}
 						/>
 					</Col>
-				</Row>
+				</Row>}
 			</>
 			))}
 		</Card>
