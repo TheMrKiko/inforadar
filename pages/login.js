@@ -13,7 +13,7 @@ const Login = ({ login }) => {
             </Head>
             <AntLayout.Content className={utilStyles.container}>
                 <Typography.Title level={1}>Iniciar Sessão</Typography.Title>
-                <Typography.Paragraph>O seu endereço de email será usado apenas para iniciar sessão cpm o Google. Não o armazenamos, nem associamos quaisquer dados que o permitem identificar aos dados por si fornecidos.</Typography.Paragraph>
+                <Typography.Paragraph>O seu endereço de email será usado apenas para iniciar sessão com o Google. Não o armazenamos, nem associamos quaisquer dados que o permitem identificar aos dados por si fornecidos.</Typography.Paragraph>
                 <LoginOptions login={login} />
             </AntLayout.Content>
         </Layout>
