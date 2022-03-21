@@ -40,7 +40,7 @@ const FirstImpressionsForm = ({ categories, fields, onChange, onSubmit }) => {
 			layout={'vertical'}
 			{...layout}
 		>
-			<Typography.Title level={3}>Credibilidade inicial do artigo</Typography.Title>
+			<Typography.Title level={3}>Perceção geral</Typography.Title>
 			<Row>
 				<Col {...layout.labelCol}>
 					<Typography.Text strong>Indique a probabilidade de o artigo corresponder a cada uma das seguintes categorias.</Typography.Text>
@@ -304,7 +304,7 @@ const changepercept = [
 const cred = [
 	{ "id": 1, "name": "Nada credível" },
 	{ "id": 2, "name": "Pouco credível" },
-	{ "id": 3, "name": "Neutro" },
+	{ "id": 3, "name": "Medianamente" },
 	{ "id": 4, "name": "Credível" },
 	{ "id": 5, "name": "Extremamente credível" },
 	{ "id": 0, "name": "Não sei" },
@@ -313,7 +313,7 @@ const cred = [
 const prob = [
 	{ "id": 1, "name": "Nada provável" },
 	{ "id": 2, "name": "Pouco provável" },
-	{ "id": 3, "name": "Neutro" },
+	{ "id": 3, "name": "Medianamente" },
 	{ "id": 4, "name": "Provável" },
 	{ "id": 5, "name": "Extremamente provável" },
 	{ "id": 0, "name": "Não sei" },

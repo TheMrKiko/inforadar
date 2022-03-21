@@ -153,7 +153,7 @@ const AnalysisBlock = (props) => {
 			}
 			{step >= 2 && step < 5 && <Navigation step={step} setStep={scrollAndSetStep} />}
 			{step == 5 && <Typography.Paragraph>
-				<Typography.Text type={'success'}>Resposta submetida! Obrigado pela sua participação. <Link href='/avaliacao'>Voltar</Link>.</Typography.Text>
+				<Typography.Text type={'success'}>Resposta submetida! Obrigado pela sua participação. <Link href='/avaliacao'>Analisar outro artigo</Link>.</Typography.Text>
 			</Typography.Paragraph>}
 		</Space>
 	) : <Spin size={'large'} />
@@ -176,7 +176,7 @@ const Artigo = ({ login }) => {
 						<Typography.Title>Inquérito de Avaliação de Artigos</Typography.Title>
 					</Breadcrumb.Item>
 				</Breadcrumb>
-				<Typography.Paragraph>O objetivo deste inquérito é fazer coisas.</Typography.Paragraph>
+				<Typography.Paragraph>O objetivo deste inquérito é melhorar o InfoRadar e a sua Informação Nutricional, através da leitura e análise de cada artigo. Este processo irá demorar, no máximo, 5 minutos.</Typography.Paragraph>
 				{login.authenticated ?
 					<>
 						<Typography.Paragraph><Typography.Text type={'secondary'}>Sessão iniciada.</Typography.Text></Typography.Paragraph>

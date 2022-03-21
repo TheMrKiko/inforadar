@@ -32,8 +32,8 @@ const Avaliacao = ({ login }) => {
             </Head>
             <AntLayout.Content className={utilStyles.container}>
                 <Typography.Title level={1}>Avaliação</Typography.Title>
-                <Typography.Paragraph>De forma a melhorar os classificadores do InfoRadar, contamos com a colaboração dos utilizadores da plataforma para darem a sua opinião sobre os classificadores e os valores das métricas referentes a alguns artigos de exemplo.</Typography.Paragraph>
-                <Typography.Paragraph>Para avaliar o InfoRadar, e cruzar a avaliação com dados sociodemográficos, pedimos que o utilizador se registe na nossa plataforma e preencha um questionário sociodemográfico (uma única vez), antes de avaliar artigos de exemplo.</Typography.Paragraph>
+                <Typography.Paragraph>De forma a melhorarmos o InfoRadar, pedimos a sua opinião sobre os resultados da classificação automaticamente gerados para um dos artigos aleatoriamente selecionados.</Typography.Paragraph>
+                <Typography.Paragraph>Para o efeito, deverá registar-se na nossa plataforma e preencher um breve questionário sociodemográfico.</Typography.Paragraph>
                 {login.authenticated ? <>
                     <Typography.Paragraph><Typography.Text type={'secondary'}>Sessão iniciada.</Typography.Text></Typography.Paragraph>
                     {login.userData && !login.userData.sociodemographic && <Typography.Paragraph>
@@ -46,7 +46,7 @@ const Avaliacao = ({ login }) => {
                         />
                     </Typography.Paragraph>}
                     <Typography.Title level={2}>Avaliar o InfoRadar</Typography.Title>
-                    <Typography.Paragraph>Vamos pedir que leia um artigo e a sua análise pelo InfoRadar e, de seguida responda a algumas perguntas sobre a Informação Nutricional desse artigo. Isto irá demorar no máximo 5 minutos.</Typography.Paragraph>
+                    <Typography.Paragraph>Pedimos que leia um artigo e tenha em consideração a análise fornecida pelo InfoRadar, respondendo a algumas perguntas sobre o artigo e a sua Informação Nutricional. Este processo irá demorar, no máximo, 5 minutos.</Typography.Paragraph>
                     {<Link
                         href={chosenArticle ? `/avaliacao/artigo?mode=${md.MINT}&mid=${chosenArticle}` : ''}
                     >
