@@ -184,7 +184,7 @@ const Artigo = ({ login }) => {
 				{login.authenticated ?
 					<>
 						<Typography.Paragraph><Typography.Text type={'secondary'}>Sessão iniciada.</Typography.Text></Typography.Paragraph>
-						<ArticleAnalysis />
+						<ArticleAnalysis login={login} />
 					</> :
 					<Typography.Paragraph>
 						<Typography.Text type={'warning'}>Para visualizar esta página, precisa de <Link href='/login'>iniciar sessão</Link>.</Typography.Text>

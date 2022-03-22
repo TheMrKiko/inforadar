@@ -24,7 +24,7 @@ const Avaliacao = ({ login }) => {
                 if (error.response && error.response.status === 401)
                     login.loginError();
             });
-    }, []);
+    }, [login.authenticated]);
 
     return (
         <Layout current={'avaliacao'} login={login}>
