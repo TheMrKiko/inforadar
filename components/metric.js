@@ -14,6 +14,7 @@ const Metric = ({ filter, category, categories, info, data, histogram }) => {
 	const level = Math.trunc((data.percentiles.categories[category] / 100) * 4) // TODO remove hardcoded
 	const label = levelLabels[level]
 	const isPercentage = info.description.includes("percentagem")
+	const categoryData = categories.find(c => c.id == category) ?? categories[0]
 	return (
 		<Card
 			title={info.display_name}
@@ -36,12 +37,12 @@ const Metric = ({ filter, category, categories, info, data, histogram }) => {
 					<Divider plain><Typography.Text strong>Detalhes</Typography.Text></Divider>
 					<Space direction={'vertical'}>
 						<Typography.Text>
-							O artigo tem uma {isPercentage ? "percentagem" : "pontuação"} de {Math.round(data.score * 1000) / (isPercentage ? 10 : 1000)}{isPercentage && "%"} de {info.display_name.toLowerCase()}, o que representa um valor {label} face à coleção de {categories.find(c => c.id == category).display_name.toLowerCase()}.
+							O artigo tem uma {isPercentage ? "percentagem" : "pontuação"} de {Math.round(data.score * 1000) / (isPercentage ? 10 : 1000)}{isPercentage && "%"} de {info.display_name.toLowerCase()}, o que representa um valor {label} face à coleção de {categoryData.display_name.toLowerCase()}.
 							<Typography.Link href={`${process.env.BASE_PATH}/comofunciona#${info.name}`}> Ver como este valor foi calculado.</Typography.Link>
 						</Typography.Text>
 						<Histogram category={category} histogram={histogram} />
 						<Typography.Text type={'secondary'}>
-							O histograma assinala a métrica de {info.display_name.toLowerCase()} do <Typography.Text strong type={'secondary'}>artigo</Typography.Text> face às distribuições de pontuações dos artigos classificados como <Typography.Text strong type={'secondary'}>{categories.find(c => c.id == category).display_name.toLowerCase()}</Typography.Text> e aos artigos pertencentes às <Typography.Text strong type={'secondary'}>restantes</Typography.Text> categorias.
+							O histograma assinala a métrica de {info.display_name.toLowerCase()} do <Typography.Text strong type={'secondary'}>artigo</Typography.Text> face às distribuições de pontuações dos artigos classificados como <Typography.Text strong type={'secondary'}>{categoryData.display_name.toLowerCase()}</Typography.Text> e aos artigos pertencentes às <Typography.Text strong type={'secondary'}>restantes</Typography.Text> categorias.
 						</Typography.Text>
 					</Space>
 				</>
