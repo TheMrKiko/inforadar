@@ -5,7 +5,7 @@ import axios from 'axios'
 import Layout from '../../components/layout'
 import LoginOptions from '../../components/login'
 import { md } from '../../helpers/query'
-import { Alert, Layout as AntLayout, Input, Space, Row, Col, Typography, Button } from 'antd'
+import { Alert, Layout as AntLayout, Input, Space, Row, Col, Typography, Button, Progress } from 'antd'
 
 import utilStyles from '../../styles/utils.module.css'
 
@@ -15,14 +15,15 @@ const Avaliacao = ({ login }) => {
     const [chosenArticle, setChosenArticle] = useState(null);
 
     useEffect(() => {
-        axios.get(`${API_PATH}/article_annotation`, {
-            headers: { 'X-Requested-With': 'XmlHttpRequest' },
-        }).then(result => {
-            setChosenArticle(result.data);
-        }).catch(error => {
-            if (error.response && error.response.status === 401)
-                login.loginError();
-        });
+        if (login.authenticated)
+            axios.get(`${API_PATH}/article_annotation`, {
+                headers: { 'X-Requested-With': 'XmlHttpRequest' },
+            }).then(result => {
+                setChosenArticle(result.data);
+            }).catch(error => {
+                if (error.response && error.response.status === 401)
+                    login.loginError();
+            });
     }, []);
 
     return (
@@ -47,11 +48,16 @@ const Avaliacao = ({ login }) => {
                     </Typography.Paragraph>}
                     <Typography.Title level={2}>Avaliar o InfoRadar</Typography.Title>
                     <Typography.Paragraph>Pedimos que leia um artigo e tenha em consideração a análise fornecida pelo InfoRadar, respondendo a algumas perguntas sobre o artigo e a sua Informação Nutricional. Este processo irá demorar, no máximo, 5 minutos.</Typography.Paragraph>
-                    {<Link
-                        href={chosenArticle ? `/avaliacao/artigo?mode=${md.MINT}&mid=${chosenArticle}` : ''}
-                    >
-                        <Button disabled={login.userData && !login.userData.sociodemographic} loading={login.userData && login.userData.sociodemographic && !chosenArticle} type={'primary'} size={'large'}>Avaliar artigo</Button>
-                    </Link>}
+                    <Row justify={'center'} align={'middle'} gutter={25} className={utilStyles.width100}>
+                        <Col><Link
+                            href={chosenArticle ? `/avaliacao/artigo?mode=${md.MINT}&mid=${chosenArticle}` : ''}
+                        >
+                            <Button disabled={login.userData && !login.userData.sociodemographic} loading={login.userData && login.userData.sociodemographic && !chosenArticle} type={'primary'} size={'large'}>Avaliar artigo</Button>
+                        </Link></Col>
+                        <Col flex={'auto'}>{login.userData.total_to_annotate &&
+                            <Progress percent={login.userData.annotated / login.userData.total_to_annotate} />
+                        }</Col>
+                    </Row>
                 </> :
                     <Typography.Paragraph>
                         <Typography.Text type={'warning'}>Para visualizar esta página, precisa de <Link href='/login'>iniciar sessão</Link>.</Typography.Text>
