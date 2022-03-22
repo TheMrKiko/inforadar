@@ -55,7 +55,7 @@ const Avaliacao = ({ login }) => {
                             <Button disabled={login.userData && !login.userData.sociodemographic} loading={login.userData && login.userData.sociodemographic && !chosenArticle} type={'primary'} size={'large'}>Avaliar artigo</Button>
                         </Link></Col>
                         <Col flex={'auto'}>{login.userData.total_to_annotate &&
-                            <Progress percent={login.userData.annotated / login.userData.total_to_annotate} />
+                            <Progress percent={Math.round(login.userData.annotated * 1000 / login.userData.total_to_annotate) / 10} />
                         }</Col>
                     </Row>
                 </> :
