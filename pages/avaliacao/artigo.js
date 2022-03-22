@@ -52,9 +52,9 @@ const AnalysisBlock = (props) => {
 			headers: { 'X-Requested-With': 'XmlHttpRequest' },
 		}).then(result => {
 			setStep(5);
-			login.setUserData({
-				...login.userData,
-				annotated: login.userData.annotated + 1,
+			props.login.setUserData({
+				...props.login.userData,
+				annotated: props.login.userData.annotated + 1,
 			})
 		}).catch(error => {
 			if (error.response && error.response.status === 401)
