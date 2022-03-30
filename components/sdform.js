@@ -44,7 +44,7 @@ const SocioDemForm = ({ onSubmit, submitting }) => {
 		>
 			<Form.Item
 				name="nationality"
-				label="Nacionalidade"
+				label="Qual a sua nacionalidade?"
 				rules={[{ required: true }]}
 			>
 				<Select
@@ -57,8 +57,20 @@ const SocioDemForm = ({ onSubmit, submitting }) => {
 				</Select>
 			</Form.Item>
 			<Form.Item
+				name="gender"
+				label="Qual das seguintes melhor identifica o seu género?"
+				rules={[{ required: true }]}
+			>
+				<Select
+					placeholder="Escolha uma opção"
+					allowClear
+				>
+					{gender.map(c => <Select.Option key={c.id} value={c.id}>{c.name}</Select.Option>)}
+				</Select>
+			</Form.Item>
+			<Form.Item
 				name="age"
-				label="Idade"
+				label="Qual a sua faixa etária?"
 				rules={[{ required: true }]}
 			>
 				<Select
@@ -70,7 +82,7 @@ const SocioDemForm = ({ onSubmit, submitting }) => {
 			</Form.Item>
 			<Form.Item
 				name="qualifications"
-				label="Formação académica"
+				label="Qual a sua formação académica?"
 				rules={[{ required: true }]}
 			>
 				<Select
@@ -91,7 +103,7 @@ const SocioDemForm = ({ onSubmit, submitting }) => {
 			</Form.Item>
 			<Form.Item
 				name="job"
-				label="Situação Profissional"
+				label="Qual a sua situação profissional?"
 				rules={[{ required: true }]}
 			>
 				<Select
@@ -148,6 +160,14 @@ const SocioDemForm = ({ onSubmit, submitting }) => {
 const yesno = [
 	{ "id": 1, "name": "Sim" },
 	{ "id": 0, "name": "Não" },
+]
+
+const gender = [
+	{ "id": 1, "name": "Mulher" },
+	{ "id": 2, "name": "Homem" },
+	{ "id": 3, "name": "Não-binário" },
+	{ "id": 4, "name": "Outro" },
+	{ "id": 0, "name": "Prefiro não responder." },
 ]
 
 const age = [
