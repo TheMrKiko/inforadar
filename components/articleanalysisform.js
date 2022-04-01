@@ -1,4 +1,4 @@
-import { Form, Space, Checkbox, Input, Button, Radio, Switch, Select, Row, Col, Typography, Skeleton } from 'antd';
+import { Form, Space, Checkbox, Input, Button, Radio, Switch, Select, Row, Col, Typography, Skeleton, Divider } from 'antd';
 
 const layout = {
 	labelCol: {
@@ -43,7 +43,7 @@ const FirstImpressionsForm = ({ categories, fields, onChange, onSubmit }) => {
 			<Typography.Title level={3}>Perceção geral</Typography.Title>
 			<Row>
 				<Col {...layout.labelCol}>
-					<Typography.Text strong>Indique a probabilidade de o artigo corresponder a cada uma das seguintes categorias.</Typography.Text>
+					<Typography.Text strong>1. Indique a probabilidade de o artigo corresponder a cada uma das seguintes categorias.</Typography.Text>
 				</Col>
 			</Row>
 			{categories.map(cat =>
@@ -65,7 +65,7 @@ const FirstImpressionsForm = ({ categories, fields, onChange, onSubmit }) => {
 				</Form.Item>)}
 			<Form.Item
 				name="pre_credibility"
-				label={<Typography.Text strong>Indique o grau de credibilidade do artigo.</Typography.Text>}
+				label={<Typography.Text strong>2. Indique o grau de credibilidade do artigo.</Typography.Text>}
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
@@ -121,7 +121,7 @@ const CredibilityForm = ({ fields, onChange, onSubmit }) => {
 			<Typography.Title level={3}>Credibilidade do artigo</Typography.Title>
 			<Form.Item
 				name="change_in_perception"
-				label={<Typography.Text strong>A informação apresentada pelo InfoRadar influenciou a sua perceção sobre a credibilidade do artigo?</Typography.Text>}
+				label={<Typography.Text strong>3. A informação apresentada pelo InfoRadar influenciou a sua perceção sobre a credibilidade do artigo?</Typography.Text>}
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
@@ -136,7 +136,7 @@ const CredibilityForm = ({ fields, onChange, onSubmit }) => {
 			</Form.Item>
 			<Form.Item
 				name="info_is_useful"
-				label={<Typography.Text strong>Indique a utilidade da informação sobre a categoria do artigo.</Typography.Text>}
+				label={<Typography.Text strong>4. Indique a utilidade da informação sobre a categoria do artigo.</Typography.Text>}
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
@@ -192,15 +192,17 @@ const MetricsForm = ({ metricsInfo, fields, onChange, onSubmit, submitting }) =>
 			<Typography.Title level={3}>Métricas explicativas</Typography.Title>
 			<Row>
 				<Col {...layout.labelCol}>
-					<Typography.Text strong>Classifique o quão concorda com as seguintes afirmações.</Typography.Text>
+					<Typography.Text strong>5. Classifique o quão concorda com as seguintes afirmações.</Typography.Text>
 				</Col>
 			</Row>
-			{metricsInfo.map(metric =>
+			{metricsInfo.map((metric, i) =>
 				<div key={metric.id}>
-					<Typography.Text type={'secondary'}>{metric.display_name}:</Typography.Text>
+					<Divider plain orientation={'left'} orientationMargin={0}>
+						<Typography.Text type={'secondary'}>5.{i + 1}. {metric.display_name}</Typography.Text>
+					</Divider>
 					<Form.Item
 						name={`info_reflected_in_${metric.name}`}
-						label={<Typography.Text>Os valores apresentados para a métrica <Typography.Text strong>{metric.display_name.toLowerCase()}</Typography.Text> estimada pelo InfoRadar refletem a informação apresentada no artigo.</Typography.Text>}
+						label={<Typography.Text>a) Os valores apresentados para a métrica <Typography.Text strong>{metric.display_name.toLowerCase()}</Typography.Text> estimada pelo InfoRadar refletem a informação apresentada no artigo.</Typography.Text>}
 						rules={[{ required: true }]}
 					>
 						<Radio.Group>
@@ -215,7 +217,7 @@ const MetricsForm = ({ metricsInfo, fields, onChange, onSubmit, submitting }) =>
 					</Form.Item>
 					<Form.Item
 						name={`relevance_of_${metric.name}`}
-						label={<Typography.Text>A informação sobre o grau de <Typography.Text strong>{metric.display_name.toLowerCase()}</Typography.Text> é pertinente para aferir a credibilidade do artigo.</Typography.Text>}
+						label={<Typography.Text>b) A informação sobre o grau de <Typography.Text strong>{metric.display_name.toLowerCase()}</Typography.Text> é pertinente para aferir a credibilidade do artigo.</Typography.Text>}
 						rules={[{ required: true }]}
 					>
 						<Radio.Group>
@@ -231,7 +233,7 @@ const MetricsForm = ({ metricsInfo, fields, onChange, onSubmit, submitting }) =>
 				</div>
 			)}
 			<Form.Item
-				label={<Typography.Text strong>Qual a métrica que considera mais relevante ou informativa para determinar o grau de credibilidade do artigo?</Typography.Text>}
+				label={<Typography.Text strong>6. Qual a métrica que considera mais relevante ou informativa para determinar o grau de credibilidade do artigo?</Typography.Text>}
 				rules={[{ required: true }]}
 			>
 				<Row>
@@ -248,7 +250,7 @@ const MetricsForm = ({ metricsInfo, fields, onChange, onSubmit, submitting }) =>
 				</Row>
 			</Form.Item>
 			<Form.Item
-				label={<Typography.Text strong>Qual a métrica que considera menos relevante ou informativa para determinar o grau de credibilidade do artigo?</Typography.Text>}
+				label={<Typography.Text strong>7. Qual a métrica que considera menos relevante ou informativa para determinar o grau de credibilidade do artigo?</Typography.Text>}
 				rules={[{ required: true }]}
 			>
 				<Row>
