@@ -39,6 +39,7 @@ const SocioDemForm = ({ onSubmit, submitting }) => {
 			name="sociodemographic"
 			onFinish={onFinish}
 			validateMessages={validateMessages}
+			colon={false}
 			labelWrap
 			{...layout}
 		>
@@ -58,7 +59,7 @@ const SocioDemForm = ({ onSubmit, submitting }) => {
 			</Form.Item>
 			<Form.Item
 				name="gender"
-				label="Qual das seguintes melhor identifica o seu género?"
+				label="Qual das seguintes opções melhor descreve o seu género?"
 				rules={[{ required: true }]}
 			>
 				<Select
