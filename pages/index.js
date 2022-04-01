@@ -174,14 +174,14 @@ export default function Home({ login }) {
                         </Link>
                     </Space>
                 </HomeBlock>
-                <HomeBlock span={18} className={utilStyles.width100}>
+                {false && <HomeBlock span={18} className={utilStyles.width100}>
                     <Space direction={'vertical'} size={'large'} className={utilStyles.width100}>
                         <Typography.Title level={2}>
                             Exemplos
                         </Typography.Title>
                         <Examples />
                     </Space>
-                </HomeBlock>
+                </HomeBlock>}
             </AntLayout.Content>
         </Layout >
     )
