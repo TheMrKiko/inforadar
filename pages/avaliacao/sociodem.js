@@ -5,6 +5,7 @@ import Layout from '../../components/layout'
 import { Layout as AntLayout, Typography, Breadcrumb } from 'antd'
 import utilStyles from '../../styles/utils.module.css'
 import SocioDemForm from '../../components/sdform'
+import { createError, errorType } from '../../helpers/error'
 import axios from 'axios'
 
 const { API_PATH } = process.env
@@ -30,7 +31,9 @@ const SocioDem = ({ login }) => {
             })
         }).catch(error => {
             if (error.response && error.response.status === 401)
-                login.loginError();
+                login.loginError(createError(errorType.RELOGIN, error));
+            else
+                login.loginError(createError(errorType.AUTHORIZE, error), false);
             setFormStatus(form_stts.ERROR);
         });
     }

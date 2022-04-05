@@ -5,6 +5,7 @@ import axios from 'axios'
 import Layout from '../../components/layout'
 import LoginOptions from '../../components/login'
 import { md } from '../../helpers/query'
+import { createError, errorType } from '../../helpers/error'
 import { Alert, Layout as AntLayout, Input, Space, Row, Col, Typography, Button, Progress } from 'antd'
 
 import utilStyles from '../../styles/utils.module.css'
@@ -22,7 +23,9 @@ const Avaliacao = ({ login }) => {
                 setChosenArticle(result.data);
             }).catch(error => {
                 if (error.response && error.response.status === 401)
-                    login.loginError();
+                    login.loginError(createError(errorType.RELOGIN, error));
+                else
+                    login.loginError(createError(errorType.AUTHORIZE, error), false);
             });
     }, [login.authenticated]);
 

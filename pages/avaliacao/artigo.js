@@ -8,6 +8,7 @@ import NutritionalInfo from '../../components/nutrinfo';
 import SocioDemForm from '../../components/sdform';
 import ERCLabel from '../../components/erclabel';
 import { CredibilityForm, FirstImpressionsForm, MetricsForm } from '../../components/articleanalysisform';
+import { createError, errorType } from '../../helpers/error';
 import { Row, Col, Card, Layout as AntLayout, Typography, Breadcrumb, Space, Spin, Steps, Button } from 'antd';
 import axios from 'axios';
 import utilStyles from '../../styles/utils.module.css';
@@ -58,7 +59,9 @@ const AnalysisBlock = (props) => {
 			})
 		}).catch(error => {
 			if (error.response && error.response.status === 401)
-				props.login.loginError();
+				props.login.loginError(createError(errorType.RELOGIN, error));
+			else
+				props.login.loginError(createError(errorType.AUTHORIZE, error), false);
 			setSubmitting(false);
 		});
 	}

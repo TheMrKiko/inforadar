@@ -2,23 +2,22 @@ import { useEffect, useState } from 'react';
 import { notification } from 'antd';
 
 import axios from 'axios';
+import { createError, errorType } from '../helpers/error';
 
 const { API_PATH } = process.env
 
 const withLogin = (BaseComponent) => (props) => {
 	const [userData, setUserData] = useState(null);
-	const [loginErrors, setLoginError] = useState(false);
-	const [logoutErrors, setLogoutError] = useState(false);
+	const [loginErrors, setLoginError] = useState(null);
 
 	const clearLogin = () => {
 		setUserData(null);
-		setLogoutError(false);
 		localStorage.removeItem("inforadarlogin");
 	}
 
 	const login = (data) => {
 		setUserData(data);
-		setLoginError(false);
+		setLoginError(null);
 		try {
 			localStorage.setItem("inforadarlogin", 1);
 		} catch (error) {
@@ -31,13 +30,14 @@ const withLogin = (BaseComponent) => (props) => {
 		}).then(result => {
 			clearLogin();
 		}).catch(error => {
-			setLogoutError(true);
+			setLoginError(createError(errorType.LOGOUT, error));
 		});
 	}
 
-	const loginError = () => {
-		setLoginError(true);
-		clearLogin();
+	const loginError = (error, clear = true) => {
+		setLoginError(error);
+		if (clear)
+			clearLogin();
 	}
 
 	useEffect(() => {
@@ -49,26 +49,11 @@ const withLogin = (BaseComponent) => (props) => {
 				login(result.data);
 			}).catch(error => {
 				if (error.response && error.response.status === 401)
-					clearLogin();
+					loginError(createError(errorType.RELOGIN, error));
 				else
-					loginError();
+					loginError(createError(errorType.AUTHORIZE, error), false);
 			});
 	}, [])
-
-	useEffect(() => {
-		if (loginErrors) {
-			notification.open({
-				message: 'Erro a iniciar sessão',
-			});
-			setLoginError(false);
-		}
-		if (logoutErrors) {
-			notification.open({
-				message: 'Erro a terminar a sessão',
-			});
-			setLogoutError(false);
-		}
-	}, [loginErrors, logoutErrors]);
 
 	return (
 		<BaseComponent

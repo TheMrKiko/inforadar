@@ -56,9 +56,9 @@ const SearchBar = ({ mode, url, title, body, error, onChangeMode, onSearching: o
 						type: 'url',
 						message: 'Coloque um URL válido.',
 					}]}
-					validateStatus={error ? error.type : undefined}
+					validateStatus={error ? error.style : undefined}
 					help={error ? error.message : undefined}
-					extra={error ? error.submessage : undefined}
+					extra={error ? error.detail : undefined}
 				>
 					<Input.Search
 						autoFocus
@@ -98,9 +98,9 @@ const SearchBar = ({ mode, url, title, body, error, onChangeMode, onSearching: o
 							warningOnly: true
 						},
 						]}
-						validateStatus={error ? error.type : undefined}
+						validateStatus={error ? error.style : undefined}
 						help={error ? error.message : undefined}
-						extra={error ? error.submessage : undefined}
+						extra={error ? error.detail : undefined}
 					>
 						<Input.TextArea
 							allowClear

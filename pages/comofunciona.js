@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Error } from '../helpers/error'
+import { createError, errorType } from '../helpers/error'
 import Histogram from '../components/histogram'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -24,7 +24,7 @@ const ComoFunciona = () => {
             headers: { 'content-type': 'application/json' }
         }).then(result => {
             setCategories(result.data)
-        }).catch(error => setError(new Error(error)));
+        }).catch(error => setError(createError(errorType.GET_INFO, error)));
         axios({
             method: 'get',
             url: `${API_PATH}/metrics`,
@@ -41,8 +41,8 @@ const ComoFunciona = () => {
                 }
             }).then(result => {
                 setMetricsHistogram(result.data)
-            }).catch(error => setError(new Error(error)));
-        }).catch(error => setError(new Error(error)));
+            }).catch(error => setError(createError(errorType.HISTOGRAM, error)));
+        }).catch(error => setError(createError(errorType.GET_INFO, error),));
     }, []);
 
     const SciNotation = (n) => n < 10e-6 ? " < 10e-6" : ` = ${n}`

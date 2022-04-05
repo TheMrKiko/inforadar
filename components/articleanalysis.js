@@ -2,13 +2,12 @@ import React from 'react';
 import { withRouter } from 'next/router';
 import { Query, md } from '../helpers/query';
 import { compose } from '../helpers/function';
-import { Error, textSizeValidation } from '../helpers/error';
+import { createError, errorType, textSizeValidation } from '../helpers/error';
 import axios from 'axios';
 
 const { API_PATH } = process.env
 
 const stts = {
-	ERROR: -1,
 	INITIAL: 0,
 	NEW_QUERY: 1,
 	QUERY_INVALID: 2,
@@ -43,7 +42,7 @@ const withArticle = (BaseComponent) => class extends React.Component {
 		}
 	}
 
-	opened = () => this.state.status >= stts.QUERY_VALID
+	opened = () => this.state.status >= stts.QUERY_VALID && !(this.state.error && this.state.error.type < errorType.THE_LINE)
 
 	componentDidMount() {
 		axios({
@@ -53,7 +52,7 @@ const withArticle = (BaseComponent) => class extends React.Component {
 		}).then(result => {
 			this.onFetchMetadata(result.data)
 		}).catch(error => this.setState({
-			error: new Error(error),
+			error: createError(errorType.GET_INFO, error),
 		}));
 
 		axios({
@@ -63,7 +62,7 @@ const withArticle = (BaseComponent) => class extends React.Component {
 		}).then(result => {
 			this.onFetchIndicatorsInfo(result.data)
 		}).catch(error => this.setState({
-			error: new Error(error),
+			error: createError(errorType.GET_INFO, error),
 		}));
 
 		axios({
@@ -73,7 +72,7 @@ const withArticle = (BaseComponent) => class extends React.Component {
 		}).then(result => {
 			this.onFetchMetricsInfo(result.data)
 		}).catch(error => this.setState({
-			error: new Error(error),
+			error: createError(errorType.GET_INFO, error),
 		}));
 
 		axios({
@@ -83,7 +82,7 @@ const withArticle = (BaseComponent) => class extends React.Component {
 		}).then(result => {
 			this.onFetchSourceInfo(result.data)
 		}).catch(error => this.setState({
-			error: new Error(error),
+			error: createError(errorType.GET_INFO, error),
 		}));
 
 		axios({
@@ -93,7 +92,7 @@ const withArticle = (BaseComponent) => class extends React.Component {
 		}).then(result => {
 			this.onFetchMatrixRules(result.data)
 		}).catch(error => this.setState({
-			error: new Error(error),
+			error: createError(errorType.GET_INFO, error),
 		}));
 
 		this.setState({
@@ -146,8 +145,7 @@ const withArticle = (BaseComponent) => class extends React.Component {
 					}).then(result => {
 						this.onFetchArticle(result.data)
 					}).catch(error => this.setState({
-						status: stts.ERROR,
-						error: new Error(error),
+						error: createError(errorType.SCRAPPER, error),
 					}));
 					return this.setState({
 						status: stts.WAITING_SCRAPPER
@@ -168,8 +166,7 @@ const withArticle = (BaseComponent) => class extends React.Component {
 					}).then(result => {
 						this.onFetchArticle(result.data)
 					}).catch(error => this.setState({
-						status: stts.ERROR,
-						error: new Error(error),
+						error: createError(errorType.CORPUS_ARTICLE, error),
 					}));
 					return this.setState({
 						status: stts.WAITING_SCRAPPER
@@ -194,8 +191,7 @@ const withArticle = (BaseComponent) => class extends React.Component {
 					}).then(result => {
 						this.onFetchIndicatorsData(result.data)
 					}).catch(error => this.setState({
-						status: stts.ERROR,
-						error: new Error(error),
+						error: createError(errorType.INDICATORS, error),
 					}));
 					axios({
 						method: 'post',
@@ -227,11 +223,10 @@ const withArticle = (BaseComponent) => class extends React.Component {
 						}).then(result => {
 							this.onFetchMetricsHistogram(result.data)
 						}).catch(error => this.setState({
-							error: new Error(error),
+							error: createError(errorType.HISTOGRAM, error),
 						}));
 					}).catch(error => this.setState({
-						status: stts.ERROR,
-						error: new Error(error),
+						error: createError(errorType.METRICS, error),
 					}));
 					if (this.state.mode != md.TEXT) {
 						axios({
@@ -244,8 +239,7 @@ const withArticle = (BaseComponent) => class extends React.Component {
 						}).then(result => {
 							this.onFetchSourceData(result.data)
 						}).catch(error => this.setState({
-							status: stts.ERROR,
-							error: new Error(error),
+							error: createError(errorType.SOURCE_CHECKER, error),
 						}));
 					}
 					return this.setState({

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { withRouter } from 'next/router'
 import { GoogleLogin } from 'react-google-login';
 import { Typography, Modal, Button } from 'antd';
+import { createError, errorType } from '../helpers/error';
 
 import axios from 'axios';
 
@@ -39,13 +40,13 @@ class LoginOptions extends React.Component {
         }).then(result => {
             this.props.login.login(result.data);
         }).catch(error => {
-            this.props.login.loginError(error);
+            this.props.login.loginError(createError(errorType.LOGIN, error));
         });
     };
 
 
     loginFailure(d) {
-        this.props.login.loginError(d);
+        this.props.login.loginError(createError(errorType.GOOGLE, d));
     };
 
 
