@@ -160,7 +160,7 @@ const AnalysisBlock = (props) => {
 			}
 			{step >= 2 && step < 5 && <Navigation step={step} setStep={scrollAndSetStep} />}
 			{step == 5 && <Typography.Paragraph>
-				<Typography.Text type={'success'}>Resposta submetida! Obrigado pela sua participação. <Link href='/avaliacao'>Analisar outro artigo</Link>.</Typography.Text>
+				<Typography.Text type={'success'}>Resposta submetida! Obrigado pela sua participação. <Link href='/avaliacao'>Avaliar outro artigo</Link>.</Typography.Text>
 			</Typography.Paragraph>}
 		</Space>
 	) : <Spin size={'large'} />
