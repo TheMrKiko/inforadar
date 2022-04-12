@@ -3,6 +3,7 @@ import { createError, errorType } from '../helpers/error'
 import Histogram from '../components/histogram'
 import Head from 'next/head'
 import Link from 'next/link'
+import { withRouter } from 'next/router'
 import Layout from '../components/layout'
 import { Layout as AntLayout, Input, Space, Row, Radio, Col, Table, Typography, Button, Collapse } from 'antd'
 import { Collapse as DynamicCollapse } from 'react-collapse';
@@ -11,7 +12,7 @@ import utilStyles from '../styles/utils.module.css'
 
 const { API_PATH } = process.env
 
-const ComoFunciona = () => {
+const ComoFunciona = ({ router }) => {
     const [categories, setCategories] = useState(null);
     const [metricsInfo, setMetricsInfo] = useState(null);
     const [metricsHistogram, setMetricsHistogram] = useState(null);
@@ -168,7 +169,7 @@ const ComoFunciona = () => {
                     </ol>
 
                     que representam uma classe de probabilidade de este corresponder a uma das seguintes <Typography.Text italic>categorias de (des)informação</Typography.Text>:
-                    <Collapse ghost>
+                    <Collapse ghost defaultActiveKey={router.asPath.split('#')[1] ?? undefined}>
                         <Collapse.Panel header={<Typography.Text strong>Notícia</Typography.Text>} key="noticia">
                             <Typography.Paragraph>
                                 Texto marcadamente informativo, por norma, claro, conciso, direto, objetivo e elaborado segundo regras jornalísticas bem definidas. Tem título, em geral, direto e informativo, que resulta do 'lead'. Este corresponde ao primeiro parágrafo da notícia, em que o leitor deverá encontrar resposta para seis questões fundamentais: <Typography.Text italic>O quê? Quem? Quando? Onde? Porquê? Como?</Typography.Text> As respostas às duas últimas questões poderão ser exploradas nos parágrafos mais abaixo. A notícia deve mencionar as fontes utilizadas, que conferem credibilidade à mesma, e é construída em forma de pirâmide invertida. Se precisarmos de fazer uma seleção ou um corte do texto, a informação mais relevante deverá estar nos parágrafos iniciais.
@@ -221,7 +222,7 @@ const ComoFunciona = () => {
                 <Typography.Title id="metricas" level={2}>Métricas Explicativas</Typography.Title>
                 <Typography.Paragraph>As métricas explicativas contempladas no <Typography.Text strong>InfoRadar</Typography.Text> resultam de um trabalho de investigação que envolveu a análise e anotação de conteúdos noticiosos por parte de profissionais da comunicação e leitores comuns (ver artigos científicos <Typography.Link href={'#artigo1'}>1</Typography.Link>, <Typography.Link href={'#artigo2'}>2</Typography.Link> e <Typography.Link href={'#artigo3'}>3</Typography.Link>). Em concreto, os resultados apresentados deverão ajudar o leitor a refletir sobre a credibilidade do conteúdo do artigo que estão a analisar, tendo em consideração os aspetos computados em cada métrica:
 
-                    <Collapse ghost>
+                    <Collapse ghost defaultActiveKey={router.asPath.split('#')[1] ?? undefined}>
                         <Collapse.Panel header={<Typography.Text strong>Sentimento</Typography.Text>} key="sentiment" id="sentiment">
                             <Typography.Paragraph>
                                 Contrariamente às notícias convencionais, onde é requerida a utilização de um tom neutro e objetivo, em artigos de outra natureza (por exemplo, em artigos de opinião), é comum o emprego de palavras e expressões com carga emocional (ou sentimento), procurando provocar uma reação junto dos leitores.
@@ -327,4 +328,4 @@ const ComoFunciona = () => {
     )
 }
 
-export default ComoFunciona
+export default withRouter(ComoFunciona)
