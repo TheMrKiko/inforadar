@@ -258,7 +258,7 @@ const ComoFunciona = () => {
                             </Typography.Paragraph>
                             {HistogramBlock(categories, 4, metricsHistogram)}
                         </Collapse.Panel>
-                        <Collapse.Panel header={<Typography.Text strong>Cobertura lexical</Typography.Text>} key="spell_checking" id="spell_checking">
+                        <Collapse.Panel header={<Typography.Text strong>Palavras Não Reconhecidas</Typography.Text>} key="spell_checking" id="spell_checking">
                             <Typography.Paragraph>
                                 A correção linguística é um aspeto fundamental a ter em consideração na redação de qualquer tipo de conteúdo, que se pretende rigoroso, claro, coeso e isento de qualquer tipo de erro (lexical, sintático, semântico, discursivo ou estrutural).
                             </Typography.Paragraph>
