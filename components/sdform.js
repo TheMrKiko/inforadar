@@ -213,6 +213,7 @@ const newsConsumption = [
 ]
 
 const countries = [
+	{ "id": 167, "name": "Portugal" },
 	{ "id": 1, "name": "Afeganistão" },
 	{ "id": 2, "name": "África do Sul" },
 	{ "id": 3, "name": "Albânia" },
@@ -379,7 +380,6 @@ const countries = [
 	{ "id": 164, "name": "Polinésia Francesa" },
 	{ "id": 165, "name": "Polónia" },
 	{ "id": 166, "name": "Porto Rico" },
-	{ "id": 167, "name": "Portugal" },
 	{ "id": 168, "name": "Catar" },
 	{ "id": 169, "name": "Quênia" },
 	{ "id": 170, "name": "Quirguistão" },
@@ -437,6 +437,7 @@ const countries = [
 	{ "id": 222, "name": "Vietnã" },
 	{ "id": 223, "name": "Zâmbia" },
 	{ "id": 224, "name": "Zimbabwe" },
+	{ "id": 0, "name": "Outra/Prefiro não responder" },
 ]
 
 export default SocioDemForm
