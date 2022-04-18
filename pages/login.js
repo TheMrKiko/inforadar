@@ -15,7 +15,7 @@ const Login = ({ login }) => {
                 <Typography.Title level={1}>Iniciar Sessão</Typography.Title>
                 <Typography.Paragraph>O seu endereço de email será usado apenas para iniciar sessão com o Google. Não o armazenamos, nem associamos quaisquer dados que o permitem identificar aos dados por si fornecidos.</Typography.Paragraph>
                 <Typography.Title level={2}>Consentimento Informado</Typography.Title>
-                <Typography.Paragraph>Ao continuar, declaro que li a <Typography.Link href={'Termo de Consentimento.pdf'}>declaração de consentimento informado</Typography.Link> e confirmo o meu interesse em participar neste estudo.</Typography.Paragraph>
+                <Typography.Paragraph>👉 Ao continuar, declaro que li o <Typography.Link href={'Termo de Consentimento.pdf'}>Termo de Consentimento Informado</Typography.Link>, confirmo que não sou menor de idade e que aceito voluntariamente participar neste estudo utilizando uma conta Google.</Typography.Paragraph>
                 <LoginOptions login={login} />
             </AntLayout.Content>
         </Layout>

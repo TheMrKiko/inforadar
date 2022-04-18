@@ -36,8 +36,8 @@ const Avaliacao = ({ login }) => {
             </Head>
             <AntLayout.Content className={utilStyles.container}>
                 <Typography.Title level={1}>Avaliação</Typography.Title>
-                <Typography.Paragraph>De forma a melhorarmos o InfoRadar, pedimos a sua opinião sobre os resultados da classificação automaticamente gerados para um dos artigos aleatoriamente selecionados.</Typography.Paragraph>
-                <Typography.Paragraph>Para o efeito, deverá registar-se na nossa plataforma e preencher um breve questionário sociodemográfico.</Typography.Paragraph>
+                <Typography.Paragraph>De forma a melhorarmos o InfoRadar, pedimos a sua participação num <Typography.Text strong>estudo de avaliação</Typography.Text> dos resultados da classificação automaticamente gerada pela plataforma, para um dos artigos usados para treinar o algoritmo aleatoriamente selecionados.</Typography.Paragraph>
+                <Typography.Paragraph>O processo requer que tenha sessão iniciada no InfoRadar e que preencha um breve questionário sociodemográfico, antes de avaliar artigos.</Typography.Paragraph>
                 {login.authenticated ? <>
                     <Typography.Paragraph><Typography.Text type={'secondary'}>Sessão iniciada.</Typography.Text></Typography.Paragraph>
                     {login.userData && !login.userData.sociodemographic && <Typography.Paragraph>
@@ -63,7 +63,7 @@ const Avaliacao = ({ login }) => {
                     </Row>
                 </> :
                     <Typography.Paragraph>
-                        <Typography.Text type={'warning'}>Para visualizar esta página, precisa de <Link href='/login'>iniciar sessão</Link>.</Typography.Text>
+                        <Typography.Text type={'warning'}>Para continuar, precisa de <Link href='/login'>iniciar sessão</Link>.</Typography.Text>
                     </Typography.Paragraph>
                 }
             </AntLayout.Content>
