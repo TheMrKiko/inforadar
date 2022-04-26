@@ -1,4 +1,5 @@
-import { Form, Space, Checkbox, Input, Button, Radio, Switch, Select, Row, Col, Typography, Skeleton, Divider } from 'antd';
+import { Form, Space, Checkbox, Input, Button, Radio, Switch, Select, Row, Col, Typography, Skeleton, Divider, Collapse } from 'antd';
+import utilStyles from '../styles/utils.module.css'
 
 const layout = {
 	labelCol: {
@@ -195,11 +196,16 @@ const MetricsForm = ({ metricsInfo, fields, onChange, onSubmit, submitting }) =>
 					<Typography.Text strong>5. Classifique o quão concorda com as seguintes afirmações.</Typography.Text>
 				</Col>
 			</Row>
+			<Collapse
+				ghost
+				defaultActiveKey={metricsInfo.map(m => m.id)}
+			>
 			{metricsInfo.map((metric, i) =>
-				<div key={metric.id}>
-					<Divider plain orientation={'left'} orientationMargin={0}>
-						<Typography.Text type={'secondary'}>5.{i + 1}. {metric.display_name}</Typography.Text>
-					</Divider>
+					<Collapse.Panel
+						header={<Typography.Text type={'secondary'}>5.{i + 1}. {metric.display_name}</Typography.Text>}
+						key={metric.id}
+					>
+						<div className={utilStyles.nullAntTBPadding}>
 					<Form.Item
 						name={`info_reflected_in_${metric.name}`}
 						label={<Typography.Text>a) Os valores apresentados para a métrica <Typography.Text strong>{metric.display_name.toLowerCase()}</Typography.Text> estimada pelo InfoRadar refletem a informação apresentada no artigo.</Typography.Text>}
@@ -231,7 +237,9 @@ const MetricsForm = ({ metricsInfo, fields, onChange, onSubmit, submitting }) =>
 						</Radio.Group>
 					</Form.Item>
 				</div>
+					</Collapse.Panel>
 			)}
+			</Collapse>
 			<Form.Item
 				name="most_relevant_metric"
 				label={<Typography.Text strong>6. Qual a métrica que considera mais relevante ou informativa para determinar o grau de credibilidade do artigo?</Typography.Text>}
