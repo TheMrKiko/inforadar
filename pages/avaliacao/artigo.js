@@ -100,7 +100,7 @@ const AnalysisBlock = (props) => {
 			}
 			{step != 5 && <div ref={refsByStep[2]} />}
 			{step >= 2 && step < 5 && <>
-				<Typography.Paragraph type={step >= 3 && 'secondary'}>Agora, observe o mesmo artigo contextualizado e analise a informação providenciada pelo InfoRadar. <Link href={`${process.env.BASE_PATH}/comofunciona`} target="_blank">Ver como funciona o InfoRadar</Link>.</Typography.Paragraph>
+				<Typography.Paragraph type={step >= 3 && 'secondary'}>Agora, observe o mesmo artigo contextualizado e analise a informação providenciada pelo InfoRadar. <Link href={`/comofunciona`} target="_blank">Ver como funciona o InfoRadar</Link>.</Typography.Paragraph>
 				<Row gutter={20}>
 					<Col span={24} sm={{ span: 6 }}>
 						<Space direction={'vertical'}>
