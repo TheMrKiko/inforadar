@@ -13,7 +13,7 @@ export default function Footer({ login }) {
 				<Col>
 					{login && login.authenticated && login.userData && (
 						<Typography.Paragraph>
-							<Typography.Text className={utilStyles.whiteText}>Registado como {login.userData.name}
+							<Typography.Text className={utilStyles.whiteText}>Sessão iniciada como {login.userData.name}
 								<Typography.Link onClick={login.logout}> (Sair)</Typography.Link>
 							</Typography.Text>
 						</Typography.Paragraph>

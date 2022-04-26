@@ -185,10 +185,8 @@ const Artigo = ({ login }) => {
 				</Breadcrumb>
 				<Typography.Paragraph>O objetivo deste inquérito é melhorar o InfoRadar e a sua Informação Nutricional, através da leitura e análise de cada artigo. Este processo irá demorar, no máximo, 5 minutos.</Typography.Paragraph>
 				{login.authenticated ?
-					<>
-						<Typography.Paragraph><Typography.Text type={'secondary'}>Sessão iniciada.</Typography.Text></Typography.Paragraph>
 						<ArticleAnalysis login={login} />
-					</> :
+					:
 					<Typography.Paragraph>
 						<Typography.Text type={'warning'}>Para visualizar esta página, precisa de <Link href='/login'>iniciar sessão</Link>.</Typography.Text>
 					</Typography.Paragraph>

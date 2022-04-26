@@ -52,9 +52,8 @@ const SocioDem = ({ login }) => {
                         <Typography.Title level={1}>Questionário Sociodemográfico</Typography.Title>
                     </Breadcrumb.Item>
                 </Breadcrumb>
-                <Typography.Paragraph>Este questionário serve para fazer perguntas.</Typography.Paragraph>
-                {login.authenticated ? <>
-                    <Typography.Paragraph><Typography.Text type={'secondary'}>Sessão iniciada.</Typography.Text></Typography.Paragraph>
+                <Typography.Paragraph>Este questionário permitirá investigar de que modo certas características poderão influenciar a perceção de credibilidade por parte dos leitores.</Typography.Paragraph>
+                {login.authenticated ?
                     <Typography.Paragraph>
                         {formStatus == form_stts.SUCCESS ?
                             <Typography.Text type={'success'}>Questionário submetido! <Link href='/avaliacao'>Voltar atrás</Link>. </Typography.Text> :
@@ -67,9 +66,7 @@ const SocioDem = ({ login }) => {
                                     }}
                                 /> : <Typography.Text type={'warning'}>Já preencheu este questionário. Apenas necessita de o efetuar uma vez. <Link href='/avaliacao'>Voltar atrás</Link>.</Typography.Text>
                             )}
-                    </Typography.Paragraph>
-                </> :
-                    <Typography.Paragraph>
+                    </Typography.Paragraph> : <Typography.Paragraph>
                         <Typography.Text type={'warning'}>Para visualizar esta página, precisa de <Link href='/login'>iniciar sessão</Link>.</Typography.Text>
                     </Typography.Paragraph>
                 }
