@@ -56,7 +56,7 @@ const SocioDem = ({ login }) => {
                 {login.authenticated ?
                     <Typography.Paragraph>
                         {formStatus == form_stts.SUCCESS ?
-                            <Typography.Text type={'success'}>Questionário submetido! <Link href='/avaliacao'>Voltar atrás</Link>. </Typography.Text> :
+                            <Typography.Text type={'success'}>Questionário submetido! <Link href='/avaliacao'>Avaliar artigos</Link>. </Typography.Text> :
                             (login.userData && !login.userData.sociodemographic ?
                                 <SocioDemForm
                                     submitting={formStatus == form_stts.SUBMITTING}

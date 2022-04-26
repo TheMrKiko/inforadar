@@ -200,70 +200,70 @@ const MetricsForm = ({ metricsInfo, fields, onChange, onSubmit, submitting }) =>
 				ghost
 				defaultActiveKey={metricsInfo.map(m => m.id)}
 			>
-			{metricsInfo.map((metric, i) =>
+				{metricsInfo.map((metric, i) =>
 					<Collapse.Panel
 						header={<Typography.Text type={'secondary'}>5.{i + 1}. {metric.display_name}</Typography.Text>}
 						key={metric.id}
 					>
 						<div className={utilStyles.nullAntTBPadding}>
-					<Form.Item
-						name={`info_reflected_in_${metric.name}`}
-						label={<Typography.Text>a) Os valores apresentados para a métrica <Typography.Text strong>{metric.display_name.toLowerCase()}</Typography.Text> estimada pelo InfoRadar refletem a informação apresentada no artigo.</Typography.Text>}
-						rules={[{ required: true }]}
-					>
-						<Radio.Group>
-							<Row>
-								<Col>
-									{agree.map(c =>
-										<Radio key={c.id} value={c.id}>{c.name}</Radio>
-									)}
-								</Col>
-							</Row>
-						</Radio.Group>
-					</Form.Item>
-					<Form.Item
-						name={`relevance_of_${metric.name}`}
-						label={<Typography.Text>b) A informação sobre o grau de <Typography.Text strong>{metric.display_name.toLowerCase()}</Typography.Text> é pertinente para aferir a credibilidade do artigo.</Typography.Text>}
-						rules={[{ required: true }]}
-					>
-						<Radio.Group>
-							<Row>
-								<Col>
-									{agree.map(c =>
-										<Radio key={c.id} value={c.id}>{c.name}</Radio>
-									)}
-								</Col>
-							</Row>
-						</Radio.Group>
-					</Form.Item>
-				</div>
+							<Form.Item
+								name={`info_reflected_in_${metric.name}`}
+								label={<Typography.Text>a) Os valores apresentados para a métrica <Typography.Text strong>{metric.display_name.toLowerCase()}</Typography.Text> estimada pelo InfoRadar refletem a informação apresentada no artigo.</Typography.Text>}
+								rules={[{ required: true }]}
+							>
+								<Radio.Group>
+									<Row>
+										<Col>
+											{agree.map(c =>
+												<Radio key={c.id} value={c.id}>{c.name}</Radio>
+											)}
+										</Col>
+									</Row>
+								</Radio.Group>
+							</Form.Item>
+							<Form.Item
+								name={`relevance_of_${metric.name}`}
+								label={<Typography.Text>b) A informação sobre o grau de <Typography.Text strong>{metric.display_name.toLowerCase()}</Typography.Text> é pertinente para aferir a credibilidade do artigo.</Typography.Text>}
+								rules={[{ required: true }]}
+							>
+								<Radio.Group>
+									<Row>
+										<Col>
+											{agree.map(c =>
+												<Radio key={c.id} value={c.id}>{c.name}</Radio>
+											)}
+										</Col>
+									</Row>
+								</Radio.Group>
+							</Form.Item>
+						</div>
 					</Collapse.Panel>
-			)}
+				)}
 			</Collapse>
 			<Form.Item
 				name="most_relevant_metric"
 				label={<Typography.Text strong>6. Qual a métrica que considera mais relevante ou informativa para determinar o grau de credibilidade do artigo?</Typography.Text>}
 				rules={[{ required: true }]}
 			>
-							<Select
-								placeholder="Escolha uma opção"
-								allowClear
-							>
-								{metricsInfo.map(m => <Select.Option key={m.id} value={m.id}>{m.display_name}</Select.Option>)}
-							</Select>
+				<Select
+					placeholder="Escolha uma opção"
+					allowClear
+				>
+					{metricsInfo.map(m => <Select.Option key={m.id} value={m.id}>{m.display_name}</Select.Option>)}
+				</Select>
 			</Form.Item>
 			<Form.Item
 				name="least_relevant_metric"
 				label={<Typography.Text strong>7. Qual a métrica que considera menos relevante ou informativa para determinar o grau de credibilidade do artigo?</Typography.Text>}
 				rules={[{ required: true }]}
 			>
-							<Select
-								placeholder="Escolha uma opção"
-								allowClear
-							>
-								{metricsInfo.map(m => <Select.Option key={m.id} value={m.id}>{m.display_name}</Select.Option>)}
-							</Select>
-						</Form.Item>
+				<Select
+					placeholder="Escolha uma opção"
+					allowClear
+				>
+					{metricsInfo.map(m => <Select.Option key={m.id} value={m.id}>{m.display_name}</Select.Option>)}
+				</Select>
+			</Form.Item>
 			<Form.Item>
 				<Space>
 					<Button htmlType={'reset'} onClick={onReset}>
@@ -281,7 +281,7 @@ const MetricsForm = ({ metricsInfo, fields, onChange, onSubmit, submitting }) =>
 const agree = [
 	{ "id": 1, "name": "Discordo totalmente" },
 	{ "id": 2, "name": "Discordo" },
-	{ "id": 3, "name": "Indeciso" },
+	{ "id": 3, "name": "Neutro" },
 	{ "id": 4, "name": "Concordo" },
 	{ "id": 5, "name": "Concordo totalmente" },
 	{ "id": 0, "name": "Não sei" },
