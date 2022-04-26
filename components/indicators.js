@@ -3,7 +3,7 @@ import Feedback from './feedback';
 import Radar from './radar';
 import RadarLegend from './radarlegend';
 
-import { Card, Col, Row } from 'antd';
+import { Card, Col, Row, Tooltip, Typography, Space } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import ParentSize from '@visx/responsive/lib/components/ParentSize';
 
@@ -11,7 +11,15 @@ export default function Indicators({ article, categories, indicatorsData, indica
 	return (
 		<Card
 			title={"ARTIGO FACE ÀS COLEÇÕES DE REFERÊNCIA"}
-			extra={<InfoCircleOutlined />}
+			extra={
+				<Tooltip title={indicatorsInfo && indicatorsInfo.map(indicator => <Space direction={'vertical'}>
+					{indicator.description}
+					<Typography.Link href={`${process.env.BASE_PATH}/comofunciona#categorias`} target="_blank">Ver o que significam as categorias.</Typography.Link>
+				</Space>
+				)}>
+					<InfoCircleOutlined />
+				</Tooltip>
+			}
 			loading={!indicatorsData}
 			type={inner && 'inner'}
 		>
