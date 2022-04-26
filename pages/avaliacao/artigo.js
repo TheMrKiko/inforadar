@@ -82,6 +82,7 @@ const AnalysisBlock = (props) => {
 						<Typography.Title level={3}>{props.article.article.headline}</Typography.Title>
 						<Typography.Paragraph style={{ whiteSpace: 'pre-wrap', }}>{props.article.article.body_text}</Typography.Paragraph>
 					</blockquote>
+					<Typography.Text type={'secondary'}>Algo de errado com o artigo? <Link href='/avaliacao'>Escolher outro artigo</Link>.</Typography.Text>
 				</Typography.Paragraph>
 			)}
 			{step == 0 && <Button type={'primary'} onClick={() => scrollAndSetStep(1)}>Continuar</Button>}
@@ -99,7 +100,7 @@ const AnalysisBlock = (props) => {
 			}
 			{step != 5 && <div ref={refsByStep[2]} />}
 			{step >= 2 && step < 5 && <>
-				<Typography.Paragraph type={step >= 3 && 'secondary'}>Agora, observe o mesmo artigo contextualizado e analise a informação providenciada pelo InfoRadar.</Typography.Paragraph>
+				<Typography.Paragraph type={step >= 3 && 'secondary'}>Agora, observe o mesmo artigo contextualizado e analise a informação providenciada pelo InfoRadar. <Link href={`${process.env.BASE_PATH}/comofunciona`} target="_blank">Ver como funciona o InfoRadar</Link>.</Typography.Paragraph>
 				<Row gutter={20}>
 					<Col span={24} sm={{ span: 6 }}>
 						<Space direction={'vertical'}>
@@ -130,35 +131,38 @@ const AnalysisBlock = (props) => {
 								/>
 							</Card>
 						</Typography.Paragraph>
+						<Space direction={'vertical'} className={utilStyles.width100}>
+							<Typography.Text type={'secondary'}>Algo de errado com o artigo ou a análise? <Link href='/avaliacao'>Escolher outro artigo</Link>.</Typography.Text>
+							{step == 2 && <Button type={'primary'} onClick={() => scrollAndSetStep(3)}>Continuar</Button>}
+							{step != 5 && <div ref={refsByStep[3]} />}
+							{step == 3 &&
+								<CredibilityForm
+									fields={cfFields}
+									onChange={setCFFields}
+									onSubmit={(values) => {
+										submitFormValues(values);
+										scrollAndSetStep(4);
+									}}
+								/>
+							}
+							{step != 5 && <div ref={refsByStep[4]} />}
+							{step == 4 &&
+								<MetricsForm
+									metricsInfo={props.article.metricsInfo}
+									fields={mfFields}
+									onChange={setMFFields}
+									onSubmit={(values) => {
+										submitFormValues(values);
+										setSubmitting(true);
+									}}
+									submitting={submitting}
+								/>
+							}
+							{step >= 2 && step < 5 && <Navigation step={step} setStep={scrollAndSetStep} />}
+						</Space>
 					</Col>
 				</Row>
 			</>}
-			{step == 2 && <Button type={'primary'} onClick={() => scrollAndSetStep(3)}>Continuar</Button>}
-			{step != 5 && <div ref={refsByStep[3]} />}
-			{step == 3 &&
-				<CredibilityForm
-					fields={cfFields}
-					onChange={setCFFields}
-					onSubmit={(values) => {
-						submitFormValues(values);
-						scrollAndSetStep(4);
-					}}
-				/>
-			}
-			{step != 5 && <div ref={refsByStep[4]} />}
-			{step == 4 &&
-				<MetricsForm
-					metricsInfo={props.article.metricsInfo}
-					fields={mfFields}
-					onChange={setMFFields}
-					onSubmit={(values) => {
-						submitFormValues(values);
-						setSubmitting(true);
-					}}
-					submitting={submitting}
-				/>
-			}
-			{step >= 2 && step < 5 && <Navigation step={step} setStep={scrollAndSetStep} />}
 			{step == 5 && <Typography.Paragraph>
 				<Typography.Text type={'success'}>Resposta submetida! Obrigado pela sua participação. <Link href='/avaliacao'>Avaliar outro artigo</Link>.</Typography.Text>
 			</Typography.Paragraph>}
@@ -185,7 +189,7 @@ const Artigo = ({ login }) => {
 				</Breadcrumb>
 				<Typography.Paragraph>O objetivo deste inquérito é melhorar o InfoRadar e a sua Informação Nutricional, através da leitura e análise de cada artigo. Este processo irá demorar, no máximo, 5 minutos.</Typography.Paragraph>
 				{login.authenticated ?
-						<ArticleAnalysis login={login} />
+					<ArticleAnalysis login={login} />
 					:
 					<Typography.Paragraph>
 						<Typography.Text type={'warning'}>Para visualizar esta página, precisa de <Link href='/login'>iniciar sessão</Link>.</Typography.Text>

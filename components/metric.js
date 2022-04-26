@@ -38,7 +38,7 @@ const Metric = ({ filter, category, categories, info, data, histogram }) => {
 					<Space direction={'vertical'}>
 						<Typography.Text>
 							O artigo tem uma {isPercentage ? "percentagem" : "pontuação"} de {Math.round(data.score * 1000) / (isPercentage ? 10 : 1000)}{isPercentage && "%"} de {info.display_name.toLowerCase()}, o que representa um valor {label} face à coleção de {categoryData.display_name.toLowerCase()}.
-							<Typography.Link href={`${process.env.BASE_PATH}/comofunciona#${info.name}`}> Ver como este valor foi calculado.</Typography.Link>
+							<Typography.Link href={`${process.env.BASE_PATH}/comofunciona#${info.name}`} target="_blank"> Ver como este valor foi calculado.</Typography.Link>
 						</Typography.Text>
 						<Histogram category={category} histogram={histogram} />
 						<Typography.Text type={'secondary'}>
