@@ -172,7 +172,7 @@ const gender = [
 ]
 
 const age = [
-	{ "id": 1, "name": "< 18" },
+	// { "id": 1, "name": "< 18" },
 	{ "id": 2, "name": "18 - 25" },
 	{ "id": 3, "name": "26 - 40" },
 	{ "id": 4, "name": "41 - 60" },
