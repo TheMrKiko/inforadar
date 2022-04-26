@@ -233,29 +233,22 @@ const MetricsForm = ({ metricsInfo, fields, onChange, onSubmit, submitting }) =>
 				</div>
 			)}
 			<Form.Item
+				name="most_relevant_metric"
 				label={<Typography.Text strong>6. Qual a métrica que considera mais relevante ou informativa para determinar o grau de credibilidade do artigo?</Typography.Text>}
 				rules={[{ required: true }]}
 			>
-				<Row>
-					<Col>
-						<Form.Item name="most_relevant_metric" noStyle rules={[{ required: true }]}>
 							<Select
 								placeholder="Escolha uma opção"
 								allowClear
 							>
 								{metricsInfo.map(m => <Select.Option key={m.id} value={m.id}>{m.display_name}</Select.Option>)}
 							</Select>
-						</Form.Item>
-					</Col>
-				</Row>
 			</Form.Item>
 			<Form.Item
+				name="least_relevant_metric"
 				label={<Typography.Text strong>7. Qual a métrica que considera menos relevante ou informativa para determinar o grau de credibilidade do artigo?</Typography.Text>}
 				rules={[{ required: true }]}
 			>
-				<Row>
-					<Col>
-						<Form.Item name="least_relevant_metric" noStyle rules={[{ required: true }]}>
 							<Select
 								placeholder="Escolha uma opção"
 								allowClear
@@ -263,10 +256,7 @@ const MetricsForm = ({ metricsInfo, fields, onChange, onSubmit, submitting }) =>
 								{metricsInfo.map(m => <Select.Option key={m.id} value={m.id}>{m.display_name}</Select.Option>)}
 							</Select>
 						</Form.Item>
-					</Col>
-				</Row>
-			</Form.Item>
-			<Form.Item >
+			<Form.Item>
 				<Space>
 					<Button htmlType={'reset'} onClick={onReset}>
 						Limpar
