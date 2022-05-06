@@ -1,3 +1,5 @@
+import { prob, cred, changepercept, useful, agree } from '../helpers/form';
+
 import { Form, Space, Checkbox, Input, Button, Radio, Switch, Select, Row, Col, Typography, Skeleton, Divider, Collapse } from 'antd';
 import utilStyles from '../styles/utils.module.css'
 
@@ -277,48 +279,5 @@ const MetricsForm = ({ metricsInfo, fields, onChange, onSubmit, submitting }) =>
 		</Form>
 	) : <Skeleton />;
 };
-
-const agree = [
-	{ "id": 1, "name": "Discordo totalmente" },
-	{ "id": 2, "name": "Discordo" },
-	{ "id": 3, "name": "Neutro" },
-	{ "id": 4, "name": "Concordo" },
-	{ "id": 5, "name": "Concordo totalmente" },
-	{ "id": 0, "name": "Não sei" },
-]
-
-const useful = [
-	{ "id": 1, "name": "Nada útil" },
-	{ "id": 2, "name": "Pouco útil" },
-	{ "id": 3, "name": "Razoavelmente útil" },
-	{ "id": 4, "name": "Útil" },
-	{ "id": 5, "name": "Muito útil" },
-	{ "id": 0, "name": "Não sei" },
-]
-
-const changepercept = [
-	{ "id": 1, "name": "Sim, neste momento, o artigo parece-me menos credível." },
-	{ "id": 2, "name": "Não, a minha perceção sobre a credibilidade do artigo não mudou." },
-	{ "id": 3, "name": "Sim, neste momento, o artigo parece-me mais credível." },
-	{ "id": 0, "name": "Não sei" },
-]
-
-const cred = [
-	{ "id": 1, "name": "Nada credível" },
-	{ "id": 2, "name": "Pouco credível" },
-	{ "id": 3, "name": "Medianamente" },
-	{ "id": 4, "name": "Credível" },
-	{ "id": 5, "name": "Extremamente credível" },
-	{ "id": 0, "name": "Não sei" },
-]
-
-const prob = [
-	{ "id": 1, "name": "Nada provável" },
-	{ "id": 2, "name": "Pouco provável" },
-	{ "id": 3, "name": "Medianamente" },
-	{ "id": 4, "name": "Provável" },
-	{ "id": 5, "name": "Extremamente provável" },
-	{ "id": 0, "name": "Não sei" },
-]
 
 export { FirstImpressionsForm, CredibilityForm, MetricsForm }
