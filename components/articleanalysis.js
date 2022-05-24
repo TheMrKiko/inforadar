@@ -101,7 +101,7 @@ const withArticle = (BaseComponent) => class extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		const query = new Query(this.props.router.query)
+		const query = new Query(this.props.forcequery ?? this.props.router.query)
 		const prevQuery = prevState.query
 
 		if (!query.equals(prevQuery)) {
