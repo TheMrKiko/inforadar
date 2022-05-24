@@ -1,16 +1,41 @@
 import React, { useEffect, useState } from 'react'
 import { createError, errorType } from '../helpers/error'
 import Histogram from '../components/histogram'
+import SearchBar from '../components/searchbar';
+import NutritionalInfo from '../components/nutrinfo';
+import withArticle from '../components/articleanalysis';
+import { transitionSpanLeft } from '../helpers/transition';
 import Head from 'next/head'
 import Link from 'next/link'
 import { withRouter } from 'next/router'
 import Layout from '../components/layout'
-import { Layout as AntLayout, Input, Space, Row, Radio, Col, Table, Typography, Button, Collapse } from 'antd'
+import { Card, Layout as AntLayout, Input, Space, Row, Radio, Col, Table, Typography, Button, Collapse } from 'antd'
 import { Collapse as DynamicCollapse } from 'react-collapse';
 import axios from 'axios'
 import utilStyles from '../styles/utils.module.css'
+import styles from '../styles/ComoFunciona.module.css';
 
 const { API_PATH } = process.env
+
+const AnalysisBlock = (props) => (
+    <Typography.Paragraph className={styles.nutrinfoblock}>
+        <Card>
+            <NutritionalInfo
+                categories={props.article.categories}
+                article={props.article.article}
+                matrixRules={props.article.matrixRules}
+                indicatorsData={props.article.indicatorsData}
+                indicatorsInfo={props.article.indicatorsInfo}
+                metricsInfo={props.article.metricsInfo}
+                metricsData={props.article.metricsData}
+                metricsHistogram={props.article.metricsHistogram}
+                inner
+            />
+        </Card>
+    </Typography.Paragraph>
+)
+
+const ArticleAnalysis = withArticle(AnalysisBlock);
 
 const ComoFunciona = ({ router }) => {
     const [categories, setCategories] = useState(null);
@@ -152,10 +177,20 @@ const ComoFunciona = ({ router }) => {
 
                 <Typography.Title level={2}>Submissão do artigo para análise</Typography.Title>
                 <Typography.Paragraph>O leitor poderá submeter diretamente o artigo para avaliação, colando o URL do artigo ou, alternativamente, o texto que pretende analisar na janela à esquerda do <Typography.Text strong>InfoRadar</Typography.Text>.</Typography.Paragraph>
-                <Typography.Paragraph><Typography.Text italic>[inserir imagem]</Typography.Text></Typography.Paragraph>
+                <Typography.Paragraph>
+                    <Row>
+                        <Col {...transitionSpanLeft.exited}>
+                            <SearchBar />
+                        </Col>
+                    </Row>
+                    <Typography.Text italic>Caixa de pesquisa de exemplo.</Typography.Text>
+                </Typography.Paragraph>
 
                 <Typography.Paragraph>O <Typography.Text strong>InfoRadar</Typography.Text> produz uma ficha com <Typography.Text strong>Informação Nutricional</Typography.Text>, analisando o artigo em duas dimensões distintas, mas complementares: classificação do artigo quanto à sua <Typography.Text italic><Typography.Link href={'#categorias'}>categoria de (des)informação</Typography.Link></Typography.Text> e apresentação de um conjunto de <Typography.Text italic><Typography.Link href={'#metricas'}>métricas explicativas</Typography.Link></Typography.Text> que procuram auxiliar o leitor a avaliar o seu conteúdo.</Typography.Paragraph>
-                <Typography.Paragraph><Typography.Text italic>[inserir imagem]</Typography.Text></Typography.Paragraph>
+                <Typography.Paragraph>
+                    <ArticleAnalysis forcequery={{ url: "https://www.publico.pt/2021/04/18/sociedade/noticia/jantar-restaurante-ir-cinema-correr-grupo-partir-segundafeira-1959046" }} />
+                    <Typography.Text italic>Análise de exemplo.</Typography.Text>
+                </Typography.Paragraph>
 
                 <Typography.Title id="categorias" level={2}>Categorias de (des)informação</Typography.Title>
 
