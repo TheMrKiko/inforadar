@@ -11,6 +11,10 @@ const Metrics = ({ categories, metricsData, metricsInfo, metricsHistogram, indic
 	const [filter, setFilter] = useState("simple")
 
 	useEffect(() => {
+		categories && !categorySelected && setCategorySelected(categories && categories[0].id)
+	}, [categories, categorySelected])
+
+	useEffect(() => {
 		categories && indicatorsInfo && indicatorsData && setCategorySelected(getMainCategory(categories, indicatorsData[indicatorsInfo[0].id]).id)
 	}, [categories, indicatorsInfo, indicatorsData])
 
