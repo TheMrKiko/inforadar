@@ -41,11 +41,7 @@ const AnalysisBlock = (props) => (
                                     </Typography.Title>
                                 )}
                                 <SearchBar
-                                    onChangeMode={props.onChangeMode}
                                     onSearching={props.onSearching}
-                                    onChangeUrl={props.onChangeUrl}
-                                    onChangeTitle={props.onChangeTitle}
-                                    onChangeBody={props.onChangeBody}
                                     {...props.article}
                                 />
                                 <Space direction={'vertical'} size={'small'} className={utilStyles.width100}>

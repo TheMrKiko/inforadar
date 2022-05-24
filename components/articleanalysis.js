@@ -119,10 +119,10 @@ const withArticle = (BaseComponent) => class extends React.Component {
 			case stts.NEW_QUERY:
 				const { url: oldUrl, title: oldTitle, body: oldBody, mid: oldMid, mode: oldMode } = this.state
 
-				const url = query.url ?? oldUrl
-				const title = query.title ?? oldTitle
-				const body = query.body ?? oldBody
-				const mid = query.mid ?? oldMid
+				const url = query.url ?? ""
+				const title = query.title ?? ""
+				const body = query.body ?? ""
+				const mid = query.mid ?? ""
 				const mode = query.mode ?? oldMode
 				this.setState({
 					mode: parseInt(mode),
@@ -260,22 +260,6 @@ const withArticle = (BaseComponent) => class extends React.Component {
 		}
 	}
 
-	onChangeMode = (m) => {
-		this.setState({ mode: m })
-	}
-
-	onChangeUrl = (u) => {
-		this.setState({ url: u.target.value })
-	}
-
-	onChangeTitle = (t) => {
-		this.setState({ title: t.target.value })
-	}
-
-	onChangeBody = (b) => {
-		this.setState({ body: b.target.value })
-	}
-
 	onFetchArticle = (a) => {
 		this.setState({ article: a })
 	}
@@ -316,16 +300,16 @@ const withArticle = (BaseComponent) => class extends React.Component {
 		this.setState({ matrixRules: m })
 	}
 
-	onSearching = () => {
+	onSearching = ({ mode, url, title, body }) => {
 		this.props.router.push({
 			query: {
-				mode: this.state.mode,
-				...this.state.mode == md.URL ?
+				mode,
+				...mode === md.URL ?
 					{
-						url: this.state.url
+						url
 					} : {
-						title: this.state.title,
-						body: this.state.body
+						title,
+						body
 					},
 			}
 		})
@@ -346,10 +330,6 @@ const withArticle = (BaseComponent) => class extends React.Component {
 				opened={this.opened}
 				onSearching={this.onSearching}
 				onCancelSearching={this.onCancelSearching}
-				onChangeMode={this.onChangeMode}
-				onChangeUrl={this.onChangeUrl}
-				onChangeTitle={this.onChangeTitle}
-				onChangeBody={this.onChangeBody}
 			/>
 		)
 	}

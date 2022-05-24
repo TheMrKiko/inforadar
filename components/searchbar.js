@@ -1,18 +1,40 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { md } from '../helpers/query';
 import { Input, Select, Form } from 'antd'
 
 import styles from '../styles/Home.module.css'
 
-const SearchBar = ({ mode, url, title, body, error, onChangeMode, onSearching: onSearchingOriginal, onChangeUrl, onChangeTitle, onChangeBody }) => {
+const SearchBar = ({
+	mode: pmode = md.URL,
+	url: purl = "",
+	title: ptitle = "",
+	body: pbody = "",
+	error,
+	onSearching: ponSearching
+}) => {
 	const [form] = Form.useForm();
+	const [mode, setMode] = useState(pmode);
+	const [url, setUrl] = useState(purl);
+	const [title, setTitle] = useState(ptitle);
+	const [body, setBody] = useState(pbody);
+
+	useEffect(() => {
+		setMode(pmode);
+		if (pmode == md.URL)
+			setUrl(purl);
+		else if (pmode == md.TEXT) {
+			setTitle(ptitle);
+			setBody(pbody);
+		}
+	}, [pmode, purl, ptitle, pbody]);
 
 	const onSearching = () => {
 		form.validateFields(
-			!mode ?
+			mode === md.URL ?
 				['url'] :
 				['body']
 		).then(() => {
-			onSearchingOriginal();
+			ponSearching({ mode, url, title, body });
 		}).catch((r) => console.log(r));
 	}
 
@@ -21,14 +43,14 @@ const SearchBar = ({ mode, url, title, body, error, onChangeMode, onSearching: o
 			noStyle
 		>
 			<Select
-				defaultValue={0}
+				defaultValue={md.URL}
 				bordered={false}
 				size="small"
-				onChange={onChangeMode}
+				onChange={setMode}
 				value={mode}
 			>
-				<Select.Option value={0}>URL</Select.Option>
-				<Select.Option value={1}>Texto</Select.Option>
+				<Select.Option value={md.URL}>URL</Select.Option>
+				<Select.Option value={md.TEXT}>Texto</Select.Option>
 			</Select>
 		</Form.Item>
 	)
@@ -46,7 +68,7 @@ const SearchBar = ({ mode, url, title, body, error, onChangeMode, onSearching: o
 				}]
 			}
 		>
-			{!mode ? (
+			{mode === md.URL ? (
 				<Form.Item
 					name="url"
 					rules={[{
@@ -68,7 +90,7 @@ const SearchBar = ({ mode, url, title, body, error, onChangeMode, onSearching: o
 						className={styles.searchbar}
 						placeholder="Cole o URL de um artigo aqui..."
 						suffix={selectBefore(mode)}
-						onChange={onChangeUrl}
+						onChange={e => setUrl(e.target.value)}
 						onSearch={onSearching} />
 				</Form.Item>
 			) : (
@@ -84,7 +106,7 @@ const SearchBar = ({ mode, url, title, body, error, onChangeMode, onSearching: o
 						placeholder="Cole o título de um artigo aqui..."
 						suffix={selectBefore(mode)}
 						value={title}
-						onChange={onChangeTitle}
+						onChange={e => setTitle(e.target.value)}
 						onSearch={onSearching} />
 					<Form.Item
 						name="body"
@@ -107,7 +129,7 @@ const SearchBar = ({ mode, url, title, body, error, onChangeMode, onSearching: o
 							showCount
 							autoSize={{ maxRows: 10 }}
 							placeholder="Cole o corpo de um artigo aqui..."
-							onChange={onChangeBody} />
+							onChange={e => setBody(e.target.value)} />
 					</Form.Item>
 				</Input.Group>
 			)}
