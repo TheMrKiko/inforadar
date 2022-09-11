@@ -19,9 +19,11 @@ const form_stts = {
 
 const SocioDem = ({ login }) => {
     const [formStatus, setFormStatus] = useState(form_stts.INITIAL);
+    const timeStarted = Date.now();
 
     const submitForm = (values) => {
-        axios.post(`${API_PATH}/sociodemographic`, values, {
+        const timeTaken = Date.now() - timeStarted;
+        axios.post(`${API_PATH}/sociodemographic`, { ...values, time_taken: timeTaken, }, {
             headers: { 'X-Requested-With': 'XmlHttpRequest' },
         }).then(result => {
             setFormStatus(form_stts.SUCCESS);

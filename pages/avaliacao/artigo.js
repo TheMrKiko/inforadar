@@ -42,13 +42,16 @@ const AnalysisBlock = (props) => {
 
 	const refsByStep = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
 
+	const timeStarted = Date.now();
+
 	const scrollAndSetStep = (st) => {
 		setStep(st);
 		refsByStep[st].current.scrollIntoView({ behavior: 'smooth', block: 'start' });
 	}
 
 	const submitForm = () => {
-		const formData = { ...formValues, corpus_article_id: props.article.article.id, }
+		const timeTaken = Date.now() - timeStarted;
+		const formData = { ...formValues, corpus_article_id: props.article.article.id, time_taken: timeTaken, }
 		axios.post(`${API_PATH}/article_annotation`, formData, {
 			headers: { 'X-Requested-With': 'XmlHttpRequest' },
 		}).then(result => {
