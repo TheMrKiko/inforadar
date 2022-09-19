@@ -319,3 +319,11 @@ export const prob = [
 	{ "id": 5, "name": "Extremamente provável" },
 	{ "id": 0, "name": "Não sei" },
 ];
+export const numb = [
+	{ "id": 1, "name": "1" },
+	{ "id": 2, "name": "2" },
+	{ "id": 3, "name": "3" },
+	{ "id": 4, "name": "4" },
+	{ "id": 5, "name": "5" },
+	{ "id": 0, "name": "Não sei" },
+];

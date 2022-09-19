@@ -1,4 +1,4 @@
-import { prob, cred, changepercept, useful, agree } from '../helpers/form';
+import { numb, changepercept } from '../helpers/form';
 
 import { Form, Space, Checkbox, Input, Button, Radio, Switch, Select, Row, Col, Typography, Skeleton, Divider, Collapse } from 'antd';
 import utilStyles from '../styles/utils.module.css'
@@ -46,7 +46,7 @@ const FirstImpressionsForm = ({ categories, fields, onChange, onSubmit }) => {
 			<Typography.Title level={3}>Perceção geral</Typography.Title>
 			<Row>
 				<Col {...layout.labelCol}>
-					<Typography.Text strong>1. Indique a probabilidade de o artigo corresponder a cada uma das seguintes categorias.</Typography.Text>
+					<Typography.Text strong>1. Indique a probabilidade de o artigo corresponder a cada uma das seguintes categorias (1 = nada provável e 5 = extremamente provável).</Typography.Text>
 				</Col>
 			</Row>
 			{categories.map(cat =>
@@ -59,7 +59,7 @@ const FirstImpressionsForm = ({ categories, fields, onChange, onSubmit }) => {
 					<Radio.Group>
 						<Row>
 							<Col>
-								{prob.map(c =>
+								{numb.map(c =>
 									<Radio key={c.id} value={c.id}>{c.name}</Radio>
 								)}
 							</Col>
@@ -68,11 +68,11 @@ const FirstImpressionsForm = ({ categories, fields, onChange, onSubmit }) => {
 				</Form.Item>)}
 			<Form.Item
 				name="pre_credibility"
-				label={<Typography.Text strong>2. Indique o grau de credibilidade do artigo.</Typography.Text>}
+				label={<Typography.Text strong>2. Indique o grau de credibilidade do artigo (1 = nada credível e 5 = extremamente credível).</Typography.Text>}
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
-					{cred.map(c =>
+					{numb.map(c =>
 						<Row key={c.id}>
 							<Col>
 								<Radio value={c.id}>{c.name}</Radio>
@@ -139,11 +139,11 @@ const CredibilityForm = ({ fields, onChange, onSubmit }) => {
 			</Form.Item>
 			<Form.Item
 				name="info_is_useful"
-				label={<Typography.Text strong>4. Indique a utilidade da informação sobre a categoria do artigo.</Typography.Text>}
+				label={<Typography.Text strong>4. Indique a utilidade da informação sobre a categoria do artigo (1 = nada útil e 5 = extremamente útil).</Typography.Text>}
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
-					{useful.map(c =>
+					{numb.map(c =>
 						<Row key={c.id}>
 							<Col>
 								<Radio value={c.id}>{c.name}</Radio>
@@ -195,7 +195,7 @@ const MetricsForm = ({ metricsInfo, fields, onChange, onSubmit, submitting }) =>
 			<Typography.Title level={3}>Métricas explicativas</Typography.Title>
 			<Row>
 				<Col {...layout.labelCol}>
-					<Typography.Text strong>5. Classifique o quão concorda com as seguintes afirmações.</Typography.Text>
+					<Typography.Text strong>5. Classifique o quão concorda com as seguintes afirmações (1 = discordo totalmente e 5 = concordo totalmente).</Typography.Text>
 				</Col>
 			</Row>
 			<Collapse
@@ -216,7 +216,7 @@ const MetricsForm = ({ metricsInfo, fields, onChange, onSubmit, submitting }) =>
 								<Radio.Group>
 									<Row>
 										<Col>
-											{agree.map(c =>
+											{numb.map(c =>
 												<Radio key={c.id} value={c.id}>{c.name}</Radio>
 											)}
 										</Col>
@@ -231,7 +231,7 @@ const MetricsForm = ({ metricsInfo, fields, onChange, onSubmit, submitting }) =>
 								<Radio.Group>
 									<Row>
 										<Col>
-											{agree.map(c =>
+											{numb.map(c =>
 												<Radio key={c.id} value={c.id}>{c.name}</Radio>
 											)}
 										</Col>
