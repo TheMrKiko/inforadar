@@ -72,13 +72,13 @@ const FirstImpressionsForm = ({ categories, fields, onChange, onSubmit }) => {
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
-					{numb.map(c =>
-						<Row key={c.id}>
-							<Col>
-								<Radio value={c.id}>{c.name}</Radio>
-							</Col>
-						</Row>
-					)}
+					<Row>
+						<Col>
+							{numb.map(c =>
+								<Radio key={c.id} value={c.id}>{c.name}</Radio>
+							)}
+						</Col>
+					</Row>
 				</Radio.Group>
 			</Form.Item>
 			<Form.Item>
@@ -143,13 +143,13 @@ const CredibilityForm = ({ fields, onChange, onSubmit }) => {
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
-					{numb.map(c =>
-						<Row key={c.id}>
-							<Col>
-								<Radio value={c.id}>{c.name}</Radio>
-							</Col>
-						</Row>
-					)}
+					<Row>
+						<Col>
+							{numb.map(c =>
+								<Radio key={c.id} value={c.id}>{c.name}</Radio>
+							)}
+						</Col>
+					</Row>
 				</Radio.Group>
 			</Form.Item>
 			<Form.Item>
