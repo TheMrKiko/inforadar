@@ -38,11 +38,10 @@ const AnalysisBlock = (props) => {
 	const [mfFields, setMFFields] = useState(null);
 	const [formValues, setFormValues] = useState({});
 	const [submitting, setSubmitting] = useState(false);
+	const [timeStarted, _] = useState(Date.now());
 	const submitFormValues = (values) => setFormValues(prevValues => ({ ...prevValues, ...values }));
 
 	const refsByStep = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
-
-	const timeStarted = Date.now();
 
 	const scrollAndSetStep = (st) => {
 		setStep(st);
