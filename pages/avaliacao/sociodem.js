@@ -19,7 +19,7 @@ const form_stts = {
 
 const SocioDem = ({ login }) => {
     const [formStatus, setFormStatus] = useState(form_stts.INITIAL);
-    const timeStarted = Date.now();
+    const [timeStarted, _] = useState(Date.now());
 
     const submitForm = (values) => {
         const timeTaken = Date.now() - timeStarted;
