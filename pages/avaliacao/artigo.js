@@ -84,7 +84,7 @@ const AnalysisBlock = (props) => {
 						<Typography.Title level={3}>{props.article.article.headline}</Typography.Title>
 						<Typography.Paragraph style={{ whiteSpace: 'pre-wrap', }}>{props.article.article.body_text}</Typography.Paragraph>
 					</blockquote>
-					<Typography.Text type={'secondary'}>Algo de errado com o artigo? <Link href='/avaliacao'>Escolher outro artigo</Link>.</Typography.Text>
+					<Typography.Text type={'secondary'}>Algo de errado com o artigo? <Link href='/avaliacao'>Escolher outro artigo</Link> ou <Typography.Link href='mailto:mint-annotation@googlegroups.com'>questionar por email</Typography.Link>.</Typography.Text>
 				</Typography.Paragraph>
 			)}
 			{step == 0 && <Button type={'primary'} onClick={() => scrollAndSetStep(1)}>Continuar</Button>}
@@ -134,7 +134,7 @@ const AnalysisBlock = (props) => {
 							</Card>
 						</Typography.Paragraph>
 						<Space direction={'vertical'} className={utilStyles.width100}>
-							<Typography.Text type={'secondary'}>Algo de errado com o artigo ou a análise? <Link href='/avaliacao'>Escolher outro artigo</Link>.</Typography.Text>
+							<Typography.Text type={'secondary'}>Algo de errado com o artigo ou a análise? <Link href='/avaliacao'>Escolher outro artigo</Link> ou <Typography.Link href='mailto:mint-annotation@googlegroups.com'>questionar por email</Typography.Link>.</Typography.Text>
 							{step == 2 && <Button type={'primary'} onClick={() => scrollAndSetStep(3)}>Continuar</Button>}
 							{step != 5 && <div ref={refsByStep[3]} />}
 							{step == 3 &&

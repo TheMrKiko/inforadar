@@ -90,6 +90,7 @@ class LoginOptions extends React.Component {
                                 status={!this.isCodeValid() ? 'error' : ''}
                                 value={this.state.code}
                                 onChange={v => this.setState({ code: this.sanitize(v.target.value) })} />
+                            <Typography.Text type={'secondary'}>(Apenas necessário no primeiro início de sessão de anotadores remunerados.)</Typography.Text>
                         </Space>
                 }
             </Space>

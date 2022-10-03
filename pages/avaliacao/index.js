@@ -40,7 +40,7 @@ const Avaliacao = ({ login }) => {
                 <Typography.Paragraph>O processo requer que tenha sessão iniciada no InfoRadar e que preencha um breve questionário sociodemográfico, antes de avaliar artigos.</Typography.Paragraph>
                 {login.authenticated ? <>
                     {!!login.userData.collection && <Typography.Paragraph type={'secondary'}>
-                        Estudo da coleção {login.userData.collection == 1 ? 'MINT' : 'demo'}.
+                        Estudo da coleção {login.userData.collection == 1 ? 'MINT' : 'demo'}. Questões sobre este estudo ou as suas perguntas? Envie um email para <Typography.Link href='mailto:mint-annotation@googlegroups.com'>mint-annotation@googlegroups.com</Typography.Link>.
                     </Typography.Paragraph>}
                     {login.userData && !login.userData.sociodemographic && <Typography.Paragraph>
                         <Alert
@@ -52,7 +52,7 @@ const Avaliacao = ({ login }) => {
                         />
                     </Typography.Paragraph>}
                     <Typography.Title level={2}>Avaliar o InfoRadar</Typography.Title>
-                    <Typography.Paragraph>Pedimos que leia um artigo e tenha em consideração a análise fornecida pelo InfoRadar, respondendo a algumas perguntas sobre o artigo e a sua Informação Nutricional. Este processo irá demorar, no máximo, 5 minutos.</Typography.Paragraph>
+                    <Typography.Paragraph>Pedimos que leia um artigo e tenha em consideração a análise fornecida pelo InfoRadar, respondendo a algumas perguntas sobre o artigo e a sua Informação Nutricional. Este processo irá demorar, em média, 10 minutos.</Typography.Paragraph>
                     <Row justify={'center'} align={'middle'} gutter={25} className={utilStyles.width100}>
                         <Col><Link
                             href={chosenArticle ? `/avaliacao/artigo?mode=${md.MINT}&mid=${chosenArticle}` : ''}
