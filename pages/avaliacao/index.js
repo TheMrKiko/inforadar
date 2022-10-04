@@ -7,6 +7,7 @@ import LoginOptions from '../../components/login'
 import { md } from '../../helpers/query'
 import { createError, errorType } from '../../helpers/error'
 import { Alert, Layout as AntLayout, Input, Space, Row, Col, Typography, Button, Progress } from 'antd'
+import { DatabaseOutlined } from '@ant-design/icons'
 
 import utilStyles from '../../styles/utils.module.css'
 
@@ -51,7 +52,16 @@ const Avaliacao = ({ login }) => {
                             action={<Link href='/avaliacao/sociodem'><Button size={'middle'}>Preencher</Button></Link>}
                         />
                     </Typography.Paragraph>}
-                    <Typography.Title level={2}>Avaliar o InfoRadar</Typography.Title>
+
+                    <Typography.Title level={2}>
+                        <Space direction={'horizontal'} align={'end'}>
+                            Avaliar o InfoRadar
+                            {login.authenticated && login.userData.admin &&
+                                <Link href={'/avaliacao/resultados'}>
+                                    <Button icon={<DatabaseOutlined />} shape={'round'}>Consultar resultados</Button>
+                                </Link>}
+                        </Space>
+                    </Typography.Title>
                     <Typography.Paragraph>Pedimos que leia um artigo e tenha em consideração a análise fornecida pelo InfoRadar, respondendo a algumas perguntas sobre o artigo e a sua Informação Nutricional. Este processo irá demorar, em média, 10 minutos.</Typography.Paragraph>
                     <Row justify={'center'} align={'middle'} gutter={25} className={utilStyles.width100}>
                         <Col><Link
