@@ -86,7 +86,7 @@ const Results = ({ login }) => {
     return (
         <Layout current={'avaliacao'} login={login}>
             <Head>
-                <title>Resultados da Avaliação | InfoRadar</title>
+                <title>Respostas da Avaliação | InfoRadar</title>
             </Head>
             <AntLayout.Content className={utilStyles.container}>
                 <Breadcrumb>
@@ -94,7 +94,7 @@ const Results = ({ login }) => {
                         <Link href={'/avaliacao'}>Avaliação</Link>
                     </Breadcrumb.Item>
                     <Breadcrumb.Item>
-                        <Typography.Title level={1}>Resultados</Typography.Title>
+                        <Typography.Title level={1}>Respostas</Typography.Title>
                     </Breadcrumb.Item>
                 </Breadcrumb>
                 <Typography.Paragraph>Consultar os dados dos anotadores remunerados na plataforma.</Typography.Paragraph>
@@ -107,6 +107,7 @@ const Results = ({ login }) => {
                                 loading={!reports}
                                 columns={columns}
                                 dataSource={reports}
+                                scroll={{ x: true }}
                             />
                         }
                     </Typography.Paragraph>

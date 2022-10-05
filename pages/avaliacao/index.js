@@ -54,11 +54,11 @@ const Avaliacao = ({ login }) => {
                     </Typography.Paragraph>}
 
                     <Typography.Title level={2}>
-                        <Space direction={'horizontal'} align={'end'}>
+                        <Space direction={'horizontal'} align={'end'} wrap>
                             Avaliar o InfoRadar
                             {login.authenticated && login.userData.admin &&
-                                <Link href={'/avaliacao/resultados'}>
-                                    <Button icon={<DatabaseOutlined />} shape={'round'}>Consultar resultados</Button>
+                                <Link href={'/avaliacao/respostas'}>
+                                    <Button icon={<DatabaseOutlined />} shape={'round'}>Consultar respostas</Button>
                                 </Link>}
                         </Space>
                     </Typography.Title>
