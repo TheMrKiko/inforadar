@@ -1,6 +1,7 @@
 import { numb, changepercept } from '../helpers/form';
 
-import { Form, Space, Checkbox, Input, Button, Radio, Switch, Select, Row, Col, Typography, Skeleton, Divider, Collapse } from 'antd';
+import { Form, Space, Checkbox, Input, Button, Radio, Switch, Select, Row, Col, Typography, Skeleton, Divider, Collapse, Tooltip } from 'antd';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 import utilStyles from '../styles/utils.module.css'
 
 const layout = {
@@ -225,7 +226,9 @@ const MetricsForm = ({ metricsInfo, fields, onChange, onSubmit, submitting }) =>
 							</Form.Item>
 							<Form.Item
 								name={`relevance_of_${metric.name}`}
-								label={<Typography.Text>b) A informação sobre o grau de <Typography.Text strong>{metric.display_name.toLowerCase()}</Typography.Text> é pertinente para aferir a credibilidade do artigo.</Typography.Text>}
+								label={<Typography.Text>b) A informação sobre o grau de <Typography.Text strong>{metric.display_name.toLowerCase()}</Typography.Text> é pertinente para aferir a credibilidade deste artigo.
+									<Tooltip title={`Pretendemos saber se a informação da métrica ${metric.display_name.toLowerCase()} calculada para o artigo em análise ajuda o leitor a aferir a credibilidade do mesmo. Claro que isto não pode ser analisado isoladamente. O leitor vai consolidando o conhecimento e afinando a sua percepção conforme vai avançando no processo de análise.`}><QuestionCircleOutlined /></Tooltip>
+								</Typography.Text>}
 								rules={[{ required: true }]}
 							>
 								<Radio.Group>
@@ -244,7 +247,7 @@ const MetricsForm = ({ metricsInfo, fields, onChange, onSubmit, submitting }) =>
 			</Collapse>
 			<Form.Item
 				name="most_relevant_metric"
-				label={<Typography.Text strong>6. Qual a métrica que considera mais relevante ou informativa para determinar o grau de credibilidade do artigo?</Typography.Text>}
+				label={<Typography.Text strong>6. Qual a métrica que considera mais relevante ou informativa para determinar o grau de credibilidade deste artigo?</Typography.Text>}
 				rules={[{ required: true }]}
 			>
 				<Select
@@ -256,7 +259,7 @@ const MetricsForm = ({ metricsInfo, fields, onChange, onSubmit, submitting }) =>
 			</Form.Item>
 			<Form.Item
 				name="least_relevant_metric"
-				label={<Typography.Text strong>7. Qual a métrica que considera menos relevante ou informativa para determinar o grau de credibilidade do artigo?</Typography.Text>}
+				label={<Typography.Text strong>7. Qual a métrica que considera menos relevante ou informativa para determinar o grau de credibilidade deste artigo?</Typography.Text>}
 				rules={[{ required: true }]}
 			>
 				<Select
