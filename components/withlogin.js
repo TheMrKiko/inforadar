@@ -5,9 +5,10 @@ import axios from 'axios';
 import { createError, errorType } from '../helpers/error';
 
 const { API_PATH } = process.env
+const { NODE_ENV } = process.env
 
 const withLogin = (BaseComponent) => (props) => {
-	const [userData, setUserData] = useState(null);
+	const [userData, setUserData] = useState(NODE_ENV === 'development' ? {} : null);
 	const [loginErrors, setLoginError] = useState(null);
 
 	const clearLogin = () => {
