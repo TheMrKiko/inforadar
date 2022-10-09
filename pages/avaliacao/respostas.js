@@ -11,6 +11,11 @@ import utilStyles from '../../styles/utils.module.css'
 
 const { API_PATH } = process.env
 
+const printTime = (ms) => {
+    const secs = parseInt(ms / 1000);
+    return `${Math.floor(secs / 60)}min ${secs % 60}s`;
+}
+
 const reportsColumns = [
     {
         title: 'Name',
@@ -37,8 +42,7 @@ const reportsColumns = [
         render: (time) => {
             if (time == 'None')
                 return '-';
-            const secs = parseInt(time / 1000);
-            return `${Math.floor(secs / 60)}min ${secs % 60}s`;
+            return printTime(time);
         },
     },
     {
@@ -86,11 +90,12 @@ const repliesColumns = [
         title: 'Tempo demorado',
         dataIndex: 'time_taken',
         key: 'time_taken',
-        render: (time) => {
-            if (time === null)
-                return '-';
-            const secs = parseInt(time / 1000);
-            return `${Math.floor(secs / 60)}min ${secs % 60}s`;
+        render: (time, record) => {
+            if (time !== null)
+                return printTime(time);
+            if (record.maybe_time_taken !== undefined)
+                return <Typography.Text type={'secondary'}>{`< ${printTime(record.maybe_time_taken)}`}</Typography.Text>;
+            return '-';
         },
     },
     {
@@ -115,7 +120,7 @@ const Respostas = ({ login, router }) => {
             url: `${API_PATH}/user_reports`,
             headers: { 'content-type': 'application/json' }
         }).then(result => {
-            setReports(result.data.map((e, i) => ({ ...e, key: i })));
+            setReports(result.data);
         }).catch(error => {
             if (error.response && error.response.status === 401)
                 login.loginError(createError(errorType.RELOGIN, error));
@@ -144,7 +149,26 @@ const Respostas = ({ login, router }) => {
                 url: `${API_PATH}/user_replies?id=${currentUser}`,
                 headers: { 'content-type': 'application/json' }
             }).then(result => {
-                setReplies(result.data.map((e, i) => ({ ...e, key: i, created_at: new Date(e.created_at) })));
+                setReplies(
+                    result.data
+                        .map((e, i) => ({
+                            ...e,
+                            created_at: new Date(e.created_at),
+                        }))
+                        .sort((a, b) => a.created_at.getTime() - b.created_at.getTime())
+                        .map((rep, index, array) => {
+                            if (index + 1 === array.length)
+                                return rep;
+                            const Tdiff = array[index + 1].created_at.getTime() - rep.created_at.getTime();
+
+                            if (Tdiff > 300000) // 5 minutos
+                                return rep;
+                            return ({
+                                ...rep,
+                                maybe_time_taken: Tdiff,
+                            });
+                        })
+                );
             }).catch(error => {
                 if (error.response && error.response.status === 401)
                     login.loginError(createError(errorType.RELOGIN, error));
@@ -189,6 +213,7 @@ const Respostas = ({ login, router }) => {
                             (!!currentUser ?
                                 <Table
                                     key='replies'
+                                    rowKey={record => record.article_id}
                                     loading={!replies}
                                     columns={repliesColumns}
                                     dataSource={replies}
@@ -202,6 +227,7 @@ const Respostas = ({ login, router }) => {
                                 :
                                 <Table
                                     key='reports'
+                                    rowKey={record => record.id}
                                     loading={!reports}
                                     columns={reportsColumns}
                                     dataSource={reports}
