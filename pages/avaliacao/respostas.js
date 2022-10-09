@@ -74,7 +74,7 @@ const reportsColumns = [
         render: (_, record) => <Link
             href={{
                 query: { userid: record.id },
-            }}>Ver Respostas</Link>,
+            }}>Respostas</Link>,
     },
 ];
 
