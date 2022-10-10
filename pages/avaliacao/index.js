@@ -62,7 +62,7 @@ const Avaliacao = ({ login }) => {
                                 </Link>}
                         </Space>
                     </Typography.Title>
-                    <Typography.Paragraph>Pedimos que leia um artigo e tenha em consideração a análise fornecida pelo InfoRadar, respondendo a algumas perguntas sobre o artigo e a sua Informação Nutricional. Este processo irá demorar, em média, 10 minutos.</Typography.Paragraph>
+                    <Typography.Paragraph>Pedimos que leia um artigo e tenha em consideração a análise fornecida pelo InfoRadar, respondendo a algumas perguntas sobre o artigo e a sua Informação Nutricional. Este processo irá demorar, em média, 5 minutos.</Typography.Paragraph>
                     <Row justify={'center'} align={'middle'} gutter={25} className={utilStyles.width100}>
                         <Col><Link
                             href={chosenArticle ? `/avaliacao/artigo?mode=${md.MINT}&mid=${chosenArticle}` : ''}

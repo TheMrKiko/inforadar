@@ -157,9 +157,9 @@ const Respostas = ({ login, router }) => {
                         }))
                         .sort((a, b) => a.created_at.getTime() - b.created_at.getTime())
                         .map((rep, index, array) => {
-                            if (index + 1 === array.length)
+                            if (!index)
                                 return rep;
-                            const Tdiff = array[index + 1].created_at.getTime() - rep.created_at.getTime();
+                            const Tdiff = rep.created_at.getTime() - array[index - 1].created_at.getTime();
 
                             if (Tdiff > 300000) // 5 minutos
                                 return rep;
@@ -196,7 +196,7 @@ const Respostas = ({ login, router }) => {
                     </Breadcrumb.Item>
                     <Breadcrumb.Item>
                         <Typography.Title level={1}>Respostas
-                            {!!currentUser &&
+                            {login.authenticated && login.userData.admin && !!currentUser &&
                                 <Typography.Text> de&nbsp;
                                     {!!currentUserInfo &&
                                         <Typography.Text underline>{currentUserInfo.name}</Typography.Text>}
