@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Metric from './metric';
 import { getMainCategory } from '../helpers/function';
 
-import { Card, Col, Radio, Row, Select, Typography } from 'antd';
+import { Card, Col, Row, Segmented, Select, Space, Typography } from 'antd';
+import { BarChartOutlined, LineOutlined } from '@ant-design/icons';
 
 import utilStyles from '../styles/utils.module.css';
 
@@ -36,10 +37,23 @@ const Metrics = ({ categories, metricsData, metricsInfo, metricsHistogram, indic
 					</Select>
 				</Typography.Text>
 			}
-			extra={<Radio.Group defaultValue="simple" onChange={(a) => setFilter(a.target.value)}>
-				<Radio.Button value="simple">Simples</Radio.Button>
-				<Radio.Button value="details">Detalhado</Radio.Button>
-			</Radio.Group>}
+			extra={<Space wrap>
+				<Typography.Text type={'secondary'}>
+					{filter === 'simple' ? "Simples" : "Detalhado"}
+				</Typography.Text>
+				<Segmented
+					value={filter} onChange={setFilter}
+					options={[
+						{
+							value: 'simple',
+							icon: <LineOutlined />,
+						},
+						{
+							value: 'details',
+							icon: <BarChartOutlined />,
+						},
+					]} />
+			</Space>}
 			loading={!metricsData}
 			type={inner && 'inner'}
 		>
