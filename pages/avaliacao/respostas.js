@@ -3,11 +3,12 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { withRouter } from 'next/router'
 import Layout from '../../components/layout'
-import { Layout as AntLayout, Typography, Breadcrumb, Table } from 'antd'
+import { Button, Layout as AntLayout, Typography, Breadcrumb, Table, Space } from 'antd'
 import { createError, errorType } from '../../helpers/error'
 import axios from 'axios'
 
 import utilStyles from '../../styles/utils.module.css'
+import { CloseCircleOutlined, CloseOutlined } from '@ant-design/icons'
 
 const { API_PATH } = process.env
 
@@ -198,8 +199,14 @@ const Respostas = ({ login, router }) => {
                         <Typography.Title level={1}>Respostas
                             {login.authenticated && login.userData.admin && !!currentUser &&
                                 <Typography.Text> de&nbsp;
-                                    {!!currentUserInfo &&
-                                        <Typography.Text underline>{currentUserInfo.name}</Typography.Text>}
+                                    {!!currentUserInfo && <Space wrap>
+                                        <Typography.Text underline>
+                                            {currentUserInfo.name}
+                                        </Typography.Text>
+                                        <Link href={'/avaliacao/respostas'}>
+                                            <Button type={'link'} size={'small'}><CloseOutlined /> Limpar filtro</Button>
+                                        </Link>
+                                    </Space>}
                                 </Typography.Text>}
                         </Typography.Title>
                     </Breadcrumb.Item>
