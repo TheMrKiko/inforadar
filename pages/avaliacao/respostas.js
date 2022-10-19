@@ -19,7 +19,7 @@ const printTime = (ms) => {
 
 const reportsColumns = [
     {
-        title: 'Name',
+        title: 'Nome',
         dataIndex: 'name',
         key: 'name',
         sorter: (a, b) => a.name.localeCompare(b.name),
