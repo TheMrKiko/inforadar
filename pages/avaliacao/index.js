@@ -6,7 +6,7 @@ import Layout from '../../components/layout'
 import LoginOptions from '../../components/login'
 import { md } from '../../helpers/query'
 import { createError, errorType } from '../../helpers/error'
-import { Alert, Layout as AntLayout, Input, Space, Row, Col, Typography, Button, Progress } from 'antd'
+import { Alert, Layout as AntLayout, Input, Result, Modal, Space, Row, Col, Typography, Button, Progress } from 'antd'
 import { DatabaseOutlined } from '@ant-design/icons'
 
 import utilStyles from '../../styles/utils.module.css'
@@ -29,6 +29,22 @@ const Avaliacao = ({ login }) => {
                     login.loginError(createError(errorType.AUTHORIZE, error), false);
             });
     }, [login.authenticated]);
+
+    useEffect(() => {
+        if (chosenArticle === 0)
+            Modal.success({
+                content: <Result
+                    status={'success'}
+                    title="Parabéns, tudo anotado! 🎉"
+                    subTitle={<>
+                        <Typography.Paragraph type={'secondary'}>Anotou com sucesso todos os artigos disponíveis. Agradecemos imenso a sua participação neste estudo. Para questões sobre como estes dados vão ser usados, entre em contacto connosco.</Typography.Paragraph>
+                        <Typography.Paragraph type={'secondary'}>As restantes páginas do InfoRadar continuam ao dispor do público para analisar textos e equipar os leitores com ferramentas para combater a desinformação.</Typography.Paragraph>
+                    </>}
+                />,
+                icon: null,
+                width: 450,
+            });
+    }, [chosenArticle]);
 
     return (
         <Layout current={'avaliacao'} login={login}>
@@ -67,7 +83,7 @@ const Avaliacao = ({ login }) => {
                         <Col><Link
                             href={chosenArticle ? `/avaliacao/artigo?mode=${md.MINT}&mid=${chosenArticle}` : ''}
                         >
-                            <Button disabled={login.userData && !login.userData.sociodemographic} loading={login.userData && login.userData.sociodemographic && !chosenArticle} type={'primary'} size={'large'}>Avaliar artigo</Button>
+                            <Button disabled={login.userData && (!login.userData.sociodemographic || chosenArticle === 0)} loading={login.userData && login.userData.sociodemographic && chosenArticle === null} type={'primary'} size={'large'}>Avaliar artigo</Button>
                         </Link></Col>
                         <Col flex={'auto'}>{login.userData.total_to_annotate &&
                             <Progress percent={Math.round(login.userData.annotated * 1000 / login.userData.total_to_annotate) / 10} />
