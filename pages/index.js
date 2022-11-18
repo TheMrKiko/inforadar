@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../components/layout';
-import withArticle from '../components/articleanalysis';
+import withArticle from '../components/witharticle';
 import Examples from '../components/examples';
 import ArticleCard from '../components/articlecard';
 import ERCLabel from '../components/erclabel';

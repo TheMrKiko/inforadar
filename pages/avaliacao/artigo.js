@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '../../components/layout';
-import withArticle from '../../components/articleanalysis';
+import withArticle from '../../components/witharticle';
 import ArticleCard from '../../components/articlecard';
 import NutritionalInfo from '../../components/nutrinfo';
 import SocioDemForm from '../../components/sdform';

@@ -3,7 +3,7 @@ import { createError, errorType } from '../helpers/error'
 import Histogram from '../components/histogram'
 import SearchBar from '../components/searchbar';
 import NutritionalInfo from '../components/nutrinfo';
-import withArticle from '../components/articleanalysis';
+import withArticle from '../components/witharticle';
 import { transitionSpanLeft } from '../helpers/transition';
 import Head from 'next/head'
 import Link from 'next/link'
