@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import 'antd/dist/antd.css'
+import 'antd/dist/reset.css'
 import withLogin from '../components/withlogin'
 
 function MyApp({ Component, pageProps, login }) {
