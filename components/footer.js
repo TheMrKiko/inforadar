@@ -32,33 +32,30 @@ export default function Footer({ login }) {
 					<a>
 						<Image
 							src={`${process.env.BASE_PATH}/contrafake-white.svg`}
-							layout={'fill'}
-							objectFit={'scale-down'}
+							fill
 							alt={'Logo'}
-						/>
+							style={{ objectFit: 'scale-down', }} />
 					</a>
 				</Col>
 				<Col span={4}>
 					<a>
 						<Image
 							src={`${process.env.BASE_PATH}/incd.png`}
-							layout={'fill'}
-							objectFit={'scale-down'}
+							fill
 							alt={'Logo'}
-						/>
+							style={{ objectFit: 'scale-down', }} />
 					</a>
 				</Col>
 				<Col span={4} push={3}>
 					<a>
 						<Image
 							src={`${process.env.BASE_PATH}/inescid.png`}
-							layout={'fill'}
-							objectFit={'scale-down'}
+							fill
 							alt={'Logo'}
-						/>
+							style={{ objectFit: 'scale-down', }} />
 					</a>
 				</Col>
 			</Row>
-		</Layout.Footer >
+		</Layout.Footer>
 	)
 }

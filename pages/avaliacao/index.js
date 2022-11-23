@@ -65,7 +65,7 @@ const Avaliacao = ({ login }) => {
                             description="Ainda não preencheu o questionário sociodemográfico. Só necessita de o fazer uma vez. Permite-nos cruzar os dados da sua avaliação de artigos com dados demográficos. O questionário é anónimo."
                             type={'warning'}
                             showIcon
-                            action={<Link href='/avaliacao/sociodem'><Button size={'middle'}>Preencher</Button></Link>}
+                            action={<Link href='/avaliacao/sociodem' legacyBehavior><Button size={'middle'}>Preencher</Button></Link>}
                         />
                     </Typography.Paragraph>}
 
@@ -73,7 +73,7 @@ const Avaliacao = ({ login }) => {
                         <Space direction={'horizontal'} align={'end'} wrap>
                             Avaliar o InfoRadar
                             {login.authenticated && login.userData.admin &&
-                                <Link href={'/avaliacao/respostas'}>
+                                <Link href={'/avaliacao/respostas'} legacyBehavior>
                                     <Button icon={<DatabaseOutlined />} shape={'round'}>Consultar respostas</Button>
                                 </Link>}
                         </Space>
@@ -82,7 +82,7 @@ const Avaliacao = ({ login }) => {
                     <Row justify={'center'} align={'middle'} gutter={25} className={utilStyles.width100}>
                         <Col><Link
                             href={chosenArticle ? `/avaliacao/artigo?mode=${md.MINT}&mid=${chosenArticle}` : ''}
-                        >
+                            legacyBehavior>
                             <Button disabled={login.userData && (!login.userData.sociodemographic || chosenArticle === 0)} loading={login.userData && login.userData.sociodemographic && chosenArticle === null} type={'primary'} size={'large'}>Avaliar artigo</Button>
                         </Link></Col>
                         <Col flex={'auto'}>{login.userData.total_to_annotate &&

@@ -22,16 +22,14 @@ export default function Header({ current }) {
 			<Layout.Header className={cn(styles.antheader, 'ant-menu-horizontal')}>
 				<Row align={'middle'} justify={'center'}>
 					<Col {...{ xxl: 4, xl: 5, lg: 6, md: 6, sm: 22, xs: 22 }}>
-						<Link href="/">
-							<a className={cn(utilStyles.justifyContentCenter)}>
-								<Image
-									priority
-									src={`${process.env.BASE_PATH}/inforadar.svg`}
-									height={32}
-									width={161}
-									alt={'Logo'}
-								/>
-							</a>
+						<Link href="/" className={cn(utilStyles.justifyContentCenter)}>
+							<Image
+								priority
+								src={`${process.env.BASE_PATH}/inforadar.svg`}
+								height={32}
+								width={161}
+								alt={'Logo'}
+							/>
 						</Link>
 					</Col>
 					<Col {...{ xxl: 20, xl: 19, lg: 18, md: 18, sm: 2, xs: 2 }} className={utilStyles.justifyContentCenter}>
@@ -42,24 +40,21 @@ export default function Header({ current }) {
 								className={cn(utilStyles.width100, utilStyles.justifyContentCenter)}
 							>
 								<Menu.Item key="sobre">
-									<Link href="/sobre">
-										<a className={utilStyles.colorInherit}>Sobre</a>
+									<Link className={utilStyles.colorInherit} href="/sobre">Sobre
 									</Link>
 								</Menu.Item>
 								<Menu.Item key="comofunciona">
-									<Link href="/comofunciona">
-										<a className={utilStyles.colorInherit}>Como funciona</a>
+									<Link className={utilStyles.colorInherit} href="/comofunciona">Como funciona
 									</Link>
 								</Menu.Item>
 								<Menu.Item key="avaliacao">
-									<Link href="/avaliacao">
-										<a className={utilStyles.colorInherit}>Avaliação</a>
+									<Link className={utilStyles.colorInherit} href="/avaliacao">Avaliação
 									</Link>
 								</Menu.Item>
 							</Menu>}</>
 					</Col>
 				</Row>
 			</Layout.Header >
-		</nav>
+		</nav >
 	)
 }

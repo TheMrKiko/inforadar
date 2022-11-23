@@ -77,10 +77,10 @@ const AnalysisBlock = (props) => (
                             {!props.opened() ? (
                                 <div className={styles.bgimage}>
                                     <Image
+                                        fill
                                         priority
                                         src={`${process.env.BASE_PATH}/roman-kraft.jpg`}
-                                        layout={'fill'}
-                                        objectFit={'cover'} />
+                                        style={{ objectFit: 'cover' }} />
                                 </div>
                             ) : (
                                 <div className={utilStyles.justifyContentCenter}>
@@ -139,7 +139,7 @@ export default function Home({ login }) {
                                 O InfoRadar tem por objetivo empoderar o leitor, auxiliando-o na análise, avaliação crítica e partilha ética de conteúdos noticiosos. Em termos gerais, o InfoRadar foi concebido de modo a promover a literacia mediática e o combate à desinformação, em particular no contexto português.
                             </Typography.Paragraph>
                         </div>
-                        <Link href={'/comofunciona'}>
+                        <Link href={'/comofunciona'} legacyBehavior>
                             <Button
                                 ghost
                                 shape={'round'}
@@ -160,7 +160,9 @@ export default function Home({ login }) {
                                 A extensão do InfoRadar agiliza a análise de artigos durante a navegação web, providenciando um atalho para a nossa plataforma.
                             </Typography.Paragraph>
                         </div>
-                        <Link href={'https://chrome.google.com/webstore/detail/inforadar/hbgghmlepngdalgcnhggaobapcgblikd'}>
+                        <Link
+                            href={'https://chrome.google.com/webstore/detail/inforadar/hbgghmlepngdalgcnhggaobapcgblikd'}
+                            legacyBehavior>
                             <Button
                                 shape={'round'}
                                 size={'large'}
@@ -180,5 +182,5 @@ export default function Home({ login }) {
                 </HomeBlock>}
             </AntLayout.Content>
         </Layout >
-    )
+    );
 }

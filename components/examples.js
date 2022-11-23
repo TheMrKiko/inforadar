@@ -42,7 +42,7 @@ class Examples extends React.Component {
 							href={{
 								query: { 'url': e && e.url }
 							}}
-						>
+							legacyBehavior>
 							<Card
 								hoverable
 								loading={!e}

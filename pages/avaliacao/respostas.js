@@ -203,7 +203,7 @@ const Respostas = ({ login, router }) => {
                                         <Typography.Text underline>
                                             {currentUserInfo.name}
                                         </Typography.Text>
-                                        <Link href={'/avaliacao/respostas'}>
+                                        <Link href={'/avaliacao/respostas'} legacyBehavior>
                                             <Button type={'link'} size={'small'}><CloseOutlined /> Limpar filtro</Button>
                                         </Link>
                                     </Space>}
