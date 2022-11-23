@@ -1,4 +1,4 @@
-import { numb, changepercept } from '../helpers/form';
+import { numb, changepercept } from '../../helpers/form';
 
 import { Form, Space, Checkbox, Input, Button, Radio, Switch, Select, Row, Col, Typography, Skeleton, Divider, Collapse, Tooltip } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
