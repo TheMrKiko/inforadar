@@ -5,7 +5,7 @@ import { compose } from '../helpers/function';
 import { createError, errorType, textSizeValidation } from '../helpers/error';
 import axios from 'axios';
 
-const { API_PATH } = process.env
+const API_PATH = process.env.API_PATH
 
 const stts = {
 	INITIAL: 0,

@@ -4,8 +4,8 @@ import { notification } from 'antd';
 import axios from 'axios';
 import { createError, errorType } from '../helpers/error';
 
-const { API_PATH } = process.env
-const { NODE_ENV } = process.env
+const API_PATH = process.env.API_PATH
+const NODE_ENV = process.env.NODE_ENV
 
 const withLogin = (BaseComponent) => (props) => {
 	const [userData, setUserData] = useState(null);

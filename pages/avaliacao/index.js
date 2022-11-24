@@ -11,7 +11,7 @@ import { DatabaseOutlined } from '@ant-design/icons'
 
 import utilStyles from '../../styles/utils.module.css'
 
-const { API_PATH } = process.env
+const API_PATH = process.env.API_PATH
 
 const Avaliacao = ({ login }) => {
     const [chosenArticle, setChosenArticle] = useState(null);

@@ -1,6 +1,6 @@
 import { notification } from 'antd';
 
-const { DEBUG } = process.env
+const DEBUG = process.env.DEBUG
 
 export const errorType = {
 	GET_INFO: -3,

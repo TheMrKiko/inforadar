@@ -8,7 +8,7 @@ import SocioDemForm from '../../components/sdform'
 import { createError, errorType } from '../../helpers/error'
 import axios from 'axios'
 
-const { API_PATH } = process.env
+const API_PATH = process.env.API_PATH
 
 const form_stts = {
     ERROR: -1,

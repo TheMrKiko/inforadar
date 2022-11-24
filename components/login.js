@@ -6,8 +6,8 @@ import { createError, errorType } from '../helpers/error';
 
 import axios from 'axios';
 
-const { API_PATH } = process.env
-const { GOOGLE_CLIENT_ID } = process.env
+const API_PATH = process.env.API_PATH
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
 
 class LoginOptions extends React.Component {
 

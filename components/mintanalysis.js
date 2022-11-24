@@ -12,7 +12,7 @@ import axios from 'axios';
 import utilStyles from '../styles/utils.module.css';
 import styles from '../styles/AvaliacaoArtigo.module.css';
 
-const { API_PATH } = process.env
+const API_PATH = process.env.API_PATH
 
 const Navigation = ({ step, setStep }) => {
 	const setStepFunc = (thisstep) => () => setStep(thisstep);

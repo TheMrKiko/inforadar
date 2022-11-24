@@ -10,7 +10,7 @@ import axios from 'axios'
 import utilStyles from '../../styles/utils.module.css'
 import { CloseCircleOutlined, CloseOutlined } from '@ant-design/icons'
 
-const { API_PATH } = process.env
+const API_PATH = process.env.API_PATH
 
 const printTime = (ms) => {
     const secs = parseInt(ms / 1000);

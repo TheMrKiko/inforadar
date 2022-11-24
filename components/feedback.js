@@ -6,7 +6,7 @@ import { Button, Row, Select, Space, Typography } from 'antd';
 
 import axios from 'axios';
 
-const { API_PATH } = process.env
+const API_PATH = process.env.API_PATH
 
 const fb_stts = {
 	ERROR: -1,
