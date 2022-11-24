@@ -2,7 +2,7 @@ import { numb, changepercept } from '../../helpers/form';
 
 import { Form, Space, Checkbox, Input, Button, Radio, Switch, Select, Row, Col, Typography, Skeleton, Divider, Collapse, Tooltip } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import utilStyles from '../styles/utils.module.css'
+import utilStyles from '../../styles/utils.module.css'
 
 const layout = {
 	labelCol: {

@@ -6,11 +6,11 @@ import ArticleCard from './articlecard';
 import NutritionalInfo from './nutrinfo';
 import ERCLabel from './erclabel';
 import { CredibilityForm, FirstImpressionsForm, MetricsForm } from './forms/mint';
-import { createError, errorType } from '../../helpers/error';
+import { createError, errorType } from '../helpers/error';
 import { Button, Card, Col, Row, Space, Spin, Steps, Typography } from 'antd';
 import axios from 'axios';
-import utilStyles from '../../styles/utils.module.css';
-import styles from '../../styles/AvaliacaoArtigo.module.css';
+import utilStyles from '../styles/utils.module.css';
+import styles from '../styles/AvaliacaoArtigo.module.css';
 
 const { API_PATH } = process.env
 
