@@ -215,7 +215,7 @@ const withArticle = (BaseComponent) => class extends React.Component {
 							data: {
 								'metrics': this.state.metricsInfo.map(i => i.id),
 								'metric_scores': Object.fromEntries(
-									Object.entries(this.state.metricsData).map(
+									Object.entries(result.data).map(
 										([m, d]) => [m, { score: d.score }]
 									)),
 								'settings': { graphs: ['notcumulative'], legend: true },
