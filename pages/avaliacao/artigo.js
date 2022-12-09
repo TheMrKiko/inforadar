@@ -2,8 +2,14 @@ import { Breadcrumb, Layout as AntLayout, Typography } from 'antd';
 import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '../../components/layout';
-import ArticleAnalysis from '../../components/mintanalysis';
+import MintAnalysisBlock from '../../components/mintanalysis';
+import witharticle from '../../components/witharticle';
+import { md } from '../../helpers/query';
 import utilStyles from '../../styles/utils.module.css';
+
+const AnalysisBlock = (props) => (props.article.mode) === md.MINT ? <MintAnalysisBlock {...props} /> : <></>
+
+const ArticleAnalysis = witharticle(AnalysisBlock);
 
 const Artigo = ({ login }) => {
 	return (

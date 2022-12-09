@@ -29,7 +29,7 @@ const Navigation = ({ step, setStep }) => {
 	)
 }
 
-const AnalysisBlock = (props) => {
+const MintAnalysisBlock = (props) => {
 	const [step, setStep] = useState(0);
 	const [fifFields, setFIFFields] = useState(null);
 	const [cfFields, setCFFields] = useState(null);
@@ -170,6 +170,5 @@ const AnalysisBlock = (props) => {
 	) : <Spin size={'large'} />
 }
 
-const ArticleAnalysis = withArticle(AnalysisBlock);
 
-export default ArticleAnalysis;
+export default MintAnalysisBlock;

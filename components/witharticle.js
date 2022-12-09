@@ -158,7 +158,7 @@ const withArticle = (BaseComponent) => class extends React.Component {
 							body_text: this.state.body,
 						}
 					});
-				} else if (this.state.mode == md.MINT) {
+				} else if (this.state.mode == md.MINT || this.state.mode == md.MAIN) {
 					axios({
 						method: 'get',
 						url: `${API_PATH}/corpus_article?id=${this.state.mid}`,
@@ -174,7 +174,7 @@ const withArticle = (BaseComponent) => class extends React.Component {
 				}
 				break;
 			case stts.WAITING_SCRAPPER:
-				if (this.state.article && this.state.categories && this.state.indicatorsInfo && this.state.metricsInfo) {
+				if (this.state.mode == md.MINT && this.state.article && this.state.categories && this.state.indicatorsInfo && this.state.metricsInfo) {
 					axios({
 						method: 'post',
 						url: `${API_PATH}/indicators`,
@@ -245,6 +245,10 @@ const withArticle = (BaseComponent) => class extends React.Component {
 					return this.setState({
 						status: stts.WAITING_DATA,
 						error: textSizeValidation(this.state.article)
+					})
+				} else if (this.state.mode == md.MAIN && this.state.article) {
+					return this.setState({
+						status: stts.DONE
 					})
 				}
 				break;

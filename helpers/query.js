@@ -20,4 +20,5 @@ export const md = {
 	URL: 0,
 	TEXT: 1,
 	MINT: 2,
+	MAIN: 3,
 }
