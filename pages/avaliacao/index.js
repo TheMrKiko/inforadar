@@ -4,6 +4,7 @@ import Link from 'next/link'
 import axios from 'axios'
 import Layout from '../../components/layout'
 import LoginOptions from '../../components/login'
+import { collectionsToMode } from '../../helpers/api'
 import { md } from '../../helpers/query'
 import { createError, errorType } from '../../helpers/error'
 import { Alert, Layout as AntLayout, Input, Result, Modal, Space, Row, Col, Typography, Button, Progress } from 'antd'
@@ -81,7 +82,7 @@ const Avaliacao = ({ login }) => {
                     <Typography.Paragraph>Pedimos que leia um artigo e tenha em consideração a análise fornecida pelo InfoRadar, respondendo a algumas perguntas sobre o artigo e a sua Informação Nutricional. Este processo irá demorar, em média, 5 minutos.</Typography.Paragraph>
                     <Row justify={'center'} align={'middle'} gutter={25} className={utilStyles.width100}>
                         <Col><Link
-                            href={chosenArticle ? `/avaliacao/artigo?mode=${md.MINT}&mid=${chosenArticle}` : ''}
+                            href={chosenArticle ? `/avaliacao/artigo?mode=${collectionsToMode[login.userData.collection]}&mid=${chosenArticle}` : ''}
                             legacyBehavior>
                             <Button disabled={login.userData && (!login.userData.sociodemographic || chosenArticle === 0)} loading={login.userData && login.userData.sociodemographic && chosenArticle === null} type={'primary'} size={'large'}>Avaliar artigo</Button>
                         </Link></Col>
