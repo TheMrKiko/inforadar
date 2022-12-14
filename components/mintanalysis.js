@@ -75,6 +75,7 @@ const MintAnalysisBlock = (props) => {
 		<Space direction={'vertical'} className={utilStyles.width100}>
 			{step < 5 && <Navigation step={step} setStep={scrollAndSetStep} />}
 			{step != 5 && <div ref={refsByStep[0]} />}
+			{step != 5 && <div ref={refsByStep[2]} />}
 			{step <= 1 && <Typography.Text type={step != 0 && 'secondary'}>Leia, com atenção, o seguinte artigo.</Typography.Text>}
 			{props.article.article && step <= 1 && (
 				<Typography.Paragraph>
@@ -98,7 +99,6 @@ const MintAnalysisBlock = (props) => {
 					}}
 				/>
 			}
-			{step != 5 && <div ref={refsByStep[2]} />}
 			{step >= 2 && step < 5 && <>
 				<Typography.Paragraph type={step >= 3 && 'secondary'}>Agora, observe o mesmo artigo contextualizado e analise a informação providenciada pelo InfoRadar. <Link href={`/comofunciona`} target="_blank">Ver como funciona o InfoRadar</Link>.</Typography.Paragraph>
 				<Row gutter={20}>
