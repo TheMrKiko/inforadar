@@ -18,12 +18,12 @@ const Navigation = ({ step, setStep }) => {
 	const setStepFunc = (thisstep) => () => setStep(thisstep);
 	return (
 		<Typography.Paragraph>
-			<Steps direction={'horizontal'} progressDot current={step}>
-				<Steps.Step onStepClick={0 < step && setStepFunc(0)} title="Leitura do Artigo" />
-				<Steps.Step onStepClick={1 < step && setStepFunc(1)} title="Primeiras Impressões" />
-				<Steps.Step onStepClick={2 < step && setStepFunc(2)} title="Informação Nutricional" />
-				<Steps.Step onStepClick={3 < step && setStepFunc(3)} title="Credibilidade" />
-				<Steps.Step onStepClick={4 < step && setStepFunc(4)} title="Métricas Explicativas" />
+			<Steps onChange={(value) => value < step && setStep(value)} direction={'horizontal'} progressDot current={step}>
+				<Steps.Step title="Leitura do Artigo" />
+				<Steps.Step title="Primeiras Impressões" />
+				<Steps.Step title="Informação Nutricional" />
+				<Steps.Step title="Credibilidade" />
+				<Steps.Step title="Métricas Explicativas" />
 			</Steps>
 		</Typography.Paragraph>
 	)
