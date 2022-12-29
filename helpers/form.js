@@ -406,7 +406,7 @@ export const emotion = [
 	{ "id": 2, "name": "Nojo, aversão ou desdém" },
 	{ "id": 3, "name": "Felicidade" },
 	{ "id": 4, "name": "Tristeza" },
-	{ "id": 4, "name": "Medo" },
-	{ "id": 4, "name": "Surpresa" },
+	{ "id": 5, "name": "Medo" },
+	{ "id": 6, "name": "Surpresa" },
 	{ "id": 0, "name": "Nenhuma" },
 ];
