@@ -10,6 +10,9 @@ export const layout = {
 
 export const validateMessages = {
 	required: "Campo obrigatório.",
+	array: {
+		min: "Tem de selecionar, pelo menos, ${min} opção.",
+	},
 };
 
 /**
@@ -393,8 +396,8 @@ export const conspiracyThemes = [
 	{ "id": 1, "name": "Relações de poder" },
 	{ "id": 2, "name": "Morte" },
 	{ "id": 3, "name": "Crenças religiosas" },
-	{ "id": 4, "name": "Outra" },
-	{ "id": 0, "name": "Nenhuma" },
+	{ "id": 4, "name": "Outro" },
+	{ "id": 0, "name": "Nenhum" },
 ];
 export const polarity = [
 	{ "id": 1, "name": "Negativo" },

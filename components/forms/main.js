@@ -1,6 +1,6 @@
 import { layout, validateMessages, numbc, categoryOther, consistency, yesno, timeSpace, factOpinion, uniquePerspective, yesnona, usVsThem, conspiracyThemes, polarity, emotion } from '../../helpers/form';
 
-import { Form, Space, Button, Radio, Select, Row, Col, Typography } from 'antd';
+import { Form, Space, Button, Radio, Select, Row, Col, Typography, Input } from 'antd';
 import utilStyles from '../../styles/utils.module.css'
 
 
@@ -42,6 +42,23 @@ const GeneralPerceptionForm = ({ fields, onChange, onSubmit }) => {
 				>
 					{categoryOther.map(c => <Select.Option key={c.id} value={c.id}>{c.name}</Select.Option>)}
 				</Select>
+			</Form.Item>
+			<Form.Item
+				noStyle
+				shouldUpdate={(prevValues, currentValues) => prevValues.category !== currentValues.category}
+			>
+				{({ getFieldValue }) =>
+					getFieldValue('category') === 4 ? (
+						<Form.Item
+							name="category_other"
+							label={<Typography.Text type={'secondary'}>Qual?</Typography.Text>}
+							rules={[{ required: true }]}
+							labelCol={{ offset: 1 }}
+							wrapperCol={{ offset: 1, span: 3 }}
+						>
+							<Input />
+						</Form.Item>
+					) : null}
 			</Form.Item>
 			<Form.Item
 				name="credibility"
@@ -176,13 +193,13 @@ const ArticleStructureForm = ({ fields, onChange, onSubmit }) => {
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
-					<Row>
-						<Col>
-							{consistency.map(c =>
+					{consistency.map(c =>
+						<Row>
+							<Col>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
-							)}
-						</Col>
-					</Row>
+							</Col>
+						</Row>
+					)}
 				</Radio.Group>
 			</Form.Item>
 			<Form.Item
@@ -191,13 +208,7 @@ const ArticleStructureForm = ({ fields, onChange, onSubmit }) => {
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
-					<Row>
-						<Col>
-							{yesno.map(c =>
-								<Radio key={c.id} value={c.id}>{c.name}</Radio>
-							)}
-						</Col>
-					</Row>
+					{yesno.map(c => <Radio.Button key={c.id} value={c.id}>{c.name}</Radio.Button>)}
 				</Radio.Group>
 			</Form.Item>
 			<Form.Item
@@ -221,13 +232,13 @@ const ArticleStructureForm = ({ fields, onChange, onSubmit }) => {
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
-					<Row>
-						<Col>
-							{timeSpace.map(c =>
+					{timeSpace.map(c =>
+						<Row>
+							<Col>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
-							)}
-						</Col>
-					</Row>
+							</Col>
+						</Row>
+					)}
 				</Radio.Group>
 			</Form.Item>
 			<Form.Item>
@@ -292,13 +303,13 @@ const ObjectivitySubjectivityForm = ({ fields, onChange, onSubmit }) => {
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
-					<Row>
-						<Col>
-							{factOpinion.map(c =>
+					{factOpinion.map(c =>
+						<Row>
+							<Col>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
-							)}
-						</Col>
-					</Row>
+							</Col>
+						</Row>
+					)}
 				</Radio.Group>
 			</Form.Item>
 			<Form.Item
@@ -391,13 +402,7 @@ const ObjectivitySubjectivityForm = ({ fields, onChange, onSubmit }) => {
 							rules={[{ required: true }]}
 						>
 							<Radio.Group>
-								<Row>
-									<Col>
-										{yesnona.map(c =>
-											<Radio key={c.id} value={c.id}>{c.name}</Radio>
-										)}
-									</Col>
-								</Row>
+								{yesnona.map(c => <Radio.Button key={c.id} value={c.id}>{c.name}</Radio.Button>)}
 							</Radio.Group>
 						</Form.Item>
 					</> : null
@@ -450,13 +455,7 @@ const AppealForm = ({ fields, onChange, onSubmit }) => {
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
-					<Row>
-						<Col>
-							{yesno.map(c =>
-								<Radio key={c.id} value={c.id}>{c.name}</Radio>
-							)}
-						</Col>
-					</Row>
+					{yesno.map(c => <Radio.Button key={c.id} value={c.id}>{c.name}</Radio.Button>)}
 				</Radio.Group>
 			</Form.Item>
 			<Form.Item
@@ -465,13 +464,7 @@ const AppealForm = ({ fields, onChange, onSubmit }) => {
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
-					<Row>
-						<Col>
-							{yesno.map(c =>
-								<Radio key={c.id} value={c.id}>{c.name}</Radio>
-							)}
-						</Col>
-					</Row>
+					{yesno.map(c => <Radio.Button key={c.id} value={c.id}>{c.name}</Radio.Button>)}
 				</Radio.Group>
 			</Form.Item>
 			<Form.Item
@@ -480,13 +473,7 @@ const AppealForm = ({ fields, onChange, onSubmit }) => {
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
-					<Row>
-						<Col>
-							{yesno.map(c =>
-								<Radio key={c.id} value={c.id}>{c.name}</Radio>
-							)}
-						</Col>
-					</Row>
+					{yesno.map(c => <Radio.Button key={c.id} value={c.id}>{c.name}</Radio.Button>)}
 				</Radio.Group>
 			</Form.Item>
 			<Form.Item
@@ -495,13 +482,7 @@ const AppealForm = ({ fields, onChange, onSubmit }) => {
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
-					<Row>
-						<Col>
-							{yesno.map(c =>
-								<Radio key={c.id} value={c.id}>{c.name}</Radio>
-							)}
-						</Col>
-					</Row>
+					{yesno.map(c => <Radio.Button key={c.id} value={c.id}>{c.name}</Radio.Button>)}
 				</Radio.Group>
 			</Form.Item>
 			<Form.Item>
@@ -551,13 +532,7 @@ const ConspiracyNarrativeForm = ({ fields, onChange, onSubmit }) => {
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
-					<Row>
-						<Col>
-							{yesno.map(c =>
-								<Radio key={c.id} value={c.id}>{c.name}</Radio>
-							)}
-						</Col>
-					</Row>
+					{yesno.map(c => <Radio.Button key={c.id} value={c.id}>{c.name}</Radio.Button>)}
 				</Radio.Group>
 			</Form.Item>
 			<Form.Item
@@ -566,13 +541,7 @@ const ConspiracyNarrativeForm = ({ fields, onChange, onSubmit }) => {
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
-					<Row>
-						<Col>
-							{yesno.map(c =>
-								<Radio key={c.id} value={c.id}>{c.name}</Radio>
-							)}
-						</Col>
-					</Row>
+					{yesno.map(c => <Radio.Button key={c.id} value={c.id}>{c.name}</Radio.Button>)}
 				</Radio.Group>
 			</Form.Item>
 			<Form.Item
@@ -581,13 +550,7 @@ const ConspiracyNarrativeForm = ({ fields, onChange, onSubmit }) => {
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
-					<Row>
-						<Col>
-							{yesno.map(c =>
-								<Radio key={c.id} value={c.id}>{c.name}</Radio>
-							)}
-						</Col>
-					</Row>
+					{yesno.map(c => <Radio.Button key={c.id} value={c.id}>{c.name}</Radio.Button>)}
 				</Radio.Group>
 			</Form.Item>
 			<Form.Item
@@ -596,13 +559,13 @@ const ConspiracyNarrativeForm = ({ fields, onChange, onSubmit }) => {
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
-					<Row>
-						<Col>
-							{usVsThem.map(c =>
+					{usVsThem.map(c =>
+						<Row>
+							<Col>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
-							)}
-						</Col>
-					</Row>
+							</Col>
+						</Row>
+					)}
 				</Radio.Group>
 			</Form.Item>
 			<Form.Item
@@ -610,15 +573,29 @@ const ConspiracyNarrativeForm = ({ fields, onChange, onSubmit }) => {
 				label={<Typography.Text strong>20. Algum dos seguintes temas é abordado no artigo?</Typography.Text>}
 				rules={[{ required: true }]}
 			>
-				<Radio.Group>
-					<Row>
-						<Col>
-							{conspiracyThemes.map(c =>
-								<Radio key={c.id} value={c.id}>{c.name}</Radio>
-							)}
-						</Col>
-					</Row>
-				</Radio.Group>
+				<Select
+					placeholder="Escolha uma opção"
+					allowClear
+				>
+					{conspiracyThemes.map(c => <Select.Option key={c.id} value={c.id}>{c.name}</Select.Option>)}
+				</Select>
+			</Form.Item>
+			<Form.Item
+				noStyle
+				shouldUpdate={(prevValues, currentValues) => prevValues.conspiracy_themes !== currentValues.conspiracy_themes}
+			>
+				{({ getFieldValue }) =>
+					getFieldValue('conspiracy_themes') === 4 ? (
+						<Form.Item
+							name="conspiracy_themes_other"
+							label={<Typography.Text type={'secondary'}>Qual?</Typography.Text>}
+							rules={[{ required: true }]}
+							labelCol={{ offset: 1 }}
+							wrapperCol={{ offset: 1, span: 3 }}
+						>
+							<Input />
+						</Form.Item>
+					) : null}
 			</Form.Item>
 			<Form.Item>
 				<Space>
@@ -667,13 +644,7 @@ const SentimentEmotionForm = ({ fields, onChange, onSubmit }) => {
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
-					<Row>
-						<Col>
-							{polarity.map(c =>
-								<Radio key={c.id} value={c.id}>{c.name}</Radio>
-							)}
-						</Col>
-					</Row>
+					{polarity.map(c => <Radio.Button key={c.id} value={c.id}>{c.name}</Radio.Button>)}
 				</Radio.Group>
 			</Form.Item>
 			<Form.Item
@@ -692,34 +663,44 @@ const SentimentEmotionForm = ({ fields, onChange, onSubmit }) => {
 				</Radio.Group>
 			</Form.Item>
 			<Form.Item
-				name="emotion"
-				label={<Typography.Text strong>23. Alguma(s) destas emoções está(ão) presente(s) no artigo?</Typography.Text>}
-				rules={[{ required: true }]}
+				noStyle
+				shouldUpdate={(prevValues, currentValues) => prevValues.emotion !== currentValues.emotion}
 			>
-				<Radio.Group>
-					<Row>
-						<Col>
-							{emotion.map(c =>
-								<Radio key={c.id} value={c.id}>{c.name}</Radio>
-							)}
-						</Col>
-					</Row>
-				</Radio.Group>
+				{({ getFieldValue }) => {
+					const containsNoneValue = getFieldValue('emotion')?.includes(0);
+					const constainsSomeValue = getFieldValue('emotion')?.length;
+					return (
+						<Form.Item
+							name="emotion"
+							label={<Typography.Text strong>23. Alguma(s) destas emoções está(ão) presente(s) no artigo?</Typography.Text>}
+							rules={[{ min: 1, type: 'array' }, { required: true }]}
+						>
+							<Select
+								placeholder="Escolha, pelo menos, uma opção"
+								mode={'multiple'}
+								allowClear
+							>
+								{emotion.map(c => (
+									<Select.Option key={c.id} value={c.id}
+										disabled={constainsSomeValue && ((c.id && containsNoneValue) || (!c.id && !containsNoneValue))}
+									>{c.name}</Select.Option>))}
+							</Select>
+						</Form.Item>
+					)
+
+				}}
 			</Form.Item>
 			<Form.Item
 				name="main_emotion"
 				label={<Typography.Text strong>24. Qual a emoção predominante no artigo?</Typography.Text>}
 				rules={[{ required: true }]}
 			>
-				<Radio.Group>
-					<Row>
-						<Col>
-							{emotion.map(c =>
-								<Radio key={c.id} value={c.id}>{c.name}</Radio>
-							)}
-						</Col>
-					</Row>
-				</Radio.Group>
+				<Select
+					placeholder="Escolha uma opção"
+					allowClear
+				>
+					{emotion.map(c => <Select.Option key={c.id} value={c.id}>{c.name}</Select.Option>)}
+				</Select>
 			</Form.Item>
 			<Form.Item>
 				<Space>
