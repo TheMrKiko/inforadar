@@ -1,3 +1,17 @@
+export const layout = {
+	labelCol: {
+		sm: { span: 18 },
+		xs: { span: 24 }
+	},
+	wrapperCol: {
+		span: 16,
+	},
+};
+
+export const validateMessages = {
+	required: "Campo obrigatório.",
+};
+
 /**
  * Sociodemographic form constants.
  */

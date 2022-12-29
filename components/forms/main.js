@@ -1,21 +1,8 @@
-import { numb, changepercept } from '../../helpers/form';
+import { layout, validateMessages, numb, changepercept } from '../../helpers/form';
 
 import { Form, Space, Button, Radio, Select, Row, Col, Typography, Skeleton } from 'antd';
 import utilStyles from '../../styles/utils.module.css'
 
-const layout = {
-	labelCol: {
-		sm: { span: 18 },
-		xs: { span: 24 }
-	},
-	wrapperCol: {
-		span: 16,
-	},
-};
-
-const validateMessages = {
-	required: "Campo obrigatório.",
-};
 
 const GeneralPerceptionForm = ({ categories, fields, onChange, onSubmit }) => {
 	const [form] = Form.useForm();

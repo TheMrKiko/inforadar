@@ -1,22 +1,8 @@
-import { numb, changepercept } from '../../helpers/form';
+import { layout, validateMessages, numb, changepercept } from '../../helpers/form';
 
 import { Form, Space, Checkbox, Input, Button, Radio, Switch, Select, Row, Col, Typography, Skeleton, Divider, Collapse, Tooltip } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import utilStyles from '../../styles/utils.module.css'
-
-const layout = {
-	labelCol: {
-		sm: { span: 18 },
-		xs: { span: 24 }
-	},
-	wrapperCol: {
-		span: 16,
-	},
-};
-
-const validateMessages = {
-	required: "Campo obrigatório.",
-};
 
 const FirstImpressionsForm = ({ categories, fields, onChange, onSubmit }) => {
 	const [form] = Form.useForm();
