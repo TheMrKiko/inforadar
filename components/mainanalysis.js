@@ -29,19 +29,19 @@ const Navigation = ({ step, setStep }) => {
 
 const MainAnalysisBlock = (props) => {
 	const [step, setStep] = useState(0);
-	const [fifFields, setFIFFields] = useState(null);
-	const [cfFields, setCFFields] = useState(null);
+	const [gpfFields, setGPFFields] = useState(null);
+	const [atfFields, setATFFields] = useState(null);
+	const [asfFields, setASFFields] = useState(null);
+	const [osfFields, setOSFFields] = useState(null);
+	const [afFields, setAFFields] = useState(null);
+	const [cnfFields, setCNFFields] = useState(null);
+	const [sefFields, setSEFFields] = useState(null);
 	const [formValues, setFormValues] = useState({});
 	const [submitting, setSubmitting] = useState(false);
 	const [timeStarted, _] = useState(Date.now());
 	const submitFormValues = (values) => setFormValues(prevValues => ({ ...prevValues, ...values }));
 
 	const refsByStep = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
-
-	const scrollAndSetStep = (st) => {
-		setStep(st);
-		refsByStep[st].current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-	}
 
 	const submitForm = () => {
 		const timeTaken = Date.now() - timeStarted;
@@ -68,9 +68,14 @@ const MainAnalysisBlock = (props) => {
 			submitForm();
 	}, [formValues, submitting]);
 
+	useEffect(() => {
+		if (step && step != 8)
+			refsByStep[step].current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+	}, [step]);
+
 	return props.article.article ? (
 		<Space direction={'vertical'} className={utilStyles.width100}>
-			{step < 8 && <Navigation step={step} setStep={scrollAndSetStep} />}
+			{step < 8 && <Navigation step={step} setStep={setStep} />}
 			{step != 8 && <div ref={refsByStep[0]} />}
 			{step != 8 && <Typography.Text type={step != 0 && 'secondary'}>Leia, com atenção, o seguinte artigo.</Typography.Text>}
 			{props.article.article && step != 8 && (
@@ -82,79 +87,78 @@ const MainAnalysisBlock = (props) => {
 					<Typography.Text type={'secondary'}>Algo de errado com o artigo? <Link href='/avaliacao'>Escolher outro artigo</Link> ou <Typography.Link href='mailto:mint-annotation@googlegroups.com'>questionar por email</Typography.Link>.</Typography.Text>
 				</Typography.Paragraph>
 			)}
-			{step == 0 && <Button type={'primary'} onClick={() => scrollAndSetStep(1)}>Continuar</Button>}
+			{step == 0 && <Button type={'primary'} onClick={() => setStep(1)}>Continuar</Button>}
 			{step != 8 && <div ref={refsByStep[1]} />}
 			{step == 1 &&
 				<GeneralPerceptionForm
-					categories={props.article.categories}
-					fields={fifFields}
-					onChange={setFIFFields}
+					fields={gpfFields}
+					onChange={setGPFFields}
 					onSubmit={(values) => {
 						submitFormValues(values);
-						scrollAndSetStep(2);
+						setStep(2);
 					}}
 				/>
 			}
 			{step != 8 && <div ref={refsByStep[2]} />}
 			{step == 2 &&
 				<ArticleTitleForm
-					fields={fifFields}
-					onChange={setFIFFields}
+					fields={atfFields}
+					onChange={setATFFields}
 					onSubmit={(values) => {
 						submitFormValues(values);
-						scrollAndSetStep(3);
+						setStep(3);
 					}}
 				/>
 			}
 			{step != 8 && <div ref={refsByStep[3]} />}
 			{step == 3 &&
 				<ArticleStructureForm
-					fields={fifFields}
-					onChange={setFIFFields}
+					fields={asfFields}
+					onChange={setASFFields}
 					onSubmit={(values) => {
 						submitFormValues(values);
-						scrollAndSetStep(4);
+						setStep(4);
 					}}
 				/>
 			}
 			{step != 8 && <div ref={refsByStep[4]} />}
 			{step == 4 &&
 				<ObjectivitySubjectivityForm
-					fields={fifFields}
-					onChange={setFIFFields}
+					fields={osfFields}
+					onChange={setOSFFields}
 					onSubmit={(values) => {
 						submitFormValues(values);
-						scrollAndSetStep(5);
+						setStep(5);
 					}}
 				/>
 			}
 			{step != 8 && <div ref={refsByStep[5]} />}
 			{step == 5 &&
 				<AppealForm
-					fields={fifFields}
-					onChange={setFIFFields}
+					fields={afFields}
+					onChange={setAFFields}
 					onSubmit={(values) => {
 						submitFormValues(values);
-						scrollAndSetStep(6);
+						setStep(6);
 					}}
 				/>
 			}
 			{step != 8 && <div ref={refsByStep[6]} />}
 			{step == 6 &&
 				<ConspiracyNarrativeForm
-					fields={fifFields}
-					onChange={setFIFFields}
+					fields={cnfFields}
+					onChange={setCNFFields}
 					onSubmit={(values) => {
 						submitFormValues(values);
-						scrollAndSetStep(7);
+						setStep(7);
 					}}
 				/>
 			}
 			{step != 8 && <div ref={refsByStep[7]} />}
 			{step == 7 &&
 				<SentimentEmotionForm
-					fields={fifFields}
-					onChange={setFIFFields}
+					fields={sefFields}
+					onChange={setSEFFields}
 					onSubmit={(values) => {
 						submitFormValues(values);
 						setSubmitting(true);
@@ -162,7 +166,7 @@ const MainAnalysisBlock = (props) => {
 					submitting={submitting}
 				/>
 			}
-			{step >= 1 && step < 8 && <Navigation step={step} setStep={scrollAndSetStep} />}
+			{step >= 1 && step < 8 && <Navigation step={step} setStep={setStep} />}
 			{step == 8 && <Typography.Paragraph>
 				<Typography.Text type={'success'}>Resposta submetida! Obrigado pela sua participação. <Link href='/avaliacao'>Avaliar outro artigo</Link>.</Typography.Text>
 			</Typography.Paragraph>}
