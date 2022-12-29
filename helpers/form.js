@@ -294,7 +294,7 @@ export const countries = [
 /**
  * Article analysis form constants.
  */
-
+// MINT
 export const agree = [
 	{ "id": 1, "name": "Discordo totalmente" },
 	{ "id": 2, "name": "Discordo" },
@@ -340,4 +340,73 @@ export const numb = [
 	{ "id": 4, "name": "4" },
 	{ "id": 5, "name": "5" },
 	{ "id": 0, "name": "Não sei" },
+];
+
+// MAIN
+export const numbc = [
+	{ "id": 1, "name": "1" },
+	{ "id": 2, "name": "2" },
+	{ "id": 3, "name": "3" },
+	{ "id": 4, "name": "4" },
+	{ "id": 5, "name": "5" },
+];
+export const categoryOther = [
+	{ "id": 1, "name": "Notícia" },
+	{ "id": 2, "name": "Artigo de Opinião" },
+	{ "id": 3, "name": "Teoria da Conspiração" },
+	{ "id": 4, "name": "Outro" },
+];
+export const consistency = [
+	{ "id": 1, "name": "Sim, sinto que o autor segue uma estrutura narrativa com princípio, meio e fim." },
+	{ "id": 2, "name": "Por vezes, tive necessidade de reler o texto para compreender a mensagem." },
+	{ "id": 3, "name": "Não, senti-me frequentemente perdida/o e não entendi o raciocínio do autor." },
+];
+export const timeSpace = [
+	{ "id": 1, "name": "Ambos" },
+	{ "id": 2, "name": "Só tempo" },
+	{ "id": 3, "name": "Só espaço" },
+	{ "id": 4, "name": "Nenhum" },
+	{ "id": 0, "name": "Não sei" },
+];
+export const factOpinion = [
+	{ "id": 1, "name": "Factos" },
+	{ "id": 2, "name": "Opiniões" },
+	{ "id": 0, "name": "Não sei" },
+];
+export const uniquePerspective = [
+	{ "id": 1, "name": "Sim, o artigo não contempla opiniões ou perspectivas alternativas." },
+	{ "id": 2, "name": "Não, os pontos de vista ou opiniões apresentados no artigo são confrontados com outras possibilidades de análise ou entendimento sobre o mesmo tema." },
+	{ "id": 0, "name": "Não sei" },
+];
+export const yesnona = [
+	{ "id": 1, "name": "Sim" },
+	{ "id": 0, "name": "Não" },
+	{ "id": 2, "name": "Não se aplica" },
+];
+export const usVsThem = [
+	{ "id": 1, "name": "Sim, os bons e os maus." },
+	{ "id": 2, "name": "Apenas é possível identificar os bons." },
+	{ "id": 3, "name": "Apenas é possível identificar os maus." },
+	{ "id": 4, "name": "Não, esta divisão não existe ou não é clara no texto." },
+];
+export const conspiracyThemes = [
+	{ "id": 1, "name": "Relações de poder" },
+	{ "id": 2, "name": "Morte" },
+	{ "id": 3, "name": "Crenças religiosas" },
+	{ "id": 4, "name": "Outra" },
+	{ "id": 0, "name": "Nenhuma" },
+];
+export const polarity = [
+	{ "id": 1, "name": "Negativo" },
+	{ "id": 2, "name": "Neutro" },
+	{ "id": 3, "name": "Positivo" },
+];
+export const emotion = [
+	{ "id": 1, "name": "Raiva" },
+	{ "id": 2, "name": "Nojo, aversão ou desdém" },
+	{ "id": 3, "name": "Felicidade" },
+	{ "id": 4, "name": "Tristeza" },
+	{ "id": 4, "name": "Medo" },
+	{ "id": 4, "name": "Surpresa" },
+	{ "id": 0, "name": "Nenhuma" },
 ];
