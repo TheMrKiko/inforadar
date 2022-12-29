@@ -41,11 +41,6 @@ const MintAnalysisBlock = (props) => {
 
 	const refsByStep = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
 
-	const scrollAndSetStep = (st) => {
-		setStep(st);
-		refsByStep[st].current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-	}
-
 	const submitForm = () => {
 		const timeTaken = Date.now() - timeStarted;
 		const formData = { ...formValues, corpus_article_id: props.article.article.id, time_taken: timeTaken, }
@@ -71,9 +66,14 @@ const MintAnalysisBlock = (props) => {
 			submitForm();
 	}, [formValues, submitting]);
 
+	useEffect(() => {
+		if (step && step != 5)
+			refsByStep[step].current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+	}, [step]);
+
 	return props.article.article ? (
 		<Space direction={'vertical'} className={utilStyles.width100}>
-			{step < 5 && <Navigation step={step} setStep={scrollAndSetStep} />}
+			{step < 5 && <Navigation step={step} setStep={setStep} />}
 			{step != 5 && <div ref={refsByStep[0]} />}
 			{step != 5 && <div ref={refsByStep[2]} />}
 			{step <= 1 && <Typography.Text type={step != 0 && 'secondary'}>Leia, com atenção, o seguinte artigo.</Typography.Text>}
@@ -86,7 +86,7 @@ const MintAnalysisBlock = (props) => {
 					<Typography.Text type={'secondary'}>Algo de errado com o artigo? <Link href='/avaliacao'>Escolher outro artigo</Link> ou <Typography.Link href='mailto:mint-annotation@googlegroups.com'>questionar por email</Typography.Link>.</Typography.Text>
 				</Typography.Paragraph>
 			)}
-			{step == 0 && <Button type={'primary'} onClick={() => scrollAndSetStep(1)}>Continuar</Button>}
+			{step == 0 && <Button type={'primary'} onClick={() => setStep(1)}>Continuar</Button>}
 			{step != 5 && <div ref={refsByStep[1]} />}
 			{step == 1 &&
 				<FirstImpressionsForm
@@ -95,7 +95,7 @@ const MintAnalysisBlock = (props) => {
 					onChange={setFIFFields}
 					onSubmit={(values) => {
 						submitFormValues(values);
-						scrollAndSetStep(2);
+						setStep(2);
 					}}
 				/>
 			}
@@ -133,7 +133,7 @@ const MintAnalysisBlock = (props) => {
 						</Typography.Paragraph>
 						<Space direction={'vertical'} className={utilStyles.width100}>
 							<Typography.Text type={'secondary'}>Algo de errado com o artigo ou a análise? <Link href='/avaliacao'>Escolher outro artigo</Link> ou <Typography.Link href='mailto:mint-annotation@googlegroups.com'>questionar por email</Typography.Link>.</Typography.Text>
-							{step == 2 && <Button type={'primary'} onClick={() => scrollAndSetStep(3)}>Continuar</Button>}
+							{step == 2 && <Button type={'primary'} onClick={() => setStep(3)}>Continuar</Button>}
 							{step != 5 && <div ref={refsByStep[3]} />}
 							{step == 3 &&
 								<CredibilityForm
@@ -141,7 +141,7 @@ const MintAnalysisBlock = (props) => {
 									onChange={setCFFields}
 									onSubmit={(values) => {
 										submitFormValues(values);
-										scrollAndSetStep(4);
+										setStep(4);
 									}}
 								/>
 							}
@@ -158,7 +158,7 @@ const MintAnalysisBlock = (props) => {
 									submitting={submitting}
 								/>
 							}
-							{step >= 2 && step < 5 && <Navigation step={step} setStep={scrollAndSetStep} />}
+							{step >= 2 && step < 5 && <Navigation step={step} setStep={setStep} />}
 						</Space>
 					</Col>
 				</Row>
