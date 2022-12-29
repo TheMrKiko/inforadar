@@ -647,4 +647,105 @@ const ConspiracyNarrativeForm = ({ fields, onChange, onSubmit }) => {
 	);
 };
 
-export { GeneralPerceptionForm, ArticleTitleForm, ArticleStructureForm, ObjectivitySubjectivityForm, AppealForm, ConspiracyNarrativeForm }
+const SentimentEmotionForm = ({ fields, onChange, onSubmit }) => {
+	const [form] = Form.useForm();
+
+	const onFinish = (values) => {
+		onSubmit(values);
+	};
+
+	const onReset = () => {
+		form.resetFields();
+	};
+
+	return (
+		<Form
+			form={form}
+			name="sentiment_emotion"
+			fields={fields}
+			onFieldsChange={(_, allFields) => {
+				onChange(allFields);
+			}}
+			onFinish={onFinish}
+			labelWrap
+			scrollToFirstError
+			validateMessages={validateMessages}
+			layout={'vertical'}
+			{...layout}
+		>
+			<Typography.Title level={3}>Sentimento e Emoção</Typography.Title>
+			<Form.Item
+				name="sentiment_polarity"
+				label={<Typography.Text strong>20. Que tom (ou sentimento) geral o autor emprega no artigo?</Typography.Text>}
+				rules={[{ required: true }]}
+			>
+				<Radio.Group>
+					<Row>
+						<Col>
+							{numb.map(c =>
+								<Radio key={c.id} value={c.id}>{c.name}</Radio>
+							)}
+						</Col>
+					</Row>
+				</Radio.Group>
+			</Form.Item>
+			<Form.Item
+				name="sentiment_intensity"
+				label={<Typography.Text strong>21. Qual o grau de intensidade do sentimento ou emoções expressas no artigo (1 = nada intenso e 5 = extremamente intenso)?</Typography.Text>}
+				rules={[{ required: true }]}
+			>
+				<Radio.Group>
+					<Row>
+						<Col>
+							{numb.map(c =>
+								<Radio key={c.id} value={c.id}>{c.name}</Radio>
+							)}
+						</Col>
+					</Row>
+				</Radio.Group>
+			</Form.Item>
+			<Form.Item
+				name="emotion"
+				label={<Typography.Text strong>22. Alguma(s) destas emoções está(ão) presente(s) no artigo?</Typography.Text>}
+				rules={[{ required: true }]}
+			>
+				<Radio.Group>
+					<Row>
+						<Col>
+							{numb.map(c =>
+								<Radio key={c.id} value={c.id}>{c.name}</Radio>
+							)}
+						</Col>
+					</Row>
+				</Radio.Group>
+			</Form.Item>
+			<Form.Item
+				name="main_emotion"
+				label={<Typography.Text strong>23. Qual a emoção predominante no artigo?</Typography.Text>}
+				rules={[{ required: true }]}
+			>
+				<Radio.Group>
+					<Row>
+						<Col>
+							{numb.map(c =>
+								<Radio key={c.id} value={c.id}>{c.name}</Radio>
+							)}
+						</Col>
+					</Row>
+				</Radio.Group>
+			</Form.Item>
+			<Form.Item>
+				<Space>
+					<Button htmlType={'reset'} onClick={onReset}>
+						Limpar
+					</Button>
+					<Button type={'primary'} htmlType={'submit'}>
+						Submeter
+					</Button>
+				</Space>
+			</Form.Item>
+		</Form>
+	);
+};
+
+export { GeneralPerceptionForm, ArticleTitleForm, ArticleStructureForm, ObjectivitySubjectivityForm, AppealForm, ConspiracyNarrativeForm, SentimentEmotionForm }

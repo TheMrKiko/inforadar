@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { AppealForm, ArticleStructureForm, ArticleTitleForm, ConspiracyNarrativeForm, GeneralPerceptionForm, ObjectivitySubjectivityForm } from './forms/main';
+import { AppealForm, ArticleStructureForm, ArticleTitleForm, ConspiracyNarrativeForm, GeneralPerceptionForm, ObjectivitySubjectivityForm, SentimentEmotionForm } from './forms/main';
 import { createError, errorType } from '../helpers/error';
 import { Button, Space, Spin, Steps, Typography } from 'antd';
 import axios from 'axios';
@@ -148,6 +148,18 @@ const MainAnalysisBlock = (props) => {
 						submitFormValues(values);
 						scrollAndSetStep(7);
 					}}
+				/>
+			}
+			{step != 8 && <div ref={refsByStep[7]} />}
+			{step == 7 &&
+				<SentimentEmotionForm
+					fields={fifFields}
+					onChange={setFIFFields}
+					onSubmit={(values) => {
+						submitFormValues(values);
+						setSubmitting(true);
+					}}
+					submitting={submitting}
 				/>
 			}
 			{step >= 1 && step < 8 && <Navigation step={step} setStep={scrollAndSetStep} />}
