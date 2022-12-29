@@ -430,4 +430,105 @@ const ObjectivitySubjectivityForm = ({ fields, onChange, onSubmit }) => {
 	);
 };
 
-export { GeneralPerceptionForm, ArticleTitleForm, ArticleStructureForm, ObjectivitySubjectivityForm }
+const AppealForm = ({ fields, onChange, onSubmit }) => {
+	const [form] = Form.useForm();
+
+	const onFinish = (values) => {
+		onSubmit(values);
+	};
+
+	const onReset = () => {
+		form.resetFields();
+	};
+
+	return (
+		<Form
+			form={form}
+			name="appeal_strategy"
+			fields={fields}
+			onFieldsChange={(_, allFields) => {
+				onChange(allFields);
+			}}
+			onFinish={onFinish}
+			labelWrap
+			scrollToFirstError
+			validateMessages={validateMessages}
+			layout={'vertical'}
+			{...layout}
+		>
+			<Typography.Title level={3}>Estratégias discursivas e retóricas</Typography.Title>
+			<Form.Item
+				name="appeal_to_fear"
+				label={<Typography.Text strong>12. Há afirmações no texto que possam suscitar medo no leitor?</Typography.Text>}
+				rules={[{ required: true }]}
+			>
+				<Radio.Group>
+					<Row>
+						<Col>
+							{numb.map(c =>
+								<Radio key={c.id} value={c.id}>{c.name}</Radio>
+							)}
+						</Col>
+					</Row>
+				</Radio.Group>
+			</Form.Item>
+			<Form.Item
+				name="appeal_to_action"
+				label={<Typography.Text strong>13. O autor faz um apelo direto ou indireto à ação (isto é, aborda a necessidade de alterar o estado atual das coisas)?</Typography.Text>}
+				rules={[{ required: true }]}
+			>
+				<Radio.Group>
+					<Row>
+						<Col>
+							{numb.map(c =>
+								<Radio key={c.id} value={c.id}>{c.name}</Radio>
+							)}
+						</Col>
+					</Row>
+				</Radio.Group>
+			</Form.Item>
+			<Form.Item
+				name="personal_attack"
+				label={<Typography.Text strong>14. O artigo apresenta um ataque, direto ou indireto, a indivíduos (por exemplo, figuras públicas) ou a organizações?</Typography.Text>}
+				rules={[{ required: true }]}
+			>
+				<Radio.Group>
+					<Row>
+						<Col>
+							{numb.map(c =>
+								<Radio key={c.id} value={c.id}>{c.name}</Radio>
+							)}
+						</Col>
+					</Row>
+				</Radio.Group>
+			</Form.Item>
+			<Form.Item
+				name="sarcasm"
+				label={<Typography.Text strong>15. O autor recorre ao sarcasmo, ironia ou humor no artigo?</Typography.Text>}
+				rules={[{ required: true }]}
+			>
+				<Radio.Group>
+					<Row>
+						<Col>
+							{numb.map(c =>
+								<Radio key={c.id} value={c.id}>{c.name}</Radio>
+							)}
+						</Col>
+					</Row>
+				</Radio.Group>
+			</Form.Item>
+			<Form.Item>
+				<Space>
+					<Button htmlType={'reset'} onClick={onReset}>
+						Limpar
+					</Button>
+					<Button type={'primary'} htmlType={'submit'}>
+						Próximo
+					</Button>
+				</Space>
+			</Form.Item>
+		</Form>
+	);
+};
+
+export { GeneralPerceptionForm, ArticleTitleForm, ArticleStructureForm, ObjectivitySubjectivityForm, AppealForm }
