@@ -531,4 +531,120 @@ const AppealForm = ({ fields, onChange, onSubmit }) => {
 	);
 };
 
-export { GeneralPerceptionForm, ArticleTitleForm, ArticleStructureForm, ObjectivitySubjectivityForm, AppealForm }
+const ConspiracyNarrativeForm = ({ fields, onChange, onSubmit }) => {
+	const [form] = Form.useForm();
+
+	const onFinish = (values) => {
+		onSubmit(values);
+	};
+
+	const onReset = () => {
+		form.resetFields();
+	};
+
+	return (
+		<Form
+			form={form}
+			name="conspiracy_narrative"
+			fields={fields}
+			onFieldsChange={(_, allFields) => {
+				onChange(allFields);
+			}}
+			onFinish={onFinish}
+			labelWrap
+			scrollToFirstError
+			validateMessages={validateMessages}
+			layout={'vertical'}
+			{...layout}
+		>
+			<Typography.Title level={3}>Narrativa de conspiração</Typography.Title>
+			<Form.Item
+				name="secret_society"
+				label={<Typography.Text strong>16. O artigo faz referência, direta ou indireta, à existência de uma sociedade ou grupo secreto?</Typography.Text>}
+				rules={[{ required: true }]}
+			>
+				<Radio.Group>
+					<Row>
+						<Col>
+							{numb.map(c =>
+								<Radio key={c.id} value={c.id}>{c.name}</Radio>
+							)}
+						</Col>
+					</Row>
+				</Radio.Group>
+			</Form.Item>
+			<Form.Item
+				name="evil_forces"
+				label={<Typography.Text strong>17. O artigo sugere que existem forças do poder ou mal-intencionadas que originaram, secretamente, os acontecimentos reportados no artigo?</Typography.Text>}
+				rules={[{ required: true }]}
+			>
+				<Radio.Group>
+					<Row>
+						<Col>
+							{numb.map(c =>
+								<Radio key={c.id} value={c.id}>{c.name}</Radio>
+							)}
+						</Col>
+					</Row>
+				</Radio.Group>
+			</Form.Item>
+			<Form.Item
+				name="threatening_truths"
+				label={<Typography.Text strong>18. O autor propõe-se a revelar verdades disruptivas ou ameaçadoras?</Typography.Text>}
+				rules={[{ required: true }]}
+			>
+				<Radio.Group>
+					<Row>
+						<Col>
+							{numb.map(c =>
+								<Radio key={c.id} value={c.id}>{c.name}</Radio>
+							)}
+						</Col>
+					</Row>
+				</Radio.Group>
+			</Form.Item>
+			<Form.Item
+				name="us_vs_them"
+				label={<Typography.Text strong>19. No texto, é possível identificar dois grandes grupos: os bons (isto é, os que partilham as ideias do autor) e os maus (os outros)?</Typography.Text>}
+				rules={[{ required: true }]}
+			>
+				<Radio.Group>
+					<Row>
+						<Col>
+							{numb.map(c =>
+								<Radio key={c.id} value={c.id}>{c.name}</Radio>
+							)}
+						</Col>
+					</Row>
+				</Radio.Group>
+			</Form.Item>
+			<Form.Item
+				name="conspiracy_themes"
+				label={<Typography.Text strong>20. Algum dos seguintes temas é abordado no artigo?</Typography.Text>}
+				rules={[{ required: true }]}
+			>
+				<Radio.Group>
+					<Row>
+						<Col>
+							{numb.map(c =>
+								<Radio key={c.id} value={c.id}>{c.name}</Radio>
+							)}
+						</Col>
+					</Row>
+				</Radio.Group>
+			</Form.Item>
+			<Form.Item>
+				<Space>
+					<Button htmlType={'reset'} onClick={onReset}>
+						Limpar
+					</Button>
+					<Button type={'primary'} htmlType={'submit'}>
+						Próximo
+					</Button>
+				</Space>
+			</Form.Item>
+		</Form>
+	);
+};
+
+export { GeneralPerceptionForm, ArticleTitleForm, ArticleStructureForm, ObjectivitySubjectivityForm, AppealForm, ConspiracyNarrativeForm }
