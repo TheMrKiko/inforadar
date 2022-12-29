@@ -174,7 +174,7 @@ const withArticle = (BaseComponent) => class extends React.Component {
 				}
 				break;
 			case stts.WAITING_SCRAPPER:
-				if (this.state.mode == md.MINT && this.state.article && this.state.categories && this.state.indicatorsInfo && this.state.metricsInfo) {
+				if (this.state.mode != md.MAIN && this.state.article && this.state.categories && this.state.indicatorsInfo && this.state.metricsInfo) {
 					axios({
 						method: 'post',
 						url: `${API_PATH}/indicators`,
