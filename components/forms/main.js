@@ -1,10 +1,10 @@
-import { layout, validateMessages, numb, changepercept } from '../../helpers/form';
+import { layout, validateMessages, numbc, categoryOther, consistency, yesno, timeSpace, factOpinion, uniquePerspective, yesnona, usVsThem, conspiracyThemes, polarity, emotion } from '../../helpers/form';
 
-import { Form, Space, Button, Radio, Select, Row, Col, Typography, Skeleton } from 'antd';
+import { Form, Space, Button, Radio, Select, Row, Col, Typography } from 'antd';
 import utilStyles from '../../styles/utils.module.css'
 
 
-const GeneralPerceptionForm = ({ categories, fields, onChange, onSubmit }) => {
+const GeneralPerceptionForm = ({ fields, onChange, onSubmit }) => {
 	const [form] = Form.useForm();
 
 	const onFinish = (values) => {
@@ -15,7 +15,7 @@ const GeneralPerceptionForm = ({ categories, fields, onChange, onSubmit }) => {
 		form.resetFields();
 	};
 
-	return categories ? (
+	return (
 		<Form
 			form={form}
 			name="general-perception"
@@ -40,7 +40,7 @@ const GeneralPerceptionForm = ({ categories, fields, onChange, onSubmit }) => {
 					placeholder="Escolha uma opção"
 					allowClear
 				>
-					{categories.map(c => <Select.Option key={c.id} value={c.id}>{c.display_name}</Select.Option>)}
+					{categoryOther.map(c => <Select.Option key={c.id} value={c.id}>{c.name}</Select.Option>)}
 				</Select>
 			</Form.Item>
 			<Form.Item
@@ -51,7 +51,7 @@ const GeneralPerceptionForm = ({ categories, fields, onChange, onSubmit }) => {
 				<Radio.Group>
 					<Row>
 						<Col>
-							{numb.map(c =>
+							{numbc.map(c =>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
 							)}
 						</Col>
@@ -69,7 +69,7 @@ const GeneralPerceptionForm = ({ categories, fields, onChange, onSubmit }) => {
 				</Space>
 			</Form.Item>
 		</Form>
-	) : <Skeleton />;
+	);
 };
 
 const ArticleTitleForm = ({ fields, onChange, onSubmit }) => {
@@ -107,7 +107,7 @@ const ArticleTitleForm = ({ fields, onChange, onSubmit }) => {
 				<Radio.Group>
 					<Row>
 						<Col>
-							{numb.map(c =>
+							{numbc.map(c =>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
 							)}
 						</Col>
@@ -122,7 +122,7 @@ const ArticleTitleForm = ({ fields, onChange, onSubmit }) => {
 				<Radio.Group>
 					<Row>
 						<Col>
-							{numb.map(c =>
+							{numbc.map(c =>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
 							)}
 						</Col>
@@ -178,7 +178,7 @@ const ArticleStructureForm = ({ fields, onChange, onSubmit }) => {
 				<Radio.Group>
 					<Row>
 						<Col>
-							{numb.map(c =>
+							{consistency.map(c =>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
 							)}
 						</Col>
@@ -193,7 +193,7 @@ const ArticleStructureForm = ({ fields, onChange, onSubmit }) => {
 				<Radio.Group>
 					<Row>
 						<Col>
-							{numb.map(c =>
+							{yesno.map(c =>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
 							)}
 						</Col>
@@ -208,7 +208,7 @@ const ArticleStructureForm = ({ fields, onChange, onSubmit }) => {
 				<Radio.Group>
 					<Row>
 						<Col>
-							{numb.map(c =>
+							{numbc.map(c =>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
 							)}
 						</Col>
@@ -223,7 +223,7 @@ const ArticleStructureForm = ({ fields, onChange, onSubmit }) => {
 				<Radio.Group>
 					<Row>
 						<Col>
-							{numb.map(c =>
+							{timeSpace.map(c =>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
 							)}
 						</Col>
@@ -279,7 +279,7 @@ const ObjectivitySubjectivityForm = ({ fields, onChange, onSubmit }) => {
 				<Radio.Group>
 					<Row>
 						<Col>
-							{numb.map(c =>
+							{numbc.map(c =>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
 							)}
 						</Col>
@@ -294,7 +294,7 @@ const ObjectivitySubjectivityForm = ({ fields, onChange, onSubmit }) => {
 				<Radio.Group>
 					<Row>
 						<Col>
-							{numb.map(c =>
+							{factOpinion.map(c =>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
 							)}
 						</Col>
@@ -316,7 +316,7 @@ const ObjectivitySubjectivityForm = ({ fields, onChange, onSubmit }) => {
 							<Radio.Group>
 								<Row>
 									<Col>
-										{numb.map(c =>
+										{numbc.map(c =>
 											<Radio key={c.id} value={c.id}>{c.name}</Radio>
 										)}
 									</Col>
@@ -333,7 +333,7 @@ const ObjectivitySubjectivityForm = ({ fields, onChange, onSubmit }) => {
 							<Radio.Group>
 								<Row>
 									<Col>
-										{numb.map(c =>
+										{numbc.map(c =>
 											<Radio key={c.id} value={c.id}>{c.name}</Radio>
 										)}
 									</Col>
@@ -348,7 +348,7 @@ const ObjectivitySubjectivityForm = ({ fields, onChange, onSubmit }) => {
 							<Radio.Group>
 								<Row>
 									<Col>
-										{numb.map(c =>
+										{numbc.map(c =>
 											<Radio key={c.id} value={c.id}>{c.name}</Radio>
 										)}
 									</Col>
@@ -363,7 +363,7 @@ const ObjectivitySubjectivityForm = ({ fields, onChange, onSubmit }) => {
 							<Radio.Group>
 								<Row>
 									<Col>
-										{numb.map(c =>
+										{uniquePerspective.map(c =>
 											<Radio key={c.id} value={c.id}>{c.name}</Radio>
 										)}
 									</Col>
@@ -378,7 +378,7 @@ const ObjectivitySubjectivityForm = ({ fields, onChange, onSubmit }) => {
 							<Radio.Group>
 								<Row>
 									<Col>
-										{numb.map(c =>
+										{numbc.map(c =>
 											<Radio key={c.id} value={c.id}>{c.name}</Radio>
 										)}
 									</Col>
@@ -393,7 +393,7 @@ const ObjectivitySubjectivityForm = ({ fields, onChange, onSubmit }) => {
 							<Radio.Group>
 								<Row>
 									<Col>
-										{numb.map(c =>
+										{yesnona.map(c =>
 											<Radio key={c.id} value={c.id}>{c.name}</Radio>
 										)}
 									</Col>
@@ -452,7 +452,7 @@ const AppealForm = ({ fields, onChange, onSubmit }) => {
 				<Radio.Group>
 					<Row>
 						<Col>
-							{numb.map(c =>
+							{yesno.map(c =>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
 							)}
 						</Col>
@@ -467,7 +467,7 @@ const AppealForm = ({ fields, onChange, onSubmit }) => {
 				<Radio.Group>
 					<Row>
 						<Col>
-							{numb.map(c =>
+							{yesno.map(c =>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
 							)}
 						</Col>
@@ -482,7 +482,7 @@ const AppealForm = ({ fields, onChange, onSubmit }) => {
 				<Radio.Group>
 					<Row>
 						<Col>
-							{numb.map(c =>
+							{yesno.map(c =>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
 							)}
 						</Col>
@@ -497,7 +497,7 @@ const AppealForm = ({ fields, onChange, onSubmit }) => {
 				<Radio.Group>
 					<Row>
 						<Col>
-							{numb.map(c =>
+							{yesno.map(c =>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
 							)}
 						</Col>
@@ -553,7 +553,7 @@ const ConspiracyNarrativeForm = ({ fields, onChange, onSubmit }) => {
 				<Radio.Group>
 					<Row>
 						<Col>
-							{numb.map(c =>
+							{yesno.map(c =>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
 							)}
 						</Col>
@@ -568,7 +568,7 @@ const ConspiracyNarrativeForm = ({ fields, onChange, onSubmit }) => {
 				<Radio.Group>
 					<Row>
 						<Col>
-							{numb.map(c =>
+							{yesno.map(c =>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
 							)}
 						</Col>
@@ -583,7 +583,7 @@ const ConspiracyNarrativeForm = ({ fields, onChange, onSubmit }) => {
 				<Radio.Group>
 					<Row>
 						<Col>
-							{numb.map(c =>
+							{yesno.map(c =>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
 							)}
 						</Col>
@@ -598,7 +598,7 @@ const ConspiracyNarrativeForm = ({ fields, onChange, onSubmit }) => {
 				<Radio.Group>
 					<Row>
 						<Col>
-							{numb.map(c =>
+							{usVsThem.map(c =>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
 							)}
 						</Col>
@@ -613,7 +613,7 @@ const ConspiracyNarrativeForm = ({ fields, onChange, onSubmit }) => {
 				<Radio.Group>
 					<Row>
 						<Col>
-							{numb.map(c =>
+							{conspiracyThemes.map(c =>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
 							)}
 						</Col>
@@ -663,13 +663,13 @@ const SentimentEmotionForm = ({ fields, onChange, onSubmit }) => {
 			<Typography.Title level={3}>Sentimento e Emoção</Typography.Title>
 			<Form.Item
 				name="sentiment_polarity"
-				label={<Typography.Text strong>20. Que tom (ou sentimento) geral o autor emprega no artigo?</Typography.Text>}
+				label={<Typography.Text strong>21. Que tom (ou sentimento) geral o autor emprega no artigo?</Typography.Text>}
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
 					<Row>
 						<Col>
-							{numb.map(c =>
+							{polarity.map(c =>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
 							)}
 						</Col>
@@ -678,13 +678,13 @@ const SentimentEmotionForm = ({ fields, onChange, onSubmit }) => {
 			</Form.Item>
 			<Form.Item
 				name="sentiment_intensity"
-				label={<Typography.Text strong>21. Qual o grau de intensidade do sentimento ou emoções expressas no artigo (1 = nada intenso e 5 = extremamente intenso)?</Typography.Text>}
+				label={<Typography.Text strong>22. Qual o grau de intensidade do sentimento ou emoções expressas no artigo (1 = nada intenso e 5 = extremamente intenso)?</Typography.Text>}
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
 					<Row>
 						<Col>
-							{numb.map(c =>
+							{numbc.map(c =>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
 							)}
 						</Col>
@@ -693,13 +693,13 @@ const SentimentEmotionForm = ({ fields, onChange, onSubmit }) => {
 			</Form.Item>
 			<Form.Item
 				name="emotion"
-				label={<Typography.Text strong>22. Alguma(s) destas emoções está(ão) presente(s) no artigo?</Typography.Text>}
+				label={<Typography.Text strong>23. Alguma(s) destas emoções está(ão) presente(s) no artigo?</Typography.Text>}
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
 					<Row>
 						<Col>
-							{numb.map(c =>
+							{emotion.map(c =>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
 							)}
 						</Col>
@@ -708,13 +708,13 @@ const SentimentEmotionForm = ({ fields, onChange, onSubmit }) => {
 			</Form.Item>
 			<Form.Item
 				name="main_emotion"
-				label={<Typography.Text strong>23. Qual a emoção predominante no artigo?</Typography.Text>}
+				label={<Typography.Text strong>24. Qual a emoção predominante no artigo?</Typography.Text>}
 				rules={[{ required: true }]}
 			>
 				<Radio.Group>
 					<Row>
 						<Col>
-							{numb.map(c =>
+							{emotion.map(c =>
 								<Radio key={c.id} value={c.id}>{c.name}</Radio>
 							)}
 						</Col>
