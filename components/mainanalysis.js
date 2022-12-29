@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { ArticleTitleForm, GeneralPerceptionForm } from './forms/main';
+import { ArticleStructureForm, ArticleTitleForm, GeneralPerceptionForm } from './forms/main';
 import { createError, errorType } from '../helpers/error';
 import { Button, Space, Spin, Steps, Typography } from 'antd';
 import axios from 'axios';
@@ -103,6 +103,17 @@ const MainAnalysisBlock = (props) => {
 					onSubmit={(values) => {
 						submitFormValues(values);
 						scrollAndSetStep(3);
+					}}
+				/>
+			}
+			{step != 8 && <div ref={refsByStep[3]} />}
+			{step == 3 &&
+				<ArticleStructureForm
+					fields={fifFields}
+					onChange={setFIFFields}
+					onSubmit={(values) => {
+						submitFormValues(values);
+						scrollAndSetStep(4);
 					}}
 				/>
 			}
