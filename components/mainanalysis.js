@@ -117,6 +117,17 @@ const MainAnalysisBlock = (props) => {
 					}}
 				/>
 			}
+			{step != 8 && <div ref={refsByStep[4]} />}
+			{step == 4 &&
+				<ObjectivitySubjectivityForm
+					fields={fifFields}
+					onChange={setFIFFields}
+					onSubmit={(values) => {
+						submitFormValues(values);
+						scrollAndSetStep(5);
+					}}
+				/>
+			}
 			{step >= 1 && step < 8 && <Navigation step={step} setStep={scrollAndSetStep} />}
 			{step == 8 && <Typography.Paragraph>
 				<Typography.Text type={'success'}>Resposta submetida! Obrigado pela sua participação. <Link href='/avaliacao'>Avaliar outro artigo</Link>.</Typography.Text>
