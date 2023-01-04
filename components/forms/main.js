@@ -51,10 +51,8 @@ const GeneralPerceptionForm = ({ fields, onChange, onSubmit }) => {
 					getFieldValue('category') === 4 ? (
 						<Form.Item
 							name="category_other"
-							label={<Typography.Text type={'secondary'}>Qual?</Typography.Text>}
+							label={<Typography.Text type={'secondary'}>Selecionou outro. Qual?</Typography.Text>}
 							rules={[{ required: true }]}
-							labelCol={{ offset: 1 }}
-							wrapperCol={{ offset: 1, span: 3 }}
 						>
 							<Input />
 						</Form.Item>
@@ -569,29 +567,43 @@ const ConspiracyNarrativeForm = ({ fields, onChange, onSubmit }) => {
 				</Radio.Group>
 			</Form.Item>
 			<Form.Item
-				name="conspiracy_themes"
-				label={<Typography.Text strong>20. Algum dos seguintes temas é abordado no artigo?</Typography.Text>}
-				rules={[{ required: true }]}
+				noStyle
+				shouldUpdate={(prevValues, currentValues) => prevValues.conspiracy_themes !== currentValues.conspiracy_themes}
 			>
-				<Select
-					placeholder="Escolha uma opção"
-					allowClear
-				>
-					{conspiracyThemes.map(c => <Select.Option key={c.id} value={c.id}>{c.name}</Select.Option>)}
-				</Select>
+				{({ getFieldValue }) => {
+					const containsNoneValue = getFieldValue('conspiracy_themes')?.includes(0);
+					const constainsSomeValue = getFieldValue('conspiracy_themes')?.length;
+					return (
+						<Form.Item
+							name="conspiracy_themes"
+							label={<Typography.Text strong>20. Algum(ns) dos seguintes temas é/são abordado(s) no artigo?</Typography.Text>}
+							rules={[{ min: 1, type: 'array' }, { required: true }]}
+						>
+							<Select
+								placeholder="Escolha, pelo menos, uma opção"
+								mode={'multiple'}
+								showSearch={false}
+								allowClear
+							>
+								{conspiracyThemes.map(c => (
+									<Select.Option key={c.id} value={c.id}
+										disabled={constainsSomeValue && ((c.id && containsNoneValue) || (!c.id && !containsNoneValue))}
+									>{c.name}</Select.Option>))}
+							</Select>
+						</Form.Item>
+					)
+				}}
 			</Form.Item>
 			<Form.Item
 				noStyle
 				shouldUpdate={(prevValues, currentValues) => prevValues.conspiracy_themes !== currentValues.conspiracy_themes}
 			>
 				{({ getFieldValue }) =>
-					getFieldValue('conspiracy_themes') === 4 ? (
+					getFieldValue('conspiracy_themes')?.includes(4) ? (
 						<Form.Item
 							name="conspiracy_themes_other"
-							label={<Typography.Text type={'secondary'}>Qual?</Typography.Text>}
+							label={<Typography.Text type={'secondary'}>Selecionou outro. Qual?</Typography.Text>}
 							rules={[{ required: true }]}
-							labelCol={{ offset: 1 }}
-							wrapperCol={{ offset: 1, span: 3 }}
 						>
 							<Input />
 						</Form.Item>
@@ -678,6 +690,7 @@ const SentimentEmotionForm = ({ fields, onChange, onSubmit }) => {
 							<Select
 								placeholder="Escolha, pelo menos, uma opção"
 								mode={'multiple'}
+								showSearch={false}
 								allowClear
 							>
 								{emotion.map(c => (
