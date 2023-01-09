@@ -79,7 +79,7 @@
 }
 
 .container {
-	min-height: 500px;
+	min-height: 500px !important;
 	padding: 40px 170px 32px 170px;
 	background: #fff;
 }
