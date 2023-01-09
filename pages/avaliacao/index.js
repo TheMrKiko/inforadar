@@ -58,7 +58,7 @@ const Avaliacao = ({ login }) => {
                 <Typography.Paragraph>O processo requer que tenha sessão iniciada no InfoRadar e que preencha um breve questionário sociodemográfico, antes de avaliar artigos.</Typography.Paragraph>
                 {login.authenticated ? <>
                     {login.userData.collection !== 'default' && <Typography.Paragraph type={'secondary'}>
-                        Estudo da coleção {login.userData.collection == 'mint' ? 'MINT' : 'demo'}. Questões sobre este estudo ou as suas perguntas? Envie um email para <Typography.Link href='mailto:mint-annotation@googlegroups.com'>mint-annotation@googlegroups.com</Typography.Link>.
+                        Estudo da coleção {login.userData.collection.toUpperCase()}. Questões sobre este estudo ou as suas perguntas? Envie um email para <Typography.Link href='mailto:mint-annotation@googlegroups.com'>mint-annotation@googlegroups.com</Typography.Link>.
                     </Typography.Paragraph>}
                     {login.userData && !login.userData.sociodemographic && <Typography.Paragraph>
                         <Alert
