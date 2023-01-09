@@ -19,7 +19,7 @@
     "@visx/scale": "^2.2.2",
     "@visx/shape": "^2.12.2",
     "@visx/text": "^2.12.2",
-    "antd": "^4.24.3",
+    "antd": "^5.1.4",
     "axios": "^0.21.1",
     "classnames": "^2.3.2",
     "html-react-parser": "^3.0.4",
