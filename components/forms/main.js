@@ -210,19 +210,27 @@ const ArticleStructureForm = ({ fields, onChange, onSubmit }) => {
 				</Radio.Group>
 			</Form.Item>
 			<Form.Item
-				name="source_credibility"
-				label={<Typography.Text strong>7. Qual o grau de credibilidade das fontes utilizadas (1 = nada credível e 5 = extremamente credível)?</Typography.Text>}
-				rules={[{ required: true }]}
+				noStyle
+				shouldUpdate={(prevValues, currentValues) => prevValues.cites_sources !== currentValues.cites_sources}
 			>
-				<Radio.Group>
-					<Row>
-						<Col>
-							{numbc.map(c =>
-								<Radio key={c.id} value={c.id}>{c.name}</Radio>
-							)}
-						</Col>
-					</Row>
-				</Radio.Group>
+				{({ getFieldValue }) =>
+					getFieldValue('cites_sources') === 1 ? (
+						<Form.Item
+							name="source_credibility"
+							label={<Typography.Text strong>7. Qual o grau de credibilidade das fontes utilizadas (1 = nada credível e 5 = extremamente credível)?</Typography.Text>}
+							rules={[{ required: true }]}
+						>
+							<Radio.Group>
+								<Row>
+									<Col>
+										{numbc.map(c =>
+											<Radio key={c.id} value={c.id}>{c.name}</Radio>
+										)}
+									</Col>
+								</Row>
+							</Radio.Group>
+						</Form.Item>
+					) : null}
 			</Form.Item>
 			<Form.Item
 				name="time_space"
