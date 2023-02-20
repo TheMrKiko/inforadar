@@ -36,16 +36,20 @@ const MainAnalysisBlock = (props) => {
 	const [afFields, setAFFields] = useState(null);
 	const [cnfFields, setCNFFields] = useState(null);
 	const [sefFields, setSEFFields] = useState(null);
-	const [formValues, setFormValues] = useState({});
+	const [formValues, setFormValues] = useState([{}, {}, {}, {}, {}, {}, {}]);
 	const [submitting, setSubmitting] = useState(false);
 	const [timeStarted, _] = useState(Date.now());
-	const submitFormValues = (values) => setFormValues(prevValues => ({ ...prevValues, ...values }));
+	const submitFormValues = (index, values) => {
+		setFormValues(prevValues => prevValues.map((v, i) => index === i ? values : v));
+	}
 
 	const refsByStep = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
 
 	const submitForm = () => {
 		const timeTaken = Date.now() - timeStarted;
-		const formData = { ...formValues, corpus_article_id: props.article.article.id, time_taken: timeTaken, }
+		const formData = {
+			...formValues.reduce((prev, curr) => ({ ...prev, ...curr }), {}), corpus_article_id: props.article.article.id, time_taken: timeTaken,
+		}
 		axios.post(`${API_PATH}/article_annotation`, formData, {
 			headers: { 'X-Requested-With': 'XmlHttpRequest' },
 		}).then(result => {
@@ -94,7 +98,7 @@ const MainAnalysisBlock = (props) => {
 					fields={gpfFields}
 					onChange={setGPFFields}
 					onSubmit={(values) => {
-						submitFormValues(values);
+						submitFormValues(0, values);
 						setStep(2);
 					}}
 				/>
@@ -105,7 +109,7 @@ const MainAnalysisBlock = (props) => {
 					fields={atfFields}
 					onChange={setATFFields}
 					onSubmit={(values) => {
-						submitFormValues(values);
+						submitFormValues(1, values);
 						setStep(3);
 					}}
 				/>
@@ -116,7 +120,7 @@ const MainAnalysisBlock = (props) => {
 					fields={asfFields}
 					onChange={setASFFields}
 					onSubmit={(values) => {
-						submitFormValues(values);
+						submitFormValues(2, values);
 						setStep(4);
 					}}
 				/>
@@ -127,7 +131,7 @@ const MainAnalysisBlock = (props) => {
 					fields={osfFields}
 					onChange={setOSFFields}
 					onSubmit={(values) => {
-						submitFormValues(values);
+						submitFormValues(3, values);
 						setStep(5);
 					}}
 				/>
@@ -138,7 +142,7 @@ const MainAnalysisBlock = (props) => {
 					fields={afFields}
 					onChange={setAFFields}
 					onSubmit={(values) => {
-						submitFormValues(values);
+						submitFormValues(4, values);
 						setStep(6);
 					}}
 				/>
@@ -149,7 +153,7 @@ const MainAnalysisBlock = (props) => {
 					fields={cnfFields}
 					onChange={setCNFFields}
 					onSubmit={(values) => {
-						submitFormValues(values);
+						submitFormValues(5, values);
 						setStep(7);
 					}}
 				/>
@@ -160,7 +164,7 @@ const MainAnalysisBlock = (props) => {
 					fields={sefFields}
 					onChange={setSEFFields}
 					onSubmit={(values) => {
-						submitFormValues(values);
+						submitFormValues(6, values);
 						setSubmitting(true);
 					}}
 					submitting={submitting}
