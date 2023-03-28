@@ -158,10 +158,23 @@ const withArticle = (BaseComponent) => class extends React.Component {
 							body_text: this.state.body,
 						}
 					});
-				} else if (this.state.mode == md.MINT || this.state.mode == md.MAIN) {
+				} else if (this.state.mode == md.MINT) {
 					axios({
 						method: 'get',
 						url: `${API_PATH}/corpus_article?id=${this.state.mid}`,
+						headers: { 'content-type': 'application/json' },
+					}).then(result => {
+						this.onFetchArticle(result.data)
+					}).catch(error => this.setState({
+						error: createError(errorType.CORPUS_ARTICLE, error),
+					}));
+					return this.setState({
+						status: stts.WAITING_SCRAPPER
+					});
+				} else if (this.state.mode == md.MAIN) {
+					axios({
+						method: 'get',
+						url: `${API_PATH}/crowdsourced_article?id=${this.state.mid}`,
 						headers: { 'content-type': 'application/json' },
 					}).then(result => {
 						this.onFetchArticle(result.data)
