@@ -67,8 +67,8 @@ const MintAnalysisBlock = (props) => {
 	}, [formValues, submitting]);
 
 	useEffect(() => {
-		if (step && step != 5)
-			refsByStep[step].current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		if (step != 5)
+			refsByStep[step]?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 	}, [step]);
 
 	return props.article.article ? (

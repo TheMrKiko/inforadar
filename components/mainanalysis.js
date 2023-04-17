@@ -73,14 +73,14 @@ const MainAnalysisBlock = (props) => {
 	}, [formValues, submitting]);
 
 	useEffect(() => {
-		if (step && step != 8)
-			refsByStep[step].current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		if (step != 8)
+			refsByStep[step]?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 	}, [step]);
 
 	return props.article.article ? (
 		<Space direction={'vertical'} className={utilStyles.width100}>
 			{step < 8 && <Navigation step={step} setStep={setStep} />}
-			{step != 8 && <div ref={refsByStep[0]} />}
+			{step == 0 && <div ref={refsByStep[0]} />}
 			{step != 8 && <Typography.Text type={step != 0 && 'secondary'}>Leia, com atenção, o seguinte artigo.</Typography.Text>}
 			{props.article.article && step != 8 && (
 				<Typography.Paragraph>
@@ -92,7 +92,7 @@ const MainAnalysisBlock = (props) => {
 				</Typography.Paragraph>
 			)}
 			{step == 0 && <Button type={'primary'} onClick={() => setStep(1)}>Continuar</Button>}
-			{step != 8 && <div ref={refsByStep[1]} />}
+			{step == 1 && <div ref={refsByStep[1]} />}
 			{step == 1 &&
 				<GeneralPerceptionForm
 					fields={gpfFields}
@@ -103,7 +103,7 @@ const MainAnalysisBlock = (props) => {
 					}}
 				/>
 			}
-			{step != 8 && <div ref={refsByStep[2]} />}
+			{step == 2 && <div ref={refsByStep[2]} />}
 			{step == 2 &&
 				<ArticleTitleForm
 					fields={atfFields}
@@ -114,7 +114,7 @@ const MainAnalysisBlock = (props) => {
 					}}
 				/>
 			}
-			{step != 8 && <div ref={refsByStep[3]} />}
+			{step == 3 && <div ref={refsByStep[3]} />}
 			{step == 3 &&
 				<ArticleStructureForm
 					fields={asfFields}
@@ -125,7 +125,7 @@ const MainAnalysisBlock = (props) => {
 					}}
 				/>
 			}
-			{step != 8 && <div ref={refsByStep[4]} />}
+			{step == 4 && <div ref={refsByStep[4]} />}
 			{step == 4 &&
 				<ObjectivitySubjectivityForm
 					fields={osfFields}
@@ -136,7 +136,7 @@ const MainAnalysisBlock = (props) => {
 					}}
 				/>
 			}
-			{step != 8 && <div ref={refsByStep[5]} />}
+			{step == 5 && <div ref={refsByStep[5]} />}
 			{step == 5 &&
 				<AppealForm
 					fields={afFields}
@@ -147,7 +147,7 @@ const MainAnalysisBlock = (props) => {
 					}}
 				/>
 			}
-			{step != 8 && <div ref={refsByStep[6]} />}
+			{step == 6 && <div ref={refsByStep[6]} />}
 			{step == 6 &&
 				<ConspiracyNarrativeForm
 					fields={cnfFields}
@@ -158,7 +158,7 @@ const MainAnalysisBlock = (props) => {
 					}}
 				/>
 			}
-			{step != 8 && <div ref={refsByStep[7]} />}
+			{step == 7 && <div ref={refsByStep[7]} />}
 			{step == 7 &&
 				<SentimentEmotionForm
 					fields={sefFields}
