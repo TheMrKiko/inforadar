@@ -27,7 +27,7 @@ const Artigo = ({ login }) => {
 						<Typography.Title>Inquérito de Avaliação de Artigos</Typography.Title>
 					</Breadcrumb.Item>
 				</Breadcrumb>
-				<Typography.Paragraph>O objetivo deste inquérito é melhorar o InfoRadar e a sua Informação Nutricional, através da leitura e análise de cada artigo. Este processo irá demorar, no máximo, 5 minutos.</Typography.Paragraph>
+				<Typography.Paragraph>O objetivo deste inquérito é melhorar o InfoRadar e a sua Informação Nutricional, através da leitura e análise de cada artigo. Este processo irá demorar, em média, 5 minutos.</Typography.Paragraph>
 				{login.authenticated ?
 					<ArticleAnalysis login={login} />
 					:
