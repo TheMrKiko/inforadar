@@ -67,7 +67,25 @@ const reportsColumns = [
         ],
         onFilter: (value, record) => record.collection == value,
         sorter: (a, b) => a.collection.length - b.collection.length,
-        defaultFilteredValue: ['mint'],
+        defaultFilteredValue: ['main'],
+    },
+    {
+        title: 'Anotador',
+        dataIndex: 'annotator',
+        key: 'annotator',
+        render: (annotator) => (annotator ? 'Sim' : 'Não'),
+        filters: [
+            {
+                text: 'Sim',
+                value: true,
+            },
+            {
+                text: 'Não',
+                value: false,
+            }
+        ],
+        onFilter: (value, record) => record.annotator == value,
+        defaultFilteredValue: ['true'],
     },
     {
         title: '',
