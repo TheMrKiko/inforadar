@@ -1,5 +1,6 @@
 import React from 'react'
 import { Skeleton } from 'antd'
+import { DotChartOutlined } from '@ant-design/icons';
 
 import parse, { attributesToProps, domToReact } from 'html-react-parser';
 
@@ -34,7 +35,14 @@ const Histogram = ({ category, histogram, type = "notcumulative" }) => {
 		<div className={utilStyles.width100}>
 			{parse(histogram.categories[category].svg[type], options)}
 		</div> :
-		<Skeleton.Image />
+		<Skeleton.Node active>
+			<DotChartOutlined
+				style={{
+					fontSize: 40,
+					color: '#bfbfbf',
+				}}
+			/>
+		</Skeleton.Node>
 }
 
 export default Histogram
