@@ -11,17 +11,21 @@ module.exports = {
     files: ['*.ts', '*.tsx'],
     plugins: ['react'],
     extends: [
+      'airbnb',
       'plugin:react/recommended',
-      'standard-with-typescript',
+      'plugin:@typescript-eslint/recommended',
+      'prettier',
     ],
     parserOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
+      project: './tsconfig.json',
     },
   }],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
+    project: './tsconfig.json',
   },
   plugins: [
     'react',
