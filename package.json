@@ -31,6 +31,7 @@
     "react": "^18.2.0",
     "react-collapse": "^5.1.1",
     "react-dom": "^18.2.0",
+    "react-ga4": "^2.1.0",
     "react-google-login": "^5.2.2",
     "react-transition-group": "^4.4.5",
     "sass": "^1.56.1"
