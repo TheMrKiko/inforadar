@@ -34,5 +34,12 @@ module.exports = {
 	rules: {
 		'no-tabs': ['off'],
 		indent: ['error', 'tab'],
+		semi: ['error', 'never'],
+		'react/jsx-filename-extension': ['off'],
+		'react/jsx-indent': [2, 'tab'],
+		'react/jsx-indent-props': [2, 'tab'],
+		'react/jsx-props-no-spreading': ['off'],
+		'react/jsx-uses-react': 'off',
+		'react/react-in-jsx-scope': 'off',
 	},
-};
+}
