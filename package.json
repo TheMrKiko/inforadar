@@ -23,6 +23,7 @@
     "@visx/text": "^2.12.2",
     "antd": "^5.1.4",
     "axios": "^0.21.1",
+    "caniuse-lite": "^1.0.30001713",
     "classnames": "^2.3.2",
     "html-react-parser": "^3.0.4",
     "lodash": "^4.17.21",
